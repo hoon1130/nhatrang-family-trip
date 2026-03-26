@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v30 (앱 내장 번역기 탑재본)</title>
+    <title>가족 나트랑 여행 수호앱 v31 (쌍방향 번역 완결본)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -212,18 +212,21 @@
         <div id="phrases" class="tab-content pb-10 space-y-6">
             <h2 class="text-xl font-black text-slate-800 px-1 mb-4">📢 서바이벌 베트남어</h2>
             
-            <!-- 🌐 신규: 앱 내장 실시간 자동 번역기 (API 사용) -->
+            <!-- 🌐 수정: 양방향 앱 내 번역기 -->
             <div class="bg-blue-50 p-5 rounded-[2rem] border border-blue-100 shadow-sm mb-6">
-                <h3 class="font-black text-blue-800 mb-3"><i class="fas fa-language mr-2"></i>실시간 앱내 번역기 (한 ➔ 벳)</h3>
+                <div class="flex justify-between items-center mb-3">
+                    <h3 id="translate-title" class="font-black text-blue-800"><i class="fas fa-language mr-2"></i>번역기 (한 ➔ 벳)</h3>
+                    <button onclick="toggleLang()" class="text-blue-600 bg-white px-3 py-1 rounded-lg text-xs font-black shadow-sm active:scale-95 border border-blue-200"><i class="fas fa-exchange-alt mr-1"></i>방향 전환</button>
+                </div>
                 <div class="flex space-x-2 mb-3">
                     <input type="text" id="translate-input" placeholder="한국어로 입력하세요" class="w-full p-3 bg-white border-none rounded-xl text-sm font-bold shadow-inner outline-none" onkeypress="if(event.key==='Enter') inAppTranslate()">
                     <button onclick="inAppTranslate()" class="bg-blue-600 text-white px-4 rounded-xl font-black shadow-md active:scale-95 transition">번역</button>
                 </div>
                 
-                <!-- 번역 결과가 나타나는 창 -->
+                <!-- 번역 결과창 -->
                 <div id="translate-result-box" class="hidden bg-white p-4 rounded-xl border border-blue-200 shadow-inner">
                     <p id="translate-result" class="text-lg font-black text-slate-800 mb-2"></p>
-                    <button onclick="speakTranslated()" class="w-full bg-blue-100 text-blue-700 py-2 rounded-lg font-black text-xs active:bg-blue-200 transition">
+                    <button id="speak-btn" onclick="speakTranslated()" class="w-full bg-blue-100 text-blue-700 py-2 rounded-lg font-black text-xs active:bg-blue-200 transition">
                         <i class="fas fa-volume-up mr-1"></i>베트남어로 말하기
                     </button>
                 </div>
@@ -261,7 +264,7 @@
         <button onclick="showTab('phrases')" class="tab-btn flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-comment-dots text-xl mb-1"></i><span class="text-[10px] font-black">회화</span></button>
     </nav>
 
-    <!-- 🚕 기사님 모달 -->
+    <!-- 🚕 택시 기사님 모달 -->
     <div id="taxi-modal" class="fixed inset-0 bg-yellow-400 z-[150] hidden flex flex-col items-center justify-center p-6 text-center">
         <button onclick="closeTaxiModal()" class="absolute top-8 right-8 text-yellow-800 text-4xl active:scale-95"><i class="fas fa-times"></i></button>
         <i class="fas fa-taxi text-6xl text-yellow-600 mb-6"></i>
@@ -273,14 +276,47 @@
         <p class="mt-10 text-2xl font-black text-yellow-800">Xin cảm ơn! 🙏</p>
     </div>
 
-    <!-- 일정 추가/수정 모달 -->
-    <div id="itinerary-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm"><div class="bg-white p-6 rounded-[2.5rem] w-full max-w-md shadow-2xl max-h-[85vh] overflow-y-auto"><h3 id="modal-title" class="text-xl font-black mb-5 text-slate-800">일정 관리</h3><input type="hidden" id="edit-key"><div class="space-y-4"><div><label class="text-[10px] font-black text-slate-400 ml-2">날짜</label><input type="text" id="form-date" placeholder="16일(목)" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div><div><label class="text-[10px] font-black text-slate-400 ml-2">시간</label><input type="text" id="form-time" placeholder="09:40" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div><div><label class="text-[10px] font-black text-slate-400 ml-2">장소 명칭</label><textarea id="form-place" placeholder="어디 가나요?" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-20"></textarea></div><div><label class="text-[10px] font-black text-slate-400 ml-2">그랩/택시 목적지</label><input type="text" id="form-grab" placeholder="베트남 주소/상호명" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div><div><label class="text-[10px] font-black text-slate-400 ml-2 mb-1 block">구글 지도 링크</label><div id="links-container" class="space-y-2"></div><button type="button" onclick="addLinkInput()" class="w-full text-[11px] text-blue-600 font-black bg-blue-50 p-3 rounded-2xl border border-dashed border-blue-200 mt-2 hover:bg-blue-100 transition">+ 지도 링크 추가</button></div><div><label class="text-[10px] font-black text-slate-400 ml-2">비고/꿀팁</label><textarea id="form-remarks" placeholder="예약 시간, 주의사항 등" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-24"></textarea></div></div><div class="flex space-x-3 mt-8"><button onclick="saveItineraryItem()" class="flex-1 bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg">저장하기</button><button onclick="closeModal()" class="flex-1 bg-slate-100 text-slate-500 p-4 rounded-2xl font-black">닫기</button></div><button id="delete-btn" onclick="deleteItineraryItem()" class="w-full text-red-400 text-xs mt-5 font-black underline hidden text-center">이 일정 삭제하기</button></div></div>
+    <!-- 일정 관리 모달 -->
+    <div id="itinerary-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white p-6 rounded-[2.5rem] w-full max-w-md shadow-2xl max-h-[85vh] overflow-y-auto">
+            <h3 id="modal-title" class="text-xl font-black mb-5 text-slate-800">일정 관리</h3><input type="hidden" id="edit-key">
+            <div class="space-y-4">
+                <div><label class="text-[10px] font-black text-slate-400 ml-2">날짜</label><input type="text" id="form-date" placeholder="16일(목)" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
+                <div><label class="text-[10px] font-black text-slate-400 ml-2">시간</label><input type="text" id="form-time" placeholder="09:40" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
+                <div><label class="text-[10px] font-black text-slate-400 ml-2">장소 명칭</label><textarea id="form-place" placeholder="어디 가나요?" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-20"></textarea></div>
+                <div><label class="text-[10px] font-black text-slate-400 ml-2">그랩/택시 목적지</label><input type="text" id="form-grab" placeholder="베트남 주소/상호명" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
+                <div><label class="text-[10px] font-black text-slate-400 ml-2 mb-1 block">구글 지도 링크</label><div id="links-container" class="space-y-2"></div><button type="button" onclick="addLinkInput()" class="w-full text-[11px] text-blue-600 font-black bg-blue-50 p-3 rounded-2xl border border-dashed border-blue-200 mt-2 hover:bg-blue-100 transition">+ 지도 링크 추가</button></div>
+                <div><label class="text-[10px] font-black text-slate-400 ml-2">비고/꿀팁</label><textarea id="form-remarks" placeholder="예약 시간, 주의사항 등" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-24"></textarea></div>
+            </div>
+            <div class="flex space-x-3 mt-8"><button onclick="saveItineraryItem()" class="flex-1 bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg">저장하기</button><button onclick="closeModal()" class="flex-1 bg-slate-100 text-slate-500 p-4 rounded-2xl font-black">닫기</button></div>
+            <button id="delete-btn" onclick="deleteItineraryItem()" class="w-full text-red-400 text-xs mt-5 font-black underline hidden text-center">이 일정 삭제하기</button>
+        </div>
+    </div>
     
     <!-- 쇼핑 모달 -->
-    <div id="shopping-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm"><div class="bg-white p-8 rounded-[2.5rem] w-full max-w-md shadow-2xl"><h3 class="text-xl font-black mb-6 text-slate-800 text-center">🛒 쇼핑 리스트 추가</h3><div class="space-y-4"><select id="shopping-category" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-black shadow-inner outline-none"><option value="dam">담시장</option><option value="pharmacy">티엔푸 약국</option><option value="fake">짝퉁샵</option><option value="mart">롯데마트</option></select><input type="text" id="shopping-text" placeholder="무엇을 사야 하나요?" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner outline-none"></div><div class="flex space-x-3 mt-8"><button onclick="saveShoppingItem()" class="flex-1 bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg">추가</button><button onclick="closeShoppingModal()" class="flex-1 bg-slate-100 text-slate-500 p-4 rounded-2xl font-black">취소</button></div></div></div>
+    <div id="shopping-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white p-8 rounded-[2.5rem] w-full max-w-md shadow-2xl">
+            <h3 class="text-xl font-black mb-6 text-slate-800 text-center">🛒 쇼핑 리스트 추가</h3>
+            <div class="space-y-4">
+                <select id="shopping-category" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-black shadow-inner outline-none"><option value="dam">담시장</option><option value="pharmacy">티엔푸 약국</option><option value="fake">짝퉁샵</option><option value="mart">롯데마트</option></select>
+                <input type="text" id="shopping-text" placeholder="무엇을 사야 하나요?" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner outline-none">
+            </div>
+            <div class="flex space-x-3 mt-8"><button onclick="saveShoppingItem()" class="flex-1 bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg">추가</button><button onclick="closeShoppingModal()" class="flex-1 bg-slate-100 text-slate-500 p-4 rounded-2xl font-black">취소</button></div>
+        </div>
+    </div>
     
-    <!-- 🚨 지안 SOS 모달 -->
-    <div id="sos-modal" class="fixed inset-0 bg-slate-900/80 z-[150] hidden flex flex-col items-center justify-center p-8 backdrop-blur-md"><div class="bg-white p-8 rounded-[3rem] w-full max-w-sm text-center shadow-2xl relative border-4 border-red-100"><button onclick="closeSosModal()" class="absolute top-6 right-6 text-slate-300 text-2xl hover:text-slate-500"><i class="fas fa-times"></i></button><h3 class="text-3xl font-black mb-2 text-red-500 tracking-tighter">🚨 지안이 비상!</h3><p class="text-slate-400 text-[10px] mb-8 font-black uppercase tracking-widest">Peace Button</p><div class="space-y-4"><a href="https://www.youtube.com/results?search_query=레스큐+타요+연속보기" target="_blank" class="block w-full bg-blue-500 text-white p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🚌 타요 출동!</a><a href="https://www.youtube.com/results?search_query=고고다이노+연속보기" target="_blank" class="block w-full bg-emerald-500 text-white p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🦖 고고다이노!</a><a href="https://www.youtube.com/results?search_query=공룡+자동차+장난감+놀이" target="_blank" class="block w-full bg-yellow-400 text-yellow-900 p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🏎️ 자동차 & 공룡 놀이</a></div></div></div>
+    <!-- 지안 SOS 모달 -->
+    <div id="sos-modal" class="fixed inset-0 bg-slate-900/80 z-[150] hidden flex flex-col items-center justify-center p-8 backdrop-blur-md">
+        <div class="bg-white p-8 rounded-[3rem] w-full max-w-sm text-center shadow-2xl relative border-4 border-red-100">
+            <button onclick="closeSosModal()" class="absolute top-6 right-6 text-slate-300 text-2xl hover:text-slate-500"><i class="fas fa-times"></i></button>
+            <h3 class="text-3xl font-black mb-2 text-red-500 tracking-tighter">🚨 지안이 비상!</h3><p class="text-slate-400 text-[10px] mb-8 font-black uppercase tracking-widest">Peace Button</p>
+            <div class="space-y-4">
+                <a href="https://www.youtube.com/results?search_query=레스큐+타요+연속보기" target="_blank" class="block w-full bg-blue-500 text-white p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🚌 타요 출동!</a>
+                <a href="https://www.youtube.com/results?search_query=고고다이노+연속보기" target="_blank" class="block w-full bg-emerald-500 text-white p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🦖 고고다이노!</a>
+                <a href="https://www.youtube.com/results?search_query=공룡+자동차+장난감+놀이" target="_blank" class="block w-full bg-yellow-400 text-yellow-900 p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🏎️ 자동차 & 공룡 놀이</a>
+            </div>
+        </div>
+    </div>
 
     <script>
         const firebaseConfig = { apiKey: "AIzaSyAqlBylKkE-KFvAFghWMM8egP-K3HZMqeo", authDomain: "nhatrang-trip.firebaseapp.com", databaseURL: "https://nhatrang-trip-default-rtdb.asia-southeast1.firebasedatabase.app", projectId: "nhatrang-trip", storageBucket: "nhatrang-trip.firebasestorage.app", messagingSenderId: "246629439315", appId: "1:246629439315:web:99a3e74b2b4cbb783473a6" };
@@ -289,7 +325,6 @@
         const tripStart = new Date("2026-04-15T00:00:00").getTime();
         const rouletteMembers = ['할아버지', '할머니', '아빠', '엄마', '이모', '이모부'];
 
-        // 🔥 자동 통역 사전 (기존 영어를 무조건 베트남어로 치환)
         const viMap = {
             "Cam Ranh International Airport": "Sân bay Quốc tế Cam Ranh",
             "Le More Hotel Nha Trang": "Khách sạn Le More (33A Tô Hiến Thành)",
@@ -325,10 +360,20 @@
             updateDDay(); renderPhrases(); 
         });
 
-        // 🌐 앱 내장 실시간 번역기 (무료 API 연동)
+        // 🌐 번역기 언어 양방향 전환 로직
+        let isKoToVi = true;
+        function toggleLang() {
+            isKoToVi = !isKoToVi;
+            document.getElementById('translate-title').innerHTML = `<i class="fas fa-language mr-2"></i>번역기 (${isKoToVi ? '한 ➔ 벳' : '벳 ➔ 한'})`;
+            document.getElementById('translate-input').placeholder = isKoToVi ? '한국어로 입력하세요' : '베트남어로 입력하세요';
+            document.getElementById('speak-btn').innerHTML = `<i class="fas fa-volume-up mr-1"></i>${isKoToVi ? '베트남어로 말하기' : '한국어로 말하기'}`;
+            document.getElementById('translate-result-box').classList.add('hidden');
+            document.getElementById('translate-input').value = '';
+        }
+
         async function inAppTranslate() {
             const input = document.getElementById('translate-input').value.trim();
-            if(!input) return alert("번역할 한국어를 입력해주세요!");
+            if(!input) return alert(isKoToVi ? "번역할 한국어를 입력해주세요!" : "번역할 베트남어를 입력해주세요!");
             
             const resultBox = document.getElementById('translate-result-box');
             const resultText = document.getElementById('translate-result');
@@ -336,9 +381,10 @@
             resultBox.classList.remove('hidden');
             resultText.innerText = "번역 중... ⏳";
             
+            const langPair = isKoToVi ? "ko|vi" : "vi|ko";
+            
             try {
-                // 오픈소스 무료 번역 API (MyMemory) 활용 - 한 -> 벳
-                const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=ko|vi`);
+                const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=${langPair}`);
                 const data = await res.json();
                 
                 if(data && data.responseData && data.responseData.translatedText) {
@@ -351,11 +397,13 @@
             }
         }
         
-        // 🗣️ 번역된 결과물 음성으로 읽어주기
         function speakTranslated() {
             const text = document.getElementById('translate-result').innerText;
             if(text && !text.includes("번역 중") && !text.includes("오류") && !text.includes("실패")) {
-                speak(text);
+                const u = new SpeechSynthesisUtterance(text);
+                u.lang = isKoToVi ? 'vi-VN' : 'ko-KR';
+                u.rate = 0.9;
+                window.speechSynthesis.speak(u);
             }
         }
 
