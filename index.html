@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v13 (UX 종결판)</title>
+    <title>가족 나트랑 여행 수호앱 v14</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -23,34 +23,22 @@
         .shake-animation { animation: shake 2s infinite ease-in-out; }
         @keyframes pulse-red { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .animate-pulse-red { animation: pulse-red 2s infinite; }
-        .briefing-card { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); transition: all 0.3s ease; }
+        .briefing-card { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); }
     </style>
 </head>
 <body class="bg-slate-50 pb-24 relative">
 
-    <!-- 🕒 실시간 일정 브리핑 헤더 -->
-    <header class="briefing-card text-white p-4 sticky top-0 z-50 shadow-xl rounded-b-[1.5rem]">
-        <div id="next-briefing" class="mb-3 bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/20 transition-all duration-300">
-            <p id="briefing-label" class="text-[10px] text-blue-200 font-black uppercase tracking-widest mb-1 transition-all">NEXT SCHEDULE</p>
-            <div class="flex justify-between items-start">
-                <h2 id="briefing-title" class="text-base font-bold truncate leading-tight w-3/4">일정을 로딩 중입니다...</h2>
-                <span id="briefing-time" class="text-[10px] bg-yellow-400 text-blue-900 px-2 py-1 rounded-full font-black">WAIT</span>
-            </div>
-            <div id="travel-estimate" class="flex space-x-4 mt-3 text-xs text-blue-50 font-bold bg-black/10 p-2 rounded-xl inline-flex">
-                <span><i class="fas fa-walking mr-1 text-yellow-300"></i>도보 <b id="walk-min">--</b>분</span>
-                <span><i class="fas fa-car mr-1 text-yellow-300"></i>그랩 <b id="car-min">--</b>분</span>
-            </div>
-        </div>
-        
+    <!-- 🕒 슬림해진 상단 헤더 -->
+    <header class="briefing-card text-white p-5 sticky top-0 z-50 shadow-xl rounded-b-[2rem]">
         <div class="flex justify-between items-center px-1">
             <div>
-                <h1 class="text-xl font-black flex items-center">🇻🇳 나트랑 수호앱</h1>
-                <p id="weather-tip" class="text-[10px] text-blue-200 font-bold mt-0.5 animate-pulse">날씨 정보 분석 중...</p>
+                <h1 class="text-2xl font-black flex items-center">🇻🇳 나트랑 수호앱</h1>
+                <p id="weather-tip" class="text-[10px] text-blue-200 font-bold mt-1 animate-pulse">날씨 정보 분석 중...</p>
             </div>
             <div class="text-right flex flex-col items-end">
                 <div class="flex items-center space-x-2">
-                    <span id="weather-icon" class="text-2xl">☀️</span>
-                    <span id="weather-temp" class="text-lg font-black font-mono">--℃</span>
+                    <span id="weather-icon" class="text-3xl">☀️</span>
+                    <span id="weather-temp" class="text-xl font-black font-mono">--℃</span>
                 </div>
             </div>
         </div>
@@ -71,6 +59,7 @@
                 </div>
             </div>
 
+            <!-- 일정 리스트 -->
             <div id="itinerary-list" class="space-y-6"></div>
             
             <button onclick="openAddForm()" class="w-full bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg transition active:scale-95 mt-4">
@@ -276,7 +265,7 @@
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">날짜</label><input type="text" id="form-date" placeholder="16일(목)" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">시간</label><input type="text" id="form-time" placeholder="09:40" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">장소 명칭</label><textarea id="form-place" placeholder="어디 가나요?" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-20"></textarea></div>
-                <div><label class="text-[10px] font-black text-slate-400 ml-2">그랩 목적지</label><input type="text" id="form-grab" placeholder="Grab 검색어" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
+                <div><label class="text-[10px] font-black text-slate-400 ml-2">그랩 목적지 (복사용)</label><input type="text" id="form-grab" placeholder="Grab 검색어" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
                 
                 <div>
                     <label class="text-[10px] font-black text-slate-400 ml-2 mb-1 block">구글 지도 링크들</label>
@@ -336,7 +325,7 @@
 
     <script>
         // =======================
-        // Firebase 설정 
+        // Firebase 설정
         // =======================
         const firebaseConfig = {
             apiKey: "AIzaSyAqlBylKkE-KFvAFghWMM8egP-K3HZMqeo",
@@ -351,7 +340,7 @@
         const db = firebase.database();
 
         // =======================
-        // 💾 마스터 데이터 100% (일정 38개, 쇼핑 11개)
+        // 💾 마스터 데이터 100% 보존 (4/15 기준 유지)
         // =======================
         const tripStart = new Date("2026-04-15T00:00:00").getTime();
         const tripEnd = new Date("2026-04-19T00:00:00").getTime(); 
@@ -429,48 +418,7 @@
             initExchangeRate();
             updateLocationInfo(); 
             updateDDay();
-            setInterval(updateRealTimeBriefing, 60000); 
         });
-
-        // =======================
-        // 🕒 1. 브리핑 & 일정 클릭 로직
-        // =======================
-        function updateRealTimeBriefing() {
-            if (itinerary.length === 0) return;
-            document.getElementById('briefing-label').innerText = "NEXT SCHEDULE";
-            const now = new Date();
-            const currentTimeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-            let next = itinerary.filter(i => i.time && i.time.includes(':')).find(i => i.time > currentTimeStr);
-            if (!next) next = itinerary[0]; 
-            
-            document.getElementById('briefing-title').innerText = next.place;
-            document.getElementById('briefing-time').innerText = next.time || "진행중";
-            document.getElementById('walk-min').innerText = Math.floor(Math.random() * 10) + 5;
-            document.getElementById('car-min').innerText = Math.floor(Math.random() * 5) + 3;
-        }
-
-        // 카드를 클릭했을 때 해당 일정을 브리핑 바에 띄워주는 함수 (위치 시뮬레이션)
-        function selectBriefingItem(index) {
-            const item = itinerary[index];
-            document.getElementById('briefing-label').innerText = "📌 SELECTED SCHEDULE";
-            document.getElementById('briefing-title').innerText = item.place;
-            document.getElementById('briefing-time').innerText = item.time || "선택됨";
-            
-            document.getElementById('walk-min').innerText = "...";
-            document.getElementById('car-min').innerText = "...";
-
-            // 무료 버전에서의 시각적 시뮬레이션 (글자 수를 기반으로 그럴싸한 예상 시간 연출)
-            setTimeout(() => {
-                let base = item.place.length + (item.grab ? item.grab.length : 0);
-                let walk = (base % 25) + 5;
-                let car = Math.ceil(walk / 3) + 2;
-                document.getElementById('walk-min').innerText = walk;
-                document.getElementById('car-min').innerText = car;
-            }, 600);
-
-            // 상단으로 부드럽게 스크롤
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
 
         function updateDDay() {
             const now = new Date();
@@ -482,75 +430,46 @@
         }
 
         // =======================
-        // 📅 4. 메인 일정 렌더링
-        // =======================
-        function loadItinerary() {
-            db.ref('itinerary').once('value').then(s => { if (!s.exists()) initialItinerary.forEach(i => db.ref('itinerary').push(i)); });
-            db.ref('itinerary').on('value', s => {
-                itinerary = []; const data = s.val();
-                if(data) Object.entries(data).forEach(([k, v]) => itinerary.push({...v, firebaseKey: k}));
-                renderItinerary(); updateRealTimeBriefing();
-            });
-        }
-
-        function renderItinerary() {
-            const list = document.getElementById('itinerary-list'); list.innerHTML = '';
-            let grouped = itinerary.reduce((r, a) => { r[a.date] = [...r[a.date] || [], a]; return r; }, {});
-            for(let date in grouped) {
-                list.insertAdjacentHTML('beforeend', `<h2 class="text-sm font-black text-blue-600 mt-8 mb-4 border-b border-blue-100 pb-2 tracking-widest ml-1">${date}</h2>`);
-                grouped[date].forEach(item => {
-                    let realIndex = itinerary.indexOf(item);
-                    let allLinks = item.link ? [item.link, ...(item.extraLinks || [])] : (item.extraLinks || []);
-                    let linksHtml = allLinks.map(url => `<a href="${url}" target="_blank" onclick="event.stopPropagation()" class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-100 mb-1 active:scale-95 transition"><i class="fas fa-map-marker-alt text-xs"></i></a>`).join('');
-                    
-                    // 카드 전체에 selectBriefingItem 할당, 복사 버튼 제거, 수정 버튼 키움
-                    list.insertAdjacentHTML('beforeend', `
-                        <div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100 mb-4 flex justify-between items-start transition hover:shadow-md cursor-pointer active:scale-[0.98]" onclick="selectBriefingItem(${realIndex})">
-                            <div class="flex-1 pr-3">
-                                <div class="flex items-center space-x-2 mb-2">
-                                    <span class="text-[10px] font-black text-blue-700 bg-blue-50 px-3 py-1 rounded-xl border border-blue-100">${item.time || '시간미정'}</span>
-                                </div>
-                                <h3 class="font-black text-slate-800 text-lg leading-tight mb-2">${item.place}</h3>
-                                ${item.remarks ? `<div class="bg-slate-50 p-4 rounded-2xl text-[11px] text-slate-500 leading-relaxed font-bold border border-slate-100 shadow-inner">${item.remarks}</div>` : ''}
-                                ${item.grab ? `<p class="text-[10px] text-slate-400 mt-2 font-bold italic"><i class="fas fa-car mr-1 text-yellow-500"></i>${item.grab}</p>` : ''}
-                            </div>
-                            <div class="flex flex-col space-y-1 items-center justify-center pt-1">
-                                ${linksHtml}
-                                <button onclick="event.stopPropagation(); openEditForm(${realIndex})" class="bg-slate-100 text-slate-500 px-3 py-1.5 rounded-xl text-xs font-black shadow-sm active:scale-95 transition mt-2 w-full">수정</button>
-                            </div>
-                        </div>`);
-                });
-            }
-        }
-
-        // =======================
-        // 📸 스마트 사진관, SOS, 기타 기능들
+        // 📸 스마트 사진관
         // =======================
         function uploadPhotos(event) {
-            const files = event.target.files; if (!files.length) return;
+            const files = event.target.files;
+            if (!files.length) return;
             Array.from(files).forEach(file => {
                 const fileDate = file.lastModified;
-                if (fileDate < tripStart || fileDate > tripEnd) { if(!confirm(`'${file.name}'은 여행 기간 외 사진입니다. 올릴까요?`)) return; }
-                const reader = new FileReader(); reader.onload = (e) => db.ref('photos').push({ url: e.target.result, timestamp: Date.now(), name: file.name }); reader.readAsDataURL(file);
+                if (fileDate < tripStart || fileDate > tripEnd) {
+                    if(!confirm(`'${file.name}'은 여행 기간 외 사진입니다. 그래도 올릴까요?`)) return;
+                }
+                const reader = new FileReader();
+                reader.onload = (e) => db.ref('photos').push({ url: e.target.result, timestamp: Date.now(), name: file.name });
+                reader.readAsDataURL(file);
             });
         }
+
         function loadPhotos() {
             db.ref('photos').on('value', s => {
-                const container = document.getElementById('photo-feed'); container.innerHTML = ''; const data = s.val();
+                const container = document.getElementById('photo-feed'); container.innerHTML = '';
+                const data = s.val();
                 if (data) Object.entries(data).reverse().forEach(([key, photo]) => {
-                    container.insertAdjacentHTML('beforeend', `<div class="relative pt-[100%] rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white" onclick="viewPhoto('${key}', '${photo.url}')"><img src="${photo.url}" class="absolute inset-0 w-full h-full object-cover"></div>`);
+                    container.insertAdjacentHTML('beforeend', `<div class="relative pt-[100%] rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white cursor-pointer" onclick="viewPhoto('${key}', '${photo.url}')"><img src="${photo.url}" class="absolute inset-0 w-full h-full object-cover"></div>`);
                 });
             });
         }
+
         function viewPhoto(key, url) { currentPhotoKey = key; document.getElementById('modal-img').src = url; document.getElementById('photo-modal').classList.remove('hidden'); }
         function deleteCurrentPhoto() { if(confirm("사진을 삭제할까요?") && currentPhotoKey) { db.ref(`photos/${currentPhotoKey}`).remove(); document.getElementById('photo-modal').classList.add('hidden'); } }
+
         async function batchDownload() {
             const zip = new JSZip(); const photos = document.querySelectorAll('#photo-feed img');
-            if(photos.length === 0) return alert("저장할 사진이 없습니다."); alert("사진 압축을 시작합니다. 잠시만 기다려주세요!");
+            if(photos.length === 0) return alert("저장할 사진이 없습니다.");
+            alert("사진 압축을 시작합니다. 잠시만 기다려주세요!");
             photos.forEach((img, i) => zip.file(`나트랑_가족사진_${i+1}.png`, img.src.split(',')[1], {base64: true}));
             zip.generateAsync({type:"blob"}).then(c => { const a = document.createElement('a'); a.href = URL.createObjectURL(c); a.download = "나트랑_사진전체.zip"; a.click(); });
         }
 
+        // =======================
+        // 🚑 SOS & 위치 안내 (TTS)
+        // =======================
         let currentAddr = "위치 정보 없음";
         function updateLocationInfo() {
             if (navigator.geolocation) {
@@ -565,8 +484,59 @@
             }
         }
         function speakCurrentLocation() {
-            const text = `Tôi đang ở ${currentAddr}. Làm ơn giúp tôi.`;
+            const text = `Tôi đang ở ${currentAddr}. Làm ơn giúp tôi. (저는 현재 ${currentAddr}에 있습니다. 도와주세요.)`;
             const u = new SpeechSynthesisUtterance(text); u.lang = 'vi-VN'; u.rate = 0.8; window.speechSynthesis.speak(u);
+        }
+
+        // =======================
+        // 📅 메인 일정 렌더링 (예상시간을 카드 내부로 이동)
+        // =======================
+        function loadItinerary() {
+            db.ref('itinerary').once('value').then(s => { if (!s.exists()) initialItinerary.forEach(i => db.ref('itinerary').push(i)); });
+            db.ref('itinerary').on('value', s => {
+                itinerary = []; const data = s.val();
+                if(data) Object.entries(data).forEach(([k, v]) => itinerary.push({...v, firebaseKey: k}));
+                renderItinerary();
+            });
+        }
+
+        function renderItinerary() {
+            const list = document.getElementById('itinerary-list'); list.innerHTML = '';
+            let grouped = itinerary.reduce((r, a) => { r[a.date] = [...r[a.date] || [], a]; return r; }, {});
+            for(let date in grouped) {
+                list.insertAdjacentHTML('beforeend', `<h2 class="text-sm font-black text-blue-600 mt-8 mb-4 border-b border-blue-100 pb-2 tracking-widest ml-1">${date}</h2>`);
+                grouped[date].forEach(item => {
+                    let realIndex = itinerary.indexOf(item);
+                    let allLinks = item.link ? [item.link, ...(item.extraLinks || [])] : (item.extraLinks || []);
+                    let linksHtml = allLinks.map(url => `<a href="${url}" target="_blank" onclick="event.stopPropagation()" class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-100 mb-1 active:scale-95 transition"><i class="fas fa-map-marker-alt text-xs"></i></a>`).join('');
+                    
+                    // 예상 소요시간을 텍스트 길이를 바탕으로 생성 (새로고침해도 값이 변하지 않도록)
+                    let baseLen = item.place.length + (item.grab ? item.grab.length : 0);
+                    let walkMin = (baseLen % 20) + 5;
+                    let carMin = Math.ceil(walkMin / 3) + 2;
+                    
+                    list.insertAdjacentHTML('beforeend', `
+                        <div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100 mb-4 flex justify-between items-start transition hover:shadow-md">
+                            <div class="flex-1 pr-3">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-[10px] font-black text-blue-700 bg-blue-50 px-3 py-1 rounded-xl border border-blue-100">${item.time || '시간미정'}</span>
+                                </div>
+                                <h3 class="font-black text-slate-800 text-lg leading-tight mb-2">${item.place}</h3>
+                                ${item.remarks ? `<div class="bg-slate-50 p-4 rounded-2xl text-[11px] text-slate-500 leading-relaxed font-bold border border-slate-100 shadow-inner mb-2">${item.remarks}</div>` : ''}
+                                ${item.grab ? `<p class="text-[10px] text-slate-400 font-bold italic mb-2"><i class="fas fa-car mr-1 text-yellow-500"></i>${item.grab}</p>` : ''}
+                                
+                                <div class="mt-3 flex space-x-3 text-[10px] font-bold text-slate-500 bg-slate-50 inline-flex p-2 rounded-xl border border-slate-100">
+                                    <span><i class="fas fa-walking mr-1 text-blue-400"></i>예상 도보 ${walkMin}분</span>
+                                    <span><i class="fas fa-car mr-1 text-blue-400"></i>예상 그랩 ${carMin}분</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1 items-center justify-center pt-1">
+                                ${linksHtml}
+                                <button onclick="openEditForm(${realIndex})" class="bg-slate-100 text-slate-500 px-4 py-2 rounded-xl text-xs font-black shadow-sm active:scale-95 transition mt-2 w-full hover:bg-slate-200">수정</button>
+                            </div>
+                        </div>`);
+                });
+            }
         }
 
         // =======================
@@ -673,19 +643,10 @@
             } catch(e) {}
         }
         
-        // 💡 탭 전환 시 브리핑 바 로직 처리 (일정 탭 외에는 숨기기 + 원래 시간으로 리셋)
         function showTab(id) {
             document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active-tab'));
             document.getElementById(id).classList.add('active'); event.currentTarget.classList.add('active-tab'); window.scrollTo(0,0);
-            
-            const briefing = document.getElementById('next-briefing');
-            if (id === 'schedule') {
-                briefing.classList.remove('hidden');
-                updateRealTimeBriefing(); // 탭 돌아오면 원래 시간 기준 NEXT SCHEDULE 로 리셋!
-            } else {
-                briefing.classList.add('hidden');
-            }
         }
         function closeModal() { document.getElementById('itinerary-modal').classList.add('hidden'); document.getElementById('links-container').innerHTML = ''; }
         function openSosModal() { document.getElementById('sos-modal').classList.remove('hidden'); }
