@@ -132,68 +132,71 @@
         </div>
 
         <!-- 4. 회화 탭 -->
-        <div id="phrases" class="tab-content pb-10">
-            <h2 class="text-lg font-bold mb-4">📢 상황별 생존 베트남어</h2>
+<div id="phrases" class="tab-content pb-10">
+            <h2 class="text-lg font-bold mb-4">📢 말하는 생존 베트남어</h2>
+            <p class="text-[10px] text-blue-500 mb-4">* 스피커 아이콘(🔊)을 누르면 현지 발음이 나옵니다.</p>
+            
             <div class="space-y-6">
+                <!-- 식당 섹션 예시 (다른 섹션도 동일한 구조로 확장 가능) -->
                 <div>
-                    <h3 class="font-bold text-orange-600 border-b pb-2 mb-3"><i class="fas fa-utensils mr-2"></i>식당 & 카페에서</h3>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 text-center shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">고수 빼주세요</p>
-                            <p class="text-lg font-bold text-black">Không rau mùi</p>
+                    <h3 class="font-bold text-orange-600 border-b pb-2 mb-3"><i class="fas fa-utensils mr-2"></i>식당 & 카페</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <!-- 고수 빼주세요 -->
+                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 flex justify-between items-center shadow-sm" onclick="speak('Không rau mùi')">
+                            <div class="text-left">
+                                <p class="text-xs text-gray-500">고수 빼주세요</p>
+                                <p class="text-xl font-bold text-black italic">Không rau mùi</p>
+                                <p class="text-sm text-blue-600 font-bold mt-1">[ 콩 라우 무이 ]</p>
+                            </div>
+                            <button class="text-2xl text-orange-400 p-2"><i class="fas fa-volume-up"></i></button>
                         </div>
-                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 text-center shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">안 맵게 해주세요(아이들)</p>
-                            <p class="text-lg font-bold text-black">Không cay</p>
-                            <p class="text-[10px] text-gray-400 mt-1">(콩 까이)</p>
+
+                        <!-- 안 맵게 해주세요 -->
+                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 flex justify-between items-center shadow-sm" onclick="speak('Không cay')">
+                            <div class="text-left">
+                                <p class="text-xs text-gray-500">안 맵게 해주세요 (아이용)</p>
+                                <p class="text-xl font-bold text-black italic">Không cay</p>
+                                <p class="text-sm text-blue-600 font-bold mt-1">[ 콩 까이 ]</p>
+                            </div>
+                            <button class="text-2xl text-orange-400 p-2"><i class="fas fa-volume-up"></i></button>
                         </div>
-                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 text-center shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">가위 좀 주세요</p>
-                            <p class="text-lg font-bold text-black">Cho tôi cái kéo</p>
-                        </div>
-                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 text-center shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">얼음물 주세요</p>
-                            <p class="text-lg font-bold text-black">Cho nước đá</p>
-                        </div>
-                        <div class="col-span-2 bg-orange-100 p-4 rounded-xl border border-orange-200 text-center shadow-sm">
-                            <p class="text-xs text-gray-600 mb-1">계산서 좀 주세요</p>
-                            <p class="text-2xl font-bold text-black">Cho xem hóa đơn</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="font-bold text-teal-600 border-b pb-2 mb-3"><i class="fas fa-bed mr-2"></i>호텔 & 숙소에서</h3>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="col-span-2 bg-teal-50 p-4 rounded-xl border border-teal-100 text-center shadow-sm">
-                            <p class="text-xs text-gray-600 mb-1">유모차 좀 빌려주세요</p>
-                            <p class="text-2xl font-bold text-black">Cho mượn xe đẩy em bé</p>
-                        </div>
-                        <div class="bg-teal-50 p-4 rounded-xl border border-teal-100 text-center shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">수건 더 주세요</p>
-                            <p class="text-lg font-bold text-black">Thêm khăn tắm</p>
-                        </div>
-                        <div class="bg-teal-50 p-4 rounded-xl border border-teal-100 text-center shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">방 청소 부탁해요</p>
-                            <p class="text-lg font-bold text-black">Dọn phòng giúp</p>
+
+                        <!-- 계산서 주세요 -->
+                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 flex justify-between items-center shadow-sm" onclick="speak('Tính tiền')">
+                            <div class="text-left">
+                                <p class="text-xs text-gray-500">계산해 주세요</p>
+                                <p class="text-xl font-bold text-black italic">Tính tiền</p>
+                                <p class="text-sm text-blue-600 font-bold mt-1">[ 띵 띠엔 ]</p>
+                            </div>
+                            <button class="text-2xl text-orange-400 p-2"><i class="fas fa-volume-up"></i></button>
                         </div>
                     </div>
                 </div>
 
+                <!-- 호텔 섹션 -->
+                <div>
+                    <h3 class="font-bold text-teal-600 border-b pb-2 mb-3"><i class="fas fa-bed mr-2"></i>호텔 & 숙소</h3>
+                    <div class="bg-teal-50 p-4 rounded-xl border border-teal-100 flex justify-between items-center shadow-sm" onclick="speak('Cho mượn xe đẩy em bé')">
+                        <div class="text-left">
+                            <p class="text-xs text-gray-500">유모차 좀 빌려주세요</p>
+                            <p class="text-lg font-bold text-black italic">Cho mượn xe đẩy em bé</p>
+                            <p class="text-sm text-blue-600 font-bold mt-1">[ 쪼 므언 쎄 더이 엠 베 ]</p>
+                        </div>
+                        <button class="text-2xl text-teal-400 p-2"><i class="fas fa-volume-up"></i></button>
+                    </div>
+                </div>
+                
+                <!-- 쇼핑 섹션 -->
                 <div>
                     <h3 class="font-bold text-purple-600 border-b pb-2 mb-3"><i class="fas fa-shopping-bag mr-2"></i>쇼핑 & 흥정</h3>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100 text-center shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">얼마예요?</p>
-                            <p class="text-lg font-bold text-black">Bao nhiêu tiền?</p>
-                        </div>
-                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100 text-center shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">너무 비싸요!</p>
-                            <p class="text-lg font-bold text-black">Mắc quá!</p>
-                        </div>
-                        <div class="col-span-2 bg-purple-100 p-4 rounded-xl border border-purple-200 text-center shadow-sm">
-                            <p class="text-xs text-gray-600 mb-1">깎아주세요~</p>
-                            <p class="text-2xl font-bold text-black">Giảm giá đi</p>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100 flex justify-between items-center shadow-sm" onclick="speak('Giảm giá đi')">
+                            <div class="text-left">
+                                <p class="text-xs text-gray-500">깎아주세요 (할인)</p>
+                                <p class="text-xl font-bold text-black italic">Giảm giá đi</p>
+                                <p class="text-sm text-blue-600 font-bold mt-1">[ 쟘 쟈 디 ]</p>
+                            </div>
+                            <button class="text-2xl text-purple-400 p-2"><i class="fas fa-volume-up"></i></button>
                         </div>
                     </div>
                 </div>
@@ -630,6 +633,15 @@
             }).catch(err => {
                 alert('복사 실패');
             });
+        }
+
+        // 베트남어 TTS 발음 함수
+        function speak(text) {
+            // 브라우저의 발음 엔진 호출
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'vi-VN'; // 베트남어 설정
+            utterance.rate = 0.9;     // 조금 천천히 말하도록 설정
+            window.speechSynthesis.speak(utterance);
         }
     </script>
 </body>
