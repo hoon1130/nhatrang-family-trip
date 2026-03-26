@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v18 (최종 완성본)</title>
+    <title>가족 나트랑 여행 수호앱 v19 (최종 완성본)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -43,7 +43,6 @@
 
     <main class="p-4">
         
-        <!-- 1. 일정 탭 -->
         <div id="schedule" class="tab-content active space-y-4">
             <div class="grid grid-cols-2 gap-3">
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-center">
@@ -63,7 +62,6 @@
             </button>
         </div>
 
-        <!-- 2. 쇼핑 탭 -->
         <div id="shopping" class="tab-content space-y-4">
             <div class="flex justify-between items-end mb-4 px-1">
                 <h2 class="text-lg font-black text-slate-800">🛒 필수 쇼핑 리스트</h2>
@@ -89,13 +87,7 @@
             </div>
         </div>
 
-        <!-- 3. 가계부 탭 -->
         <div id="ledger" class="tab-content space-y-5">
-            <div class="bg-slate-800 p-4 rounded-2xl text-white flex items-center shadow-lg">
-                <span class="bg-red-500 text-[10px] px-2 py-1 rounded-lg font-black mr-3 animate-pulse">NOTICE</span>
-                <marquee class="text-sm font-bold">부모님, 지안아 즐거운 여행 하자! ❤️ 지출 내역은 실시간으로 업데이트 됩니다.</marquee>
-            </div>
-
             <div class="bg-blue-600 p-6 rounded-[2rem] shadow-lg text-white">
                 <h2 class="text-lg font-black mb-4"><i class="fas fa-exchange-alt mr-2 text-yellow-300"></i>실시간 환율 계산기</h2>
                 <div class="flex flex-col space-y-3">
@@ -151,8 +143,8 @@
             </div>
         </div>
 
-        <!-- 4. 안전/SOS 탭 -->
         <div id="tools" class="tab-content space-y-6">
+            
             <div class="bg-red-50 p-6 rounded-[2rem] border border-red-100 shadow-sm">
                 <h3 class="font-black mb-3 text-red-600 flex items-center justify-between">
                     <span><i class="fas fa-map-marker-alt mr-2"></i>긴급 위치 안내 (SOS)</span>
@@ -171,25 +163,59 @@
                 </button>
             </div>
 
-            <!-- 신규: GPS 기반 주변 추천 핫플 -->
             <div id="nearby-container" class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hidden">
                 <h3 class="font-black text-slate-800 text-lg mb-4 flex items-center">
                     <i class="fas fa-compass mr-2 text-blue-500"></i>현재 위치 주변 핫플
                 </h3>
-                <div id="nearby-list" class="space-y-3"></div>
+                <div id="nearby-list" class="space-y-3">
+                    </div>
             </div>
 
             <div class="bg-slate-900 text-white p-6 rounded-[2.5rem] shadow-xl border-4 border-red-600">
-                <h3 class="font-black mb-4 text-red-400 flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i>비상시 즉시 통화</h3>
+                <h3 class="font-black mb-4 text-red-400 flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i>현지 긴급 연락처</h3>
                 <div class="grid grid-cols-1 gap-3">
-                    <a href="tel:113" class="bg-slate-800 p-4 rounded-2xl flex justify-between items-center active:scale-95 transition"><span class="font-black">🚓 경찰 신고 (113)</span><i class="fas fa-phone-alt text-blue-400"></i></a>
-                    <a href="tel:115" class="bg-slate-800 p-4 rounded-2xl flex justify-between items-center active:scale-95 transition"><span class="font-black">🚑 구급차/의료 (115)</span><i class="fas fa-phone-alt text-red-400"></i></a>
-                    <a href="tel:+84904026126" class="bg-slate-800 p-4 rounded-2xl flex justify-between items-center active:scale-95 transition"><span class="font-black font-bold">🇰🇷 한국대사관 긴급전화</span><i class="fas fa-phone-alt text-indigo-400"></i></a>
+                    <a href="tel:113" class="bg-slate-800 p-4 rounded-2xl flex justify-between items-center active:scale-95 transition">
+                        <span class="font-black">🚓 베트남 경찰 (113)</span><i class="fas fa-phone-alt text-blue-400"></i>
+                    </a>
+                    <a href="tel:115" class="bg-slate-800 p-4 rounded-2xl flex justify-between items-center active:scale-95 transition">
+                        <span class="font-black">🚑 구급차/응급의료 (115)</span><i class="fas fa-phone-alt text-red-400"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50 p-5 rounded-[2rem] shadow-sm border border-indigo-100">
+                <h3 class="font-black mb-3 text-indigo-700"><i class="fas fa-building mr-2"></i>대한민국 대사관 & 영사관</h3>
+                <div class="space-y-2">
+                    <a href="tel:+84904026126" class="w-full flex justify-between items-center bg-white p-3 rounded-xl border border-indigo-50 shadow-sm active:scale-95 transition">
+                        <span class="text-xs font-bold text-slate-700">주베트남 대사관 (긴급전화)</span>
+                        <span class="bg-indigo-600 text-white px-3 py-1 rounded-lg text-[10px] font-black"><i class="fas fa-phone-alt mr-1"></i>통화</span>
+                    </a>
+                    <a href="tel:+82232100404" class="w-full flex justify-between items-center bg-white p-3 rounded-xl border border-indigo-50 shadow-sm active:scale-95 transition">
+                        <span class="text-xs font-bold text-slate-700">영사콜센터 (여권분실 등 24시)</span>
+                        <span class="bg-indigo-600 text-white px-3 py-1 rounded-lg text-[10px] font-black"><i class="fas fa-phone-alt mr-1"></i>통화</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100">
+                <h3 class="font-black mb-3 text-slate-800"><i class="fas fa-copy mr-2 text-blue-500"></i>주요 장소 주소 복사</h3>
+                <div class="grid grid-cols-1 gap-2">
+                    <button onclick="copyText('Vinmec Nha Trang International Hospital')" class="w-full flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-100 shadow-sm active:scale-95 transition">
+                        <span class="text-xs font-bold text-slate-700">🏥 빈멕 국제병원 (응급실)</span>
+                        <span class="bg-slate-200 text-slate-600 px-3 py-1 rounded-lg text-[10px] font-black">복사</span>
+                    </button>
+                    <button onclick="copyText('33A Tô Hiến Thành, Tân Lập, Nha Trang')" class="w-full flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-100 shadow-sm active:scale-95 transition">
+                        <span class="text-xs font-bold text-slate-700">📍 르모어 호텔</span>
+                        <span class="bg-slate-200 text-slate-600 px-3 py-1 rounded-lg text-[10px] font-black">복사</span>
+                    </button>
+                    <button onclick="copyText('26-28 Trần Phú, Lộc Thọ, Nha Trang')" class="w-full flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-100 shadow-sm active:scale-95 transition">
+                        <span class="text-xs font-bold text-slate-700">📍 쉐라톤 호텔</span>
+                        <span class="bg-slate-200 text-slate-600 px-3 py-1 rounded-lg text-[10px] font-black">복사</span>
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- 5. 회화 탭 -->
         <div id="phrases" class="tab-content pb-10 space-y-6">
             <h2 class="text-xl font-black text-slate-800 px-1">📢 서바이벌 베트남어</h2>
             
@@ -197,25 +223,24 @@
                 <h3 class="font-black text-stone-700 border-b border-stone-200 pb-3 mb-4">☕ 부모님 & 지안이 추천 메뉴</h3>
                 <div class="grid grid-cols-1 gap-3">
                     <div onclick="speak('Cà phê sữa đá')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center cursor-pointer active:scale-95 transition">
-                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Cafe Sua Da</p><p class="text-sm font-black">달달한 연유 아이스 커피</p></div>
+                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Cafe Sua Da (카페 쓰어 다)</p><p class="text-sm font-black">부모님: 달달한 연유 아이스 커피</p></div>
                         <i class="fas fa-volume-up text-blue-500"></i>
                     </div>
                     <div onclick="speak('Bạc xỉu')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center cursor-pointer active:scale-95 transition">
-                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Bac Xiu</p><p class="text-sm font-black">부드러운 연유 우유 커피</p></div>
-                        <i class="fas fa-volume-up text-blue-500"></i>
-                    </div>
-                    <div onclick="speak('Trà chanh')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center cursor-pointer active:scale-95 transition">
-                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Tra Chanh</p><p class="text-sm font-black">시원한 라임 차 (커피X)</p></div>
+                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Bac Xiu (박 씨우)</p><p class="text-sm font-black">부모님: 부드러운 연유 우유 커피</p></div>
                         <i class="fas fa-volume-up text-blue-500"></i>
                     </div>
                     <div onclick="speak('Sinh tố xoài')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center border-2 border-orange-100 cursor-pointer active:scale-95 transition">
-                        <div><p class="text-[10px] text-orange-400 font-bold uppercase">Sinh to xoai</p><p class="text-sm font-black">지안이용 리얼 망고 스무디</p></div>
+                        <div><p class="text-[10px] text-orange-400 font-bold uppercase">Sinh to xoai (신 또 쏘아이)</p><p class="text-sm font-black">지안이: 리얼 망고 스무디</p></div>
+                        <i class="fas fa-volume-up text-orange-500"></i>
+                    </div>
+                    <div onclick="speak('Cơm gà')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center border-2 border-orange-100 cursor-pointer active:scale-95 transition">
+                        <div><p class="text-[10px] text-orange-400 font-bold uppercase">Com ga (껌 가)</p><p class="text-sm font-black">지안이: 부드러운 닭고기 덮밥</p></div>
                         <i class="fas fa-volume-up text-orange-500"></i>
                     </div>
                 </div>
             </div>
 
-            <!-- 자바스크립트로 렌더링될 회화 리스트 -->
             <div id="phrase-list" class="space-y-8">
                 <div><h3 class="font-black text-orange-600 px-1 mb-4">🍽️ 식당 & 주문</h3><div class="space-y-2" id="food-phrases"></div></div>
                 <div><h3 class="font-black text-purple-600 px-1 mb-4">💆 마사지 & 스파</h3><div class="space-y-2" id="spa-phrases"></div></div>
@@ -225,21 +250,18 @@
         </div>
     </main>
 
-    <!-- 👶 지안이 SOS 플로팅 버튼 -->
     <button onclick="openSosModal()" class="fixed bottom-24 right-4 bg-red-500 text-white w-16 h-16 rounded-full shadow-2xl flex flex-col items-center justify-center z-[60] shake-animation border-4 border-white transition active:scale-110">
         <span class="text-2xl">👶</span><span class="text-[9px] font-black uppercase mt-0.5">SOS</span>
     </button>
 
-    <!-- 📱 하단 네비게이션 (원상복구 완벽 확인) -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-100 flex justify-around p-3 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)]">
-        <button onclick="showTab('schedule')" class="tab-btn active-tab flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-calendar-check text-xl mb-1"></i><span class="text-[10px] font-black">일정</span></button>
-        <button onclick="showTab('shopping')" class="tab-btn flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-shopping-bag text-xl mb-1"></i><span class="text-[10px] font-black">쇼핑</span></button>
-        <button onclick="showTab('ledger')" class="tab-btn flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-wallet text-xl mb-1"></i><span class="text-[10px] font-black">가계부</span></button>
-        <button onclick="showTab('tools')" class="tab-btn flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-shield-alt text-xl mb-1"></i><span class="text-[10px] font-black">안전/SOS</span></button>
-        <button onclick="showTab('phrases')" class="tab-btn flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-comment-dots text-xl mb-1"></i><span class="text-[10px] font-black">회화</span></button>
+        <button onclick="showTab('schedule')" class="tab-btn active-tab flex flex-col items-center w-1/4 p-1 transition"><i class="fas fa-calendar-check text-xl mb-1"></i><span class="text-[10px] font-black">일정</span></button>
+        <button onclick="showTab('shopping')" class="tab-btn flex flex-col items-center w-1/4 p-1 transition"><i class="fas fa-shopping-bag text-xl mb-1"></i><span class="text-[10px] font-black">쇼핑</span></button>
+        <button onclick="showTab('ledger')" class="tab-btn flex flex-col items-center w-1/4 p-1 transition"><i class="fas fa-wallet text-xl mb-1"></i><span class="text-[10px] font-black">가계부</span></button>
+        <button onclick="showTab('tools')" class="tab-btn flex flex-col items-center w-1/4 p-1 transition"><i class="fas fa-shield-alt text-xl mb-1"></i><span class="text-[10px] font-black">안전/SOS</span></button>
+        <button onclick="showTab('phrases')" class="tab-btn flex flex-col items-center w-1/4 p-1 transition"><i class="fas fa-comment-dots text-xl mb-1"></i><span class="text-[10px] font-black">회화</span></button>
     </nav>
 
-    <!-- 모달창 영역 -->
     <div id="itinerary-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm">
         <div class="bg-white p-6 rounded-[2.5rem] w-full max-w-md shadow-2xl max-h-[85vh] overflow-y-auto">
             <h3 id="modal-title" class="text-xl font-black mb-5">일정 관리</h3><input type="hidden" id="edit-index">
@@ -291,9 +313,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // =======================
-        // 마스터 데이터 100% 보존
-        // =======================
+        // 💾 데이터 100% 보존
         const tripStart = new Date("2026-04-15T00:00:00").getTime();
         const rouletteMembers = ['할아버지 🎯', '할머니 🎯', '아빠 🎯', '엄마 🎯', '이모 🎯', '이모부 🎯'];
 
@@ -363,7 +383,6 @@
             { name: "🚿 아이리조트 (머드스파)", lat: 12.2858, lon: 109.1764 }
         ];
 
-        // 📢 회화 마스터 데이터 (누락됐던 부분 완벽 복구)
         const phrases = {
             food: [
                 { k: "고수 빼주세요", v: "Không rau mùi", p: "콩 라우 무이" },
@@ -398,18 +417,11 @@
         let itinerary = []; let shoppingList = []; let vndToKrwRate = 0.055; let expensesList = [];
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadItinerary(); 
-            loadShoppingList(); 
-            loadExpenses(); 
-            initWeatherOpenMeteo(); 
-            initExchangeRate(); 
-            updateLocationInfo(); 
-            updateDDay(); 
-            renderPhrases();
+            loadItinerary(); loadShoppingList(); loadExpenses(); initWeatherOpenMeteo(); initExchangeRate(); updateLocationInfo(); updateDDay(); renderPhrases();
         });
 
         // =======================
-        // 📍 GPS 및 핫플 로직
+        // 📍 GPS 기반 주변 추천 엔진
         // =======================
         function calculateDistance(lat1, lon1, lat2, lon2) {
             const R = 6371; const dLat = (lat2 - lat1) * Math.PI / 180; const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -423,13 +435,16 @@
             container.classList.remove('hidden'); listEl.innerHTML = '';
             nearbyList.forEach(spot => {
                 listEl.insertAdjacentHTML('beforeend', `
-                    <a href="https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lon}" target="_blank" class="flex justify-between items-center p-3 bg-blue-50 rounded-xl border border-blue-100 active:scale-95 transition">
+                    <a href="https://www.google.com/maps/search/?api=1&query=$${spot.lat},${spot.lon}" target="_blank" class="flex justify-between items-center p-3 bg-blue-50 rounded-xl border border-blue-100 active:scale-95 transition">
                         <div><p class="text-sm font-black text-slate-800">${spot.name}</p><p class="text-[10px] text-blue-500 font-bold">현재 위치에서 약 ${spot.dist.toFixed(1)}km</p></div>
                         <i class="fas fa-external-link-alt text-blue-300"></i>
                     </a>`);
             });
         }
 
+        // =======================
+        // 🚨 SOS & 위치 안내
+        // =======================
         let currentAddr = "위치 정보가 없습니다.";
         function updateLocationInfo() {
             const addrEl = document.getElementById('current-address'); const icon = document.getElementById('gps-refresh-icon');
@@ -443,7 +458,7 @@
                         addrEl.innerText = currentAddr; findNearbySpots(lat, lon);
                     } catch (e) { addrEl.innerText = "주소 변환 실패 (좌표로 대체됨)"; }
                     if (icon) icon.classList.remove('fa-spin');
-                }, () => { addrEl.innerText = "브라우저 GPS 설정을 확인하세요."; if (icon) icon.classList.remove('fa-spin'); }, { timeout: 10000, enableHighAccuracy: true });
+                }, () => { addrEl.innerText = "브라우저 GPS 설정을 확인하세요."; if(icon) icon.classList.remove('fa-spin'); }, { timeout: 10000, enableHighAccuracy: true });
             }
         }
         function speakCurrentLocation() {
@@ -469,7 +484,7 @@
         }
 
         // =======================
-        // 📅 일정 관리
+        // 📅 일정 & 🛒 쇼핑 & 💰 가계부
         // =======================
         function loadItinerary() {
             db.ref('itinerary').once('value').then(s => { if (!s.exists()) initialItinerary.forEach(i => db.ref('itinerary').push(i)); });
@@ -502,22 +517,6 @@
             }
         }
 
-        // =======================
-        // 📝 폼 및 모달 제어
-        // =======================
-        function openAddForm() { closeModal(); document.getElementById('modal-title').innerText = "새 일정 추가"; addLinkInput(); document.getElementById('delete-btn').classList.add('hidden'); document.getElementById('itinerary-modal').classList.remove('hidden'); }
-        function openEditForm(idx) {
-            closeModal(); const item = itinerary[idx]; document.getElementById('edit-index').value = idx; document.getElementById('form-date').value = item.date; document.getElementById('form-time').value = item.time; document.getElementById('form-place').value = item.place; document.getElementById('form-grab').value = item.grab; document.getElementById('form-remarks').value = item.remarks;
-            if(item.link) addLinkInput(item.link); (item.extraLinks || []).forEach(l => addLinkInput(l)); document.getElementById('delete-btn').classList.remove('hidden'); document.getElementById('itinerary-modal').classList.remove('hidden');
-        }
-        function addLinkInput(v='') { const c = document.getElementById('links-container'); const w = document.createElement('div'); w.className = 'flex space-x-2'; w.innerHTML = `<input type="url" value="${v}" placeholder="지도 링크" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-xs font-bold flex-1 form-link-item shadow-inner"><button type="button" onclick="this.parentElement.remove()" class="bg-red-50 text-red-400 w-12 rounded-2xl"><i class="fas fa-minus"></i></button>`; c.appendChild(w); }
-        function saveItineraryItem() {
-            const idx = document.getElementById('edit-index').value; const links = Array.from(document.querySelectorAll('.form-link-item')).map(i=>i.value.trim()).filter(v=>v!=='');
-            const data = { date: document.getElementById('form-date').value || "미정", time: document.getElementById('form-time').value, place: document.getElementById('form-place').value || "장소없음", grab: document.getElementById('form-grab').value, link: links[0] || "", extraLinks: links.slice(1), remarks: document.getElementById('form-remarks').value };
-            if(idx !== "") db.ref(`itinerary/${itinerary[idx].firebaseKey}`).set(data); else db.ref('itinerary').push(data); closeModal();
-        }
-        function deleteItineraryItem() { if(confirm("삭제할까요?")) { db.ref(`itinerary/${itinerary[document.getElementById('edit-index').value].firebaseKey}`).remove(); closeModal(); } }
-
         function loadShoppingList() {
             db.ref('shopping').once('value').then(s => { if (!s.exists()) initialShoppingList.forEach(i => db.ref('shopping').push(i)); });
             db.ref('shopping').on('value', s => {
@@ -527,9 +526,6 @@
                 });
             });
         }
-        function openShoppingModal() { document.getElementById('shopping-modal').classList.remove('hidden'); document.getElementById('shopping-text').value = ''; }
-        function closeShoppingModal() { document.getElementById('shopping-modal').classList.add('hidden'); }
-        function saveShoppingItem() { const c = document.getElementById('shopping-category').value; const t = document.getElementById('shopping-text').value; if(t) db.ref('shopping').push({ category: c, text: t, checked: false }); closeShoppingModal(); }
 
         function loadExpenses() {
             db.ref('expenses').on('value', s => {
@@ -543,14 +539,52 @@
                 });
             });
         }
-        function addExpense() { const cat = document.getElementById('expense-category').value; const desc = document.getElementById('expense-desc').value; const amt = document.getElementById('expense-amount').value; if(desc && amt) db.ref('expenses').push({ category: cat, desc: desc, amount: Number(amt), timestamp: Date.now() }); document.getElementById('expense-desc').value = ''; document.getElementById('expense-amount').value = ''; }
-        function startRoulette() { const res = document.getElementById('roulette-result'); let c = 0; const i = setInterval(() => { res.innerText = rouletteMembers[Math.floor(Math.random() * rouletteMembers.length)]; if(++c > 25) { clearInterval(i); res.innerText = "🎉 " + res.innerText + " 🎉"; } }, 60); }
+        function addExpense() {
+            const cat = document.getElementById('expense-category').value; const desc = document.getElementById('expense-desc').value; const amt = document.getElementById('expense-amount').value;
+            if(desc && amt) db.ref('expenses').push({ category: cat, desc: desc, amount: Number(amt), timestamp: Date.now() });
+            document.getElementById('expense-desc').value = ''; document.getElementById('expense-amount').value = '';
+        }
 
-        async function initExchangeRate() { try { const r = await fetch('https://open.er-api.com/v6/latest/VND'); const d = await r.json(); vndToKrwRate = d.rates.KRW; document.getElementById('rate-summary').innerText = `₩${Number((100000 * vndToKrwRate).toFixed(0)).toLocaleString()}`; } catch(e) { document.getElementById('rate-summary').innerText = "₩5,500"; } document.getElementById('vnd-input').oninput = (e) => { document.getElementById('krw-input').value = e.target.value ? `₩ ${(e.target.value * vndToKrwRate).toFixed(0).toLocaleString()}` : ''; }; }
-        async function initWeatherOpenMeteo() { try { const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh"); const d = await r.json(); const c = d.current_weather; document.getElementById('weather-temp').innerText = `${Math.round(c.temperature)}℃`; let t = "선크림 듬뿍! ☀️"; if(c.weathercode >= 51) t = "비 조심! 우산 필수 ☔"; document.getElementById('weather-tip').innerText = t; } catch(e) {} }
-        function updateDDay() { const now = new Date(); const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime(); const diff = tripStart - today; const days = Math.round(diff / (1000 * 60 * 60 * 24)); document.getElementById('d-day').innerText = days > 0 ? `D-${days}` : (days === 0 ? "D-DAY" : `여행 ${Math.abs(days)+1}일차`); }
+        // =======================
+        // ☀️ 날씨, 환율, UI 공통
+        // =======================
+        async function initExchangeRate() {
+            try { const r = await fetch('https://open.er-api.com/v6/latest/VND'); const d = await r.json(); vndToKrwRate = d.rates.KRW; document.getElementById('rate-summary').innerText = `₩${Number((100000 * vndToKrwRate).toFixed(0)).toLocaleString()}`; } catch(e) { document.getElementById('rate-summary').innerText = "₩5,500"; }
+            document.getElementById('vnd-input').oninput = (e) => { document.getElementById('krw-input').value = e.target.value ? `₩ ${(e.target.value * vndToKrwRate).toFixed(0).toLocaleString()}` : ''; };
+        }
+        async function initWeatherOpenMeteo() {
+            try {
+                const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh"); const d = await r.json(); const c = d.current_weather;
+                document.getElementById('weather-temp').innerText = `${Math.round(c.temperature)}℃`;
+                let t = "선크림 듬뿍! ☀️"; if(c.weathercode >= 51) t = "비 조심! 우산 필수 ☔"; document.getElementById('weather-tip').innerText = t;
+            } catch(e) {}
+        }
+        function startRoulette() {
+            document.getElementById('roulette-container').classList.remove('hidden'); const res = document.getElementById('roulette-result'); let c = 0;
+            const i = setInterval(() => { res.innerText = rouletteMembers[Math.floor(Math.random() * rouletteMembers.length)]; if(++c > 25) { clearInterval(i); res.innerText = "🎉 " + res.innerText + " 🎉"; } }, 60);
+        }
+        function updateDDay() {
+            const now = new Date(); const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+            const diff = tripStart - today; const days = Math.round(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('d-day').innerText = days > 0 ? `D-${days}` : (days === 0 ? "D-DAY" : `여행 ${Math.abs(days)+1}일차`);
+        }
         function showTab(id) { document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active-tab')); document.getElementById(id).classList.add('active'); event.currentTarget.classList.add('active-tab'); window.scrollTo(0,0); }
         function closeModal() { document.getElementById('itinerary-modal').classList.add('hidden'); document.getElementById('links-container').innerHTML = ''; }
+        function openShoppingModal() { document.getElementById('shopping-modal').classList.remove('hidden'); document.getElementById('shopping-text').value = ''; }
+        function closeShoppingModal() { document.getElementById('shopping-modal').classList.add('hidden'); }
+        function saveShoppingItem() { const c = document.getElementById('shopping-category').value; const t = document.getElementById('shopping-text').value; if(t) db.ref('shopping').push({ category: c, text: t, checked: false }); closeShoppingModal(); }
+        function openAddForm() { closeModal(); document.getElementById('modal-title').innerText = "새 일정 추가"; addLinkInput(); document.getElementById('delete-btn').classList.add('hidden'); document.getElementById('itinerary-modal').classList.remove('hidden'); }
+        function openEditForm(idx) {
+            closeModal(); const item = itinerary[idx]; document.getElementById('edit-index').value = idx; document.getElementById('form-date').value = item.date; document.getElementById('form-time').value = item.time; document.getElementById('form-place').value = item.place; document.getElementById('form-grab').value = item.grab; document.getElementById('form-remarks').value = item.remarks;
+            if(item.link) addLinkInput(item.link); (item.extraLinks || []).forEach(l => addLinkInput(l)); document.getElementById('delete-btn').classList.remove('hidden'); document.getElementById('itinerary-modal').classList.remove('hidden');
+        }
+        function addLinkInput(v='') { const c = document.getElementById('links-container'); const w = document.createElement('div'); w.className = 'flex space-x-2'; w.innerHTML = `<input type="url" value="${v}" placeholder="지도 링크" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-xs font-bold flex-1 form-link-item shadow-inner"><button type="button" onclick="this.parentElement.remove()" class="bg-red-50 text-red-400 w-12 rounded-2xl"><i class="fas fa-minus"></i></button>`; c.appendChild(w); }
+        function saveItineraryItem() {
+            const idx = document.getElementById('edit-index').value; const links = Array.from(document.querySelectorAll('.form-link-item')).map(i=>i.value.trim()).filter(v=>v!=='');
+            const data = { date: document.getElementById('form-date').value || "미정", time: document.getElementById('form-time').value, place: document.getElementById('form-place').value || "장소없음", grab: document.getElementById('form-grab').value, link: links[0] || "", extraLinks: links.slice(1), remarks: document.getElementById('form-remarks').value };
+            if(idx !== "") db.ref(`itinerary/${itinerary[idx].firebaseKey}`).set(data); else db.ref('itinerary').push(data); closeModal();
+        }
+        function deleteItineraryItem() { if(confirm("삭제할까요?")) { db.ref(`itinerary/${itinerary[document.getElementById('edit-index').value].firebaseKey}`).remove(); closeModal(); } }
         function openSosModal() { document.getElementById('sos-modal').classList.remove('hidden'); }
         function closeSosModal() { document.getElementById('sos-modal').classList.add('hidden'); }
         function copyText(t) { navigator.clipboard.writeText(t).then(() => alert(`📋 복사완료: ${t}`)); }
