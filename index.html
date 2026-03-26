@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v7</title>
+    <title>가족 나트랑 여행 수호앱 v8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -87,10 +87,34 @@
             </div>
         </div>
 
-        <!-- 3. 도구 & 정보 탭 (치트키 및 신규 기능 추가) -->
+        <!-- 3. 도구 & 정보 탭 (처가 식구 맞춤형 업데이트) -->
         <div id="tools" class="tab-content space-y-6">
-            <h2 class="text-lg font-bold">🧮 여행 도구 & 치트키</h2>
+            <h2 class="text-lg font-bold">🧮 여행 도구 & 정보</h2>
             
+            <!-- 신규 킬러기능: 긴급 연락처 가이드 -->
+            <div class="bg-red-50 p-4 rounded-xl shadow border border-red-100">
+                <h3 class="font-bold mb-3 text-red-600"><i class="fas fa-ambulance mr-2"></i>긴급 상황 연락처 (SOS)</h3>
+                <ul class="text-xs text-gray-800 space-y-2">
+                    <li class="flex justify-between items-center bg-white p-2 rounded border border-red-100 shadow-sm">
+                        <span>🏥 <b>빈멕 국제병원</b> (나트랑 최고 응급실)</span>
+                        <button onclick="copyText('Vinmec Nha Trang International Hospital')" class="bg-red-100 text-red-600 px-3 py-1 rounded font-bold shadow-sm">주소복사</button>
+                    </li>
+                    <li class="flex justify-between items-center bg-white p-2 rounded border border-red-100 shadow-sm">
+                        <span>🇰🇷 <b>영사콜센터</b> (여권 분실 등 / 24시간)</span>
+                        <a href="tel:+82232100404" class="bg-red-100 text-red-600 px-3 py-1 rounded font-bold shadow-sm">전화걸기</a>
+                    </li>
+                    <li class="flex justify-between items-center bg-white p-2 rounded border border-red-100 shadow-sm">
+                        <span>🚓 <b>베트남 경찰</b> (도난 등)</span>
+                        <a href="tel:113" class="bg-red-100 text-red-600 px-3 py-1 rounded font-bold shadow-sm">113</a>
+                    </li>
+                    <li class="flex justify-between items-center bg-white p-2 rounded border border-red-100 shadow-sm">
+                        <span>🚑 <b>베트남 구급차</b></span>
+                        <a href="tel:115" class="bg-red-100 text-red-600 px-3 py-1 rounded font-bold shadow-sm">115</a>
+                    </li>
+                    <li class="text-[10px] text-red-500 mt-2 font-bold">* 여권 사본과 여행자보험 증권은 카톡 '나에게 보내기'에 꼭 저장해두세요!</li>
+                </ul>
+            </div>
+
             <!-- 킬러기능 3: 인간 키오스크 치트키 -->
             <div class="bg-indigo-50 p-4 rounded-xl shadow border border-indigo-100">
                 <h3 class="font-bold mb-3 text-indigo-700"><i class="fas fa-id-card mr-2"></i>복사 치트키 (호텔/정보)</h3>
@@ -110,7 +134,7 @@
                 </div>
             </div>
 
-            <!-- 신규 킬러기능 1: 실시간 공동 경비 장부 -->
+            <!-- 실시간 공동 경비 장부 -->
             <div class="bg-white p-4 rounded-xl shadow border">
                 <div class="flex justify-between items-end mb-3 border-b pb-2">
                     <h3 class="font-bold text-blue-600"><i class="fas fa-wallet mr-2"></i>실시간 공동 경비 장부</h3>
@@ -133,7 +157,7 @@
                 </ul>
             </div>
 
-            <!-- 신규 킬러기능 2: 가족 복불복 룰렛 -->
+            <!-- 처가 식구 맞춤형 가족 복불복 룰렛 -->
             <div class="bg-pink-50 p-4 rounded-xl shadow border border-pink-100 text-center">
                 <h3 class="font-bold mb-3 text-pink-600"><i class="fas fa-gift mr-2"></i>누가 쏠까? 복불복 룰렛 🎯</h3>
                 <div id="roulette-result" class="text-2xl font-bold text-gray-800 py-4 bg-white rounded-lg border-2 border-dashed border-pink-300 mb-3 h-16 flex items-center justify-center transition-all duration-300">
@@ -142,14 +166,6 @@
                 <button onclick="startRoulette()" class="w-full bg-pink-500 text-white font-bold p-3 rounded-xl shadow hover:bg-pink-600 transition transform active:scale-95">
                     룰렛 돌리기 🎲
                 </button>
-            </div>
-
-            <!-- (기존) N분의 1 비용 정산 (단순 계산기) -->
-            <div class="bg-white p-4 rounded-xl shadow border">
-                <h3 class="font-bold mb-3"><i class="fas fa-divide mr-2 text-green-500"></i>단순 N/1 계산기</h3>
-                <input type="number" id="total-expense" placeholder="총 지출 금액 (VND) 입력" class="w-full p-3 border rounded mb-2">
-                <input type="number" id="num-people" value="8" placeholder="인원 수 입력" class="w-full p-3 border rounded mb-2">
-                <p id="split-result" class="font-bold text-xl text-green-600 text-center py-2">₩-- / 인당</p>
             </div>
 
             <!-- 킬러기능 4: 베트남 매너 팁 가이드 -->
@@ -286,7 +302,7 @@
         </button>
     </nav>
 
-    <!-- 일정 추가/수정 모달 -->
+    <!-- 일정 추가/수정 모달 (다중 링크 지원) -->
     <div id="itinerary-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden p-6 flex items-center justify-center">
         <div class="bg-white p-6 rounded-2xl w-full max-w-md space-y-3 shadow-2xl max-h-[90vh] overflow-y-auto">
             <h3 id="modal-title" class="text-lg font-bold">일정 관리</h3>
@@ -296,7 +312,7 @@
             <textarea id="form-place" placeholder="일정 명칭" class="w-full p-2 border rounded bg-gray-50 h-16"></textarea>
             <input type="text" id="form-grab" placeholder="Grab 검색어" class="w-full p-2 border rounded bg-gray-50">
             
-            <!-- 링크 다중 입력 컨테이너 추가 -->
+            <!-- 링크 다중 입력 컨테이너 -->
             <div id="links-container" class="space-y-2">
                 <!-- 링크 입력칸이 동적으로 생성되는 곳 -->
             </div>
@@ -417,7 +433,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadItinerary();
             loadShoppingList();
-            loadExpenses(); // 실시간 공동 경비 장부 불러오기
+            loadExpenses(); 
             initWeatherOpenMeteo();
             initExchangeRate();
             initExpenseTools();
@@ -430,7 +446,7 @@
         function closeSosModal() { document.getElementById('sos-modal').classList.add('hidden'); }
 
         // =======================
-        // 실시간 공동 경비 장부 (신규 기능)
+        // 실시간 공동 경비 장부 
         // =======================
         let expensesList = [];
 
@@ -494,9 +510,9 @@
         }
 
         // =======================
-        // 복불복 룰렛 (신규 기능)
+        // 복불복 룰렛 (처가 식구 명단 업데이트)
         // =======================
-        const rouletteMembers = ['할아버지 🎯', '할머니 🎯', '아빠(지훈) 🎯', '엄마 🎯', '첫째 🎯', '지안이 🎯', '삼촌 🎯', '고모 🎯']; 
+        const rouletteMembers = ['할아버지 🎯', '할머니 🎯', '아빠(지훈) 🎯', '엄마 🎯', '첫째 🎯', '지안이 🎯', '이모 🎯', '이모부 🎯']; 
         let isSpinning = false;
 
         function startRoulette() {
@@ -525,7 +541,7 @@
         }
 
         // =======================
-        // 쇼핑 리스트 CRUD (Firebase 연동)
+        // 쇼핑 리스트 CRUD 
         // =======================
         function loadShoppingList() {
             db.ref('shopping').once('value').then((snapshot) => {
@@ -681,7 +697,7 @@
         }
 
         // =======================
-        // 다중 링크 입력 로직 (신규 추가)
+        // 다중 링크 입력 로직
         // =======================
         function addLinkInput(value = '') {
             const container = document.getElementById('links-container');
@@ -706,7 +722,7 @@
         }
 
         // =======================
-        // 일정 관리 (Firebase 연동)
+        // 일정 관리 
         // =======================
         function loadItinerary() {
             db.ref('itinerary').once('value').then((snapshot) => {
@@ -870,7 +886,7 @@
             document.getElementById('itinerary-modal').classList.add('hidden');
             document.getElementById('edit-index').value = "";
             document.getElementById('itinerary-modal').querySelectorAll('input[type="text"], input[type="url"], textarea').forEach(el => el.value = "");
-            document.getElementById('links-container').innerHTML = ''; // 모달 닫을 때 링크 컨테이너 깔끔하게 비움
+            document.getElementById('links-container').innerHTML = ''; 
         }
 
         function copyText(text) {
