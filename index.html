@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v16 (안전/SOS 종결판)</title>
+    <title>가족 나트랑 여행 수호앱 v15 (회화 마스터본)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Firebase & JS 라이브러리 -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap');
@@ -140,10 +141,8 @@
             </div>
         </div>
 
-        <!-- 4. 도구/SOS 탭 (긴급 연락처 완벽 반영) -->
+        <!-- 4. 도구/SOS 탭 -->
         <div id="tools" class="tab-content space-y-6">
-            
-            <!-- 🚑 긴급 상황 & 위치 TTS (새로고침 추가) -->
             <div class="bg-red-50 p-6 rounded-[2rem] border border-red-100 shadow-sm">
                 <h3 class="font-black mb-3 text-red-600 flex items-center justify-between">
                     <span><i class="fas fa-map-marker-alt mr-2"></i>긴급 위치 안내 (SOS)</span>
@@ -162,7 +161,6 @@
                 </button>
             </div>
 
-            <!-- 🚨 베트남 비상 연락망 (직통 연결) -->
             <div class="bg-slate-900 text-white p-6 rounded-[2rem] shadow-xl border-4 border-red-500">
                 <h3 class="font-black mb-4 text-red-400 flex items-center justify-center text-lg">
                     <i class="fas fa-phone-alt mr-2"></i>현지 긴급 연락처
@@ -183,7 +181,6 @@
                 </div>
             </div>
 
-            <!-- 🇰🇷 대사관 및 영사관 -->
             <div class="bg-indigo-50 p-5 rounded-[2rem] shadow-sm border border-indigo-100">
                 <h3 class="font-black mb-3 text-indigo-700"><i class="fas fa-building mr-2"></i>대한민국 대사관 & 영사관</h3>
                 <div class="space-y-2">
@@ -202,7 +199,6 @@
                 </div>
             </div>
 
-            <!-- 병원 및 치트키 -->
             <div class="grid grid-cols-2 gap-3">
                 <button onclick="copyText('Vinmec Nha Trang International Hospital')" class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-center active:scale-95 transition">
                     <i class="fas fa-hospital text-red-500 text-2xl mb-2"></i>
@@ -225,48 +221,104 @@
                 </div>
             </div>
             
-            <!-- 복불복 결과창 -->
             <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 text-center hidden" id="roulette-container">
                 <h3 class="font-black mb-4 text-slate-800"><i class="fas fa-dice mr-2 text-pink-500"></i>누가 쏠까?</h3>
                 <div id="roulette-result" class="text-2xl font-black text-pink-600 py-6 bg-pink-50 rounded-2xl border-2 border-dashed border-pink-200 h-20 flex items-center justify-center">?</div>
             </div>
         </div>
 
-        <!-- 5. 회화/메뉴 탭 -->
+        <!-- 5. 회화/메뉴 탭 (부모님 추천 메뉴 및 실전 회화 대폭 강화) -->
         <div id="phrases" class="tab-content pb-10 space-y-6">
-            <h2 class="text-lg font-black text-slate-800 px-1 mb-2">📢 생존 베트남어 & 메뉴</h2>
+            <h2 class="text-xl font-black text-slate-800 px-1 mb-2">📢 서바이벌 베트남어</h2>
             
+            <!-- 부모님 추천 메뉴 -->
             <div class="bg-stone-50 p-5 rounded-[2rem] border border-stone-200 shadow-sm">
-                <h3 class="font-black text-stone-700 border-b border-stone-200 pb-3 mb-4">☕ 어르신 추천 메뉴</h3>
+                <h3 class="font-black text-stone-700 border-b border-stone-200 pb-3 mb-4">☕ 부모님 추천 메뉴</h3>
                 <div class="space-y-3">
                     <div onclick="speak('Cà phê sữa đá')" class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-stone-100 cursor-pointer active:scale-95 transition">
-                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Cafe Sua Da</p><p class="text-sm font-black text-slate-800">달달한 연유 아이스 커피</p></div>
+                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Cafe Sua Da (카페 쓰어 다)</p><p class="text-sm font-black text-slate-800">달달한 연유 아이스 커피</p></div>
                         <i class="fas fa-volume-up text-blue-500 text-xl bg-blue-50 p-2 rounded-full"></i>
                     </div>
                     <div onclick="speak('Bạc xỉu')" class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-stone-100 cursor-pointer active:scale-95 transition">
-                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Bac Xiu</p><p class="text-sm font-black text-slate-800">부드러운 연유 우유 커피</p></div>
+                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Bac Xiu (박 씨우)</p><p class="text-sm font-black text-slate-800">부드러운 연유 우유 커피</p></div>
                         <i class="fas fa-volume-up text-blue-500 text-xl bg-blue-50 p-2 rounded-full"></i>
                     </div>
                     <div onclick="speak('Trà chanh')" class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-stone-100 cursor-pointer active:scale-95 transition">
-                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Tra Chanh</p><p class="text-sm font-black text-slate-800">시원한 라임 차 (커피X)</p></div>
+                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Tra Chanh (짜 짠)</p><p class="text-sm font-black text-slate-800">시원한 라임 차 (커피X)</p></div>
+                        <i class="fas fa-volume-up text-blue-500 text-xl bg-blue-50 p-2 rounded-full"></i>
+                    </div>
+                    <div onclick="speak('Sinh tố xoài')" class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-stone-100 cursor-pointer active:scale-95 transition">
+                        <div><p class="text-[10px] text-stone-400 font-bold uppercase">Sinh to xoai (신 또 쏘아이)</p><p class="text-sm font-black text-slate-800">리얼 망고 스무디</p></div>
                         <i class="fas fa-volume-up text-blue-500 text-xl bg-blue-50 p-2 rounded-full"></i>
                     </div>
                 </div>
             </div>
 
+            <!-- 식당 필수 회화 -->
             <div class="space-y-3 mt-6">
-                <h3 class="font-black text-orange-600 px-1 mb-3">🍜 식당 필수 회화</h3>
-                <div class="bg-orange-50 p-5 rounded-[2rem] border border-orange-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Không rau mùi')">
-                    <div><p class="text-[11px] text-orange-500 font-bold mb-1">고수 빼주세요</p><p class="text-xl font-black text-slate-800">Không rau mùi</p></div>
-                    <i class="fas fa-volume-up text-orange-500 text-2xl bg-white p-3 rounded-full shadow-sm"></i>
+                <h3 class="font-black text-orange-600 px-1 mb-3">🍽️ 식당 필수 회화</h3>
+                <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Không rau mùi')">
+                    <div><p class="text-[11px] text-orange-500 font-bold mb-1">고수 빼주세요</p><p class="text-lg font-black text-slate-800">Không rau mùi <span class="text-xs font-normal text-slate-500 block">(콩 라우 무이)</span></p></div>
+                    <i class="fas fa-volume-up text-orange-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
                 </div>
-                <div class="bg-orange-50 p-5 rounded-[2rem] border border-orange-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Không cay')">
-                    <div><p class="text-[11px] text-orange-500 font-bold mb-1">안 맵게 해주세요 (아이용)</p><p class="text-xl font-black text-slate-800">Không cay</p></div>
-                    <i class="fas fa-volume-up text-orange-500 text-2xl bg-white p-3 rounded-full shadow-sm"></i>
+                <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Không cay')">
+                    <div><p class="text-[11px] text-orange-500 font-bold mb-1">안 맵게 해주세요 (아이용)</p><p class="text-lg font-black text-slate-800">Không cay <span class="text-xs font-normal text-slate-500 block">(콩 까이)</span></p></div>
+                    <i class="fas fa-volume-up text-orange-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
                 </div>
-                <div class="bg-orange-50 p-5 rounded-[2rem] border border-orange-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Tính tiền')">
-                    <div><p class="text-[11px] text-orange-500 font-bold mb-1">계산해 주세요</p><p class="text-xl font-black text-slate-800">Tính tiền</p></div>
-                    <i class="fas fa-volume-up text-orange-500 text-2xl bg-white p-3 rounded-full shadow-sm"></i>
+                <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Cho tôi đá')">
+                    <div><p class="text-[11px] text-orange-500 font-bold mb-1">얼음 좀 주세요</p><p class="text-lg font-black text-slate-800">Cho tôi đá <span class="text-xs font-normal text-slate-500 block">(쪼 또이 다)</span></p></div>
+                    <i class="fas fa-volume-up text-orange-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Cho tôi mang về')">
+                    <div><p class="text-[11px] text-orange-500 font-bold mb-1">포장해 주세요</p><p class="text-lg font-black text-slate-800">Cho tôi mang về <span class="text-xs font-normal text-slate-500 block">(쪼 또이 망 베)</span></p></div>
+                    <i class="fas fa-volume-up text-orange-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Tính tiền')">
+                    <div><p class="text-[11px] text-orange-500 font-bold mb-1">계산해 주세요</p><p class="text-lg font-black text-slate-800">Tính tiền <span class="text-xs font-normal text-slate-500 block">(띵 띠엔)</span></p></div>
+                    <i class="fas fa-volume-up text-orange-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
+                </div>
+            </div>
+
+            <!-- 마사지 회화 -->
+            <div class="space-y-3 mt-6">
+                <h3 class="font-black text-purple-600 px-1 mb-3">💆 마사지 & 스파</h3>
+                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Nhẹ thôi')">
+                    <div><p class="text-[11px] text-purple-500 font-bold mb-1">약하게 해주세요 (살살)</p><p class="text-lg font-black text-slate-800">Nhẹ thôi <span class="text-xs font-normal text-slate-500 block">(니에 토이)</span></p></div>
+                    <i class="fas fa-volume-up text-purple-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Mạnh hơn')">
+                    <div><p class="text-[11px] text-purple-500 font-bold mb-1">세게 해주세요</p><p class="text-lg font-black text-slate-800">Mạnh hơn <span class="text-xs font-normal text-slate-500 block">(망 헌)</span></p></div>
+                    <i class="fas fa-volume-up text-purple-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Giảm điều hòa')">
+                    <div><p class="text-[11px] text-purple-500 font-bold mb-1">추워요 / 에어컨 줄여주세요</p><p class="text-lg font-black text-slate-800">Giảm điều hòa <span class="text-xs font-normal text-slate-500 block">(쟘 디에우 화)</span></p></div>
+                    <i class="fas fa-volume-up text-purple-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
+                </div>
+            </div>
+
+            <!-- 그랩 & 이동 -->
+            <div class="space-y-3 mt-6">
+                <h3 class="font-black text-emerald-600 px-1 mb-3">🚕 그랩 & 이동</h3>
+                <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Dừng ở đây')">
+                    <div><p class="text-[11px] text-emerald-600 font-bold mb-1">여기 세워주세요</p><p class="text-lg font-black text-slate-800">Dừng ở đây <span class="text-xs font-normal text-slate-500 block">(증 어 더이)</span></p></div>
+                    <i class="fas fa-volume-up text-emerald-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
+                </div>
+                <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Vui lòng đợi một chút')">
+                    <div><p class="text-[11px] text-emerald-600 font-bold mb-1">조금만 기다려주세요</p><p class="text-lg font-black text-slate-800">Đợi một chút <span class="text-xs font-normal text-slate-500 block">(더이 못 쭛)</span></p></div>
+                    <i class="fas fa-volume-up text-emerald-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
+                </div>
+            </div>
+
+            <!-- 쇼핑 & 흥정 -->
+            <div class="space-y-3 mt-6">
+                <h3 class="font-black text-pink-500 px-1 mb-3">🛒 쇼핑 & 흥정</h3>
+                <div class="bg-pink-50 p-4 rounded-2xl border border-pink-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Đắt quá')">
+                    <div><p class="text-[11px] text-pink-500 font-bold mb-1">너무 비싸요!</p><p class="text-lg font-black text-slate-800">Đắt quá <span class="text-xs font-normal text-slate-500 block">(닷 꽈)</span></p></div>
+                    <i class="fas fa-volume-up text-pink-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border border-pink-100 flex justify-between items-center shadow-sm cursor-pointer active:scale-95 transition" onclick="speak('Giảm giá đi')">
+                    <div><p class="text-[11px] text-pink-500 font-bold mb-1">깎아주세요</p><p class="text-lg font-black text-slate-800">Giảm giá đi <span class="text-xs font-normal text-slate-500 block">(쟘 쟈 디)</span></p></div>
+                    <i class="fas fa-volume-up text-pink-500 text-xl bg-white p-3 rounded-full shadow-sm"></i>
                 </div>
             </div>
         </div>
@@ -295,7 +347,7 @@
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">날짜</label><input type="text" id="form-date" placeholder="16일(목)" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">시간</label><input type="text" id="form-time" placeholder="09:40" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">장소 명칭</label><textarea id="form-place" placeholder="어디 가나요?" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-20"></textarea></div>
-                <div><label class="text-[10px] font-black text-slate-400 ml-2">그랩 목적지 (복사용)</label><input type="text" id="form-grab" placeholder="Grab 검색어" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
+                <div><label class="text-[10px] font-black text-slate-400 ml-2">그랩 목적지</label><input type="text" id="form-grab" placeholder="Grab 검색어" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
                 
                 <div>
                     <label class="text-[10px] font-black text-slate-400 ml-2 mb-1 block">구글 지도 링크들</label>
@@ -426,8 +478,7 @@
             { id: 'm3', category: 'mart', text: '마카다미아 / 건과일', checked: false }
         ];
 
-        let itinerary = []; let shoppingList = []; let vndToKrwRate = 0.055; 
-        let expensesList = [];
+        let itinerary = []; let shoppingList = []; let vndToKrwRate = 0.055; let expensesList = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             loadItinerary();
@@ -461,7 +512,6 @@
                 navigator.geolocation.getCurrentPosition(async (p) => {
                     const lat = p.coords.latitude; const lon = p.coords.longitude;
                     try {
-                        // accept-language=vi 를 추가하여 베트남어 주소로 강제 로드 (현지인 소통용)
                         const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&accept-language=vi`);
                         const d = await r.json(); 
                         if(d && d.display_name) {
@@ -487,8 +537,7 @@
         }
         
         function speakCurrentLocation() {
-            // 현지인이 완벽하게 알아듣는 문장
-            const text = `Xin chào. Tôi đang ở ${currentAddr}. Làm ơn giúp tôi. (안녕하세요. 저는 현재 ${currentAddr}에 있습니다. 도와주세요.)`;
+            const text = `Xin chào. Tôi đang ở ${currentAddr}. Làm ơn giúp tôi.`;
             const u = new SpeechSynthesisUtterance(text); u.lang = 'vi-VN'; u.rate = 0.8; window.speechSynthesis.speak(u);
         }
 
@@ -512,7 +561,7 @@
                 grouped[date].forEach(item => {
                     let realIndex = itinerary.indexOf(item);
                     let allLinks = item.link ? [item.link, ...(item.extraLinks || [])] : (item.extraLinks || []);
-                    let linksHtml = allLinks.map(url => `<a href="${url}" target="_blank" class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-100 mb-1 active:scale-95 transition"><i class="fas fa-map-marker-alt text-xs"></i></a>`).join('');
+                    let linksHtml = allLinks.map(url => `<a href="${url}" target="_blank" onclick="event.stopPropagation()" class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-100 mb-1 active:scale-95 transition"><i class="fas fa-map-marker-alt text-xs"></i></a>`).join('');
                     
                     let baseLen = item.place.length + (item.grab ? item.grab.length : 0);
                     let walkMin = (baseLen % 20) + 5;
@@ -535,7 +584,7 @@
                             </div>
                             <div class="flex flex-col space-y-1 items-center justify-center pt-1">
                                 ${linksHtml}
-                                <button onclick="openEditForm(${realIndex})" class="bg-slate-100 text-slate-500 px-4 py-2 rounded-xl text-xs font-black shadow-sm active:scale-95 transition mt-2 w-full hover:bg-slate-200">수정</button>
+                                <button onclick="event.stopPropagation(); openEditForm(${realIndex})" class="bg-slate-100 text-slate-500 px-4 py-2 rounded-xl text-xs font-black shadow-sm active:scale-95 transition mt-2 w-full hover:bg-slate-200">수정</button>
                             </div>
                         </div>`);
                 });
@@ -543,7 +592,7 @@
         }
 
         // =======================
-        // 📝 폼 관리
+        // 📝 일정 폼 관리
         // =======================
         function openAddForm() {
             closeModal(); document.getElementById('modal-title').innerText = "새 일정 추가";
@@ -584,7 +633,7 @@
         function deleteItineraryItem() { if(confirm("삭제할까요?")) { db.ref(`itinerary/${itinerary[document.getElementById('edit-index').value].firebaseKey}`).remove(); closeModal(); } }
 
         // =======================
-        // 🛒 쇼핑 리스트 
+        // 🛒 쇼핑 리스트
         // =======================
         function loadShoppingList() {
             db.ref('shopping').once('value').then(s => { if (!s.exists()) initialShoppingList.forEach(i => db.ref('shopping').push(i)); });
@@ -608,7 +657,7 @@
         }
 
         // =======================
-        // 💰 가계부 (환율 & 디테일 장부)
+        // 💰 가계부
         // =======================
         function loadExpenses() {
             db.ref('expenses').on('value', s => {
@@ -681,6 +730,7 @@
         function openSosModal() { document.getElementById('sos-modal').classList.remove('hidden'); }
         function closeSosModal() { document.getElementById('sos-modal').classList.add('hidden'); }
         function copyText(t) { navigator.clipboard.writeText(t).then(() => alert(`📋 복사완료: ${t}`)); }
+        function speak(t) { const u = new SpeechSynthesisUtterance(t); u.lang = 'vi-VN'; u.rate = 0.9; window.speechSynthesis.speak(u); }
     </script>
 </body>
 </html>
