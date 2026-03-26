@@ -6,6 +6,11 @@
     <title>가족 나트랑 여행 수호앱</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Firebase 호환(Compat) 라이브러리 추가 (기존 JS 구조 완벽 유지용) -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
         body { font-family: 'Noto Sans KR', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -31,7 +36,7 @@
         <div class="flex justify-between items-start">
             <div>
                 <h1 class="text-xl font-bold">🇻🇳 나트랑 수호앱</h1>
-                <a href="https://photos.app.goo.gl/3bg5xhorX58sJ1v66" target="_blank" class="inline-block mt-2 bg-white/20...">
+                <a href="https://photos.app.goo.gl/3bg5xhorX58sJ1v66" target="_blank" class="inline-block mt-2 bg-white/20 px-3 py-1 rounded-full text-xs font-bold hover:bg-white/30 transition">
                     <i class="fas fa-image mr-1"></i>우리 가족 사진관 📸
                 </a>
             </div>
@@ -132,7 +137,7 @@
         </div>
 
         <!-- 4. 회화 탭 -->
-<div id="phrases" class="tab-content pb-10">
+        <div id="phrases" class="tab-content pb-10">
             <h2 class="text-lg font-bold mb-4">📢 말하는 생존 베트남어</h2>
             <p class="text-[10px] text-blue-500 mb-4">* 스피커 아이콘(🔊)을 누르면 현지 발음이 나옵니다.</p>
             
@@ -284,7 +289,23 @@
     </div>
 
     <script>
-        // 원본 일정 데이터 100% 유지
+        // =======================
+        // Firebase 설정 및 초기화
+        // =======================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAqlBylKkE-KFvAFghWMM8egP-K3HZMqeo",
+            authDomain: "nhatrang-trip.firebaseapp.com",
+            databaseURL: "https://nhatrang-trip-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "nhatrang-trip",
+            storageBucket: "nhatrang-trip.firebasestorage.app",
+            messagingSenderId: "246629439315",
+            appId: "1:246629439315:web:99a3e74b2b4cbb783473a6",
+            measurementId: "G-5YMQ1MQZX9"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // 원본 데이터 100% 유지 (Firebase 최초 업로드용)
         const initialItinerary = [
             {date: "15일(수)", time: "14:40", place: "부개->운서역주차장", grab: "", link: "", extraLinks: [], remarks: "50분소요"},
             {date: "15일(수)", time: "~16:00", place: "운서역->인천공항(저녁식사 및 수속)", grab: "Incheon International Airport Terminal 1", link: "https://www.google.com/maps/search/?api=1&query=Incheon+International+Airport+Terminal+1", extraLinks: [], remarks: "15분소요, 16:00도착必"},
@@ -364,21 +385,33 @@
         function closeSosModal() { document.getElementById('sos-modal').classList.add('hidden'); }
 
         // =======================
-        // 쇼핑 리스트 CRUD
+        // 쇼핑 리스트 CRUD (Firebase 연동)
         // =======================
         function loadShoppingList() {
-            let saved = localStorage.getItem('family_shopping_v3');
-            shoppingList = saved ? JSON.parse(saved) : initialShoppingList;
-            if (!saved) localStorage.setItem('family_shopping_v3', JSON.stringify(shoppingList));
-            renderShoppingList();
+            // 초기 데이터 밀어넣기 로직 (DB가 비어있을 때 딱 한 번 실행됨)
+            db.ref('shopping').once('value').then((snapshot) => {
+                if (!snapshot.exists()) {
+                    initialShoppingList.forEach(item => db.ref('shopping').push(item));
+                }
+            });
+
+            // 실시간 리스너
+            db.ref('shopping').on('value', (snapshot) => {
+                const data = snapshot.val();
+                shoppingList = [];
+                if (data) {
+                    Object.entries(data).forEach(([key, val]) => {
+                        shoppingList.push({ ...val, firebaseKey: key });
+                    });
+                }
+                renderShoppingList();
+            });
         }
 
         function toggleShoppingItem(id) {
             let item = shoppingList.find(i => i.id === id);
             if(item) {
-                item.checked = !item.checked;
-                localStorage.setItem('family_shopping_v3', JSON.stringify(shoppingList));
-                renderShoppingList();
+                db.ref(`shopping/${item.firebaseKey}/checked`).set(!item.checked);
             }
         }
 
@@ -418,18 +451,19 @@
             let cat = document.getElementById('shopping-category').value;
             let txt = document.getElementById('shopping-text').value;
             if(!txt) { alert('살 물건을 입력해주세요.'); return; }
-            shoppingList.push({ id: 's' + Date.now(), category: cat, text: txt, checked: false });
-            localStorage.setItem('family_shopping_v3', JSON.stringify(shoppingList));
+            
+            let newItem = { id: 's' + Date.now(), category: cat, text: txt, checked: false };
+            db.ref('shopping').push(newItem);
             closeShoppingModal();
-            renderShoppingList();
         }
 
         function deleteShoppingItem(id, event) {
             event.stopPropagation();
             if(!confirm("이 항목을 삭제하시겠습니까?")) return;
-            shoppingList = shoppingList.filter(i => i.id !== id);
-            localStorage.setItem('family_shopping_v3', JSON.stringify(shoppingList));
-            renderShoppingList();
+            let item = shoppingList.find(i => i.id === id);
+            if(item) {
+                db.ref(`shopping/${item.firebaseKey}`).remove();
+            }
         }
 
         // =======================
@@ -502,13 +536,27 @@
         }
 
         // =======================
-        // 일정 관리
+        // 일정 관리 (Firebase 연동)
         // =======================
         function loadItinerary() {
-            let saved = localStorage.getItem('family_itinerary_hero');
-            itinerary = saved ? JSON.parse(saved) : initialItinerary;
-            if (!saved) localStorage.setItem('family_itinerary_hero', JSON.stringify(itinerary));
-            renderItinerary();
+            // 초기 데이터 밀어넣기 로직 (DB가 비어있을 때 딱 한 번 실행됨)
+            db.ref('itinerary').once('value').then((snapshot) => {
+                if (!snapshot.exists()) {
+                    initialItinerary.forEach(item => db.ref('itinerary').push(item));
+                }
+            });
+
+            // 실시간 리스너
+            db.ref('itinerary').on('value', (snapshot) => {
+                const data = snapshot.val();
+                itinerary = [];
+                if (data) {
+                    Object.entries(data).forEach(([key, val]) => {
+                        itinerary.push({ ...val, firebaseKey: key });
+                    });
+                }
+                renderItinerary();
+            });
         }
 
         function renderItinerary() {
@@ -543,7 +591,7 @@
                     let itemHtml = `
                         <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 mb-3">
                             <div class="flex justify-between items-start">
-                                <div onclick="openEditForm(${realIndex})" class="flex-1 w-2/3 pr-2">
+                                <div onclick="openEditForm(${realIndex})" class="flex-1 w-2/3 pr-2 cursor-pointer">
                                     ${item.time ? `<span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded inline-block mb-1">${item.time}</span>` : ''}
                                     <h3 class="font-bold text-lg whitespace-pre-wrap">${item.place}</h3>
                                     ${item.grab ? `<p class="text-[11px] text-gray-500 mt-1 truncate"><i class="fas fa-car mr-1"></i>${item.grab}</p>` : ''}
@@ -591,25 +639,30 @@
                 place: document.getElementById('form-place').value || "장소 없음",
                 grab: document.getElementById('form-grab').value,
                 link: document.getElementById('form-link').value,
-                extraLinks: index !== "" ? itinerary[index].extraLinks : [], 
+                extraLinks: index !== "" ? (itinerary[index].extraLinks || []) : [], 
                 remarks: document.getElementById('form-remarks').value
             };
 
-            if (index !== "") { itinerary[index] = item; }
-            else { itinerary.push(item); }
+            if (index !== "") {
+                // 기존 데이터 수정
+                let key = itinerary[index].firebaseKey;
+                db.ref(`itinerary/${key}`).set(item);
+            } else {
+                // 새 데이터 추가
+                db.ref('itinerary').push(item);
+            }
 
-            localStorage.setItem('family_itinerary_hero', JSON.stringify(itinerary));
             closeModal();
-            renderItinerary();
+            // renderItinerary()는 Firebase의 on('value') 리스너가 자동으로 처리합니다!
         }
 
         function deleteItineraryItem() {
             if(!confirm("이 일정을 삭제하시겠습니까?")) return;
             let index = document.getElementById('edit-index').value;
-            itinerary.splice(index, 1);
-            localStorage.setItem('family_itinerary_hero', JSON.stringify(itinerary));
+            let key = itinerary[index].firebaseKey;
+            
+            db.ref(`itinerary/${key}`).remove();
             closeModal();
-            renderItinerary();
         }
 
         function showTab(tabId) {
@@ -637,10 +690,9 @@
 
         // 베트남어 TTS 발음 함수
         function speak(text) {
-            // 브라우저의 발음 엔진 호출
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'vi-VN'; // 베트남어 설정
-            utterance.rate = 0.9;     // 조금 천천히 말하도록 설정
+            utterance.lang = 'vi-VN'; 
+            utterance.rate = 0.9;     
             window.speechSynthesis.speak(utterance);
         }
     </script>
