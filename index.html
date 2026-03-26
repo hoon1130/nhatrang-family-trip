@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v12 (최종 통합본)</title>
+    <title>가족 나트랑 여행 수호앱 v12 (날짜 완벽 수정본)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Firebase & JS 라이브러리 -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
-    <!-- 사진 일괄 다운로드용 라이브러리 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <style>
@@ -29,7 +27,6 @@
 </head>
 <body class="bg-slate-50 pb-24 relative">
 
-    <!-- 🕒 킬러기능 1: 실시간 일정 브리핑 헤더 -->
     <header class="briefing-card text-white p-5 sticky top-0 z-50 shadow-xl rounded-b-[2rem]">
         <div id="next-briefing" class="mb-4 bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/20">
             <p class="text-[10px] text-blue-200 font-black uppercase tracking-widest mb-1">NEXT SCHEDULE</p>
@@ -59,9 +56,7 @@
 
     <main class="p-4">
         
-        <!-- 1. 일정 탭 -->
         <div id="schedule" class="tab-content active space-y-4">
-            <!-- 상태 바 카드 -->
             <div class="grid grid-cols-2 gap-3">
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-center">
                     <p class="text-[10px] text-slate-400 font-bold mb-1">실시간 환율 (10만 동)</p>
@@ -73,7 +68,6 @@
                 </div>
             </div>
 
-            <!-- 일정 리스트 -->
             <div id="itinerary-list" class="space-y-6"></div>
             
             <button onclick="openAddForm()" class="w-full bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg transition active:scale-95 mt-4">
@@ -81,7 +75,6 @@
             </button>
         </div>
 
-        <!-- 2. 쇼핑 탭 (디자인 업그레이드 유지) -->
         <div id="shopping" class="tab-content space-y-4">
             <div class="flex justify-between items-end mb-4 px-1">
                 <h2 class="text-lg font-black text-slate-800">🛒 필수 쇼핑 리스트</h2>
@@ -105,7 +98,6 @@
             </div>
         </div>
 
-        <!-- 3. 스마트 사진관 (v12 킬러 기능) -->
         <div id="gallery" class="tab-content space-y-4">
             <div class="flex justify-between items-center bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100">
                 <div>
@@ -121,14 +113,11 @@
                 </div>
             </div>
             <div id="photo-feed" class="grid grid-cols-2 gap-3 mt-4">
-                <!-- 사진들 로딩 -->
-            </div>
+                </div>
         </div>
 
-        <!-- 4. 도구/SOS 탭 -->
         <div id="tools" class="tab-content space-y-6">
             
-            <!-- 🚑 긴급 상황 & 위치 TTS -->
             <div class="bg-red-50 p-5 rounded-[2rem] border border-red-100 shadow-sm">
                 <h3 class="font-black mb-3 text-red-600 flex items-center justify-between">
                     <span><i class="fas fa-map-marker-alt mr-2"></i>긴급 위치 안내 (SOS)</span>
@@ -154,7 +143,6 @@
                 </div>
             </div>
 
-            <!-- 🚕 그랩 치트키 -->
             <div class="bg-slate-900 text-white p-6 rounded-[2rem] shadow-xl border-4 border-yellow-400">
                 <h3 class="font-black mb-4 text-yellow-400 flex items-center justify-center text-lg">
                     <i class="fas fa-car mr-2"></i>그랩 차량 번호 확인
@@ -166,7 +154,6 @@
                 </div>
             </div>
 
-            <!-- 호텔 복사 치트키 -->
             <div class="bg-indigo-50 p-5 rounded-[2rem] shadow-sm border border-indigo-100">
                 <h3 class="font-black mb-3 text-indigo-700"><i class="fas fa-id-card mr-2"></i>호텔 주소 치트키</h3>
                 <div class="space-y-2">
@@ -181,7 +168,6 @@
                 </div>
             </div>
 
-            <!-- 💰 실시간 경비 장부 -->
             <div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100">
                 <div class="flex justify-between items-center mb-4 border-b border-slate-50 pb-3">
                     <h3 class="font-black text-blue-600"><i class="fas fa-wallet mr-2"></i>공동 경비 장부</h3>
@@ -199,14 +185,12 @@
                 <ul id="expense-list" class="mt-4 space-y-2 max-h-48 overflow-y-auto pr-1 text-sm font-bold text-slate-600"></ul>
             </div>
 
-            <!-- 🎯 복불복 룰렛 -->
             <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 text-center">
                 <h3 class="font-black mb-4 text-slate-800"><i class="fas fa-dice mr-2 text-pink-500"></i>누가 쏠까? 복불복</h3>
                 <div id="roulette-result" class="text-2xl font-black text-pink-600 py-6 bg-pink-50 rounded-2xl border-2 border-dashed border-pink-200 mb-5 h-20 flex items-center justify-center">?</div>
                 <button onclick="startRoulette()" class="w-full bg-slate-800 text-white font-black p-4 rounded-2xl shadow-xl active:scale-95 transition">룰렛 돌리기 🎯</button>
             </div>
             
-            <!-- 환율 계산기 및 팁 가이드 -->
             <div class="bg-yellow-50 p-5 rounded-[2rem] shadow-sm border border-yellow-100">
                 <h3 class="font-black mb-3 text-yellow-800"><i class="fas fa-coins mr-2"></i>베트남 매너 팁(Tip)</h3>
                 <ul class="text-xs text-slate-700 space-y-2 font-bold bg-white p-4 rounded-2xl shadow-sm">
@@ -224,7 +208,6 @@
             </div>
         </div>
 
-        <!-- 5. 회화/메뉴 탭 -->
         <div id="phrases" class="tab-content pb-10 space-y-6">
             <h2 class="text-lg font-black text-slate-800 px-1 mb-2">📢 생존 베트남어 & 메뉴</h2>
             
@@ -264,12 +247,10 @@
         </div>
     </main>
 
-    <!-- 👶 지안이 SOS 플로팅 버튼 -->
     <button onclick="openSosModal()" class="fixed bottom-24 right-4 bg-red-500 text-white w-16 h-16 rounded-full shadow-2xl flex flex-col items-center justify-center z-[60] shake-animation border-4 border-white transition active:scale-110">
         <span class="text-2xl">👶</span><span class="text-[9px] font-black uppercase mt-0.5">SOS</span>
     </button>
 
-    <!-- 하단 네비게이션 -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-100 flex justify-around p-3 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)]">
         <button onclick="showTab('schedule')" class="tab-btn active-tab flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-calendar-check text-xl mb-1"></i><span class="text-[10px] font-black">일정</span></button>
         <button onclick="showTab('shopping')" class="tab-btn flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-shopping-bag text-xl mb-1"></i><span class="text-[10px] font-black">쇼핑</span></button>
@@ -278,7 +259,6 @@
         <button onclick="showTab('phrases')" class="tab-btn flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-comment-dots text-xl mb-1"></i><span class="text-[10px] font-black">회화/메뉴</span></button>
     </nav>
 
-    <!-- 일정 추가/수정 모달 -->
     <div id="itinerary-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm">
         <div class="bg-white p-6 rounded-[2.5rem] w-full max-w-md shadow-2xl max-h-[85vh] overflow-y-auto">
             <h3 id="modal-title" class="text-xl font-black mb-5 text-slate-800">일정 관리</h3>
@@ -305,7 +285,6 @@
         </div>
     </div>
 
-    <!-- 쇼핑 모달 -->
     <div id="shopping-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm">
         <div class="bg-white p-8 rounded-[2.5rem] w-full max-w-md shadow-2xl">
             <h3 class="text-xl font-black mb-6 text-slate-800 text-center">🛒 쇼핑 리스트 추가</h3>
@@ -322,7 +301,6 @@
         </div>
     </div>
 
-    <!-- 사진 크게보기 모달 -->
     <div id="photo-modal" class="fixed inset-0 bg-black/95 z-[200] hidden flex flex-col items-center justify-center p-6 backdrop-blur-md">
         <img id="modal-img" class="max-w-full max-h-[75vh] rounded-3xl shadow-2xl mb-8 object-contain">
         <div class="flex space-x-4 w-full max-w-sm">
@@ -331,7 +309,6 @@
         </div>
     </div>
 
-    <!-- 지안 SOS 모달 -->
     <div id="sos-modal" class="fixed inset-0 bg-slate-900/80 z-[150] hidden flex flex-col items-center justify-center p-8 backdrop-blur-md">
         <div class="bg-white p-8 rounded-[3rem] w-full max-w-sm text-center shadow-2xl relative border-4 border-red-100">
             <button onclick="closeSosModal()" class="absolute top-6 right-6 text-slate-300 text-2xl hover:text-slate-500"><i class="fas fa-times"></i></button>
@@ -347,7 +324,7 @@
 
     <script>
         // =======================
-        // Firebase 설정 (지훈님 API 키 유지)
+        // Firebase 설정 
         // =======================
         const firebaseConfig = {
             apiKey: "AIzaSyAqlBylKkE-KFvAFghWMM8egP-K3HZMqeo",
@@ -362,10 +339,11 @@
         const db = firebase.database();
 
         // =======================
-        // 💾 마스터 데이터 100% (일정 38개, 쇼핑 11개 누락 없음)
+        // 💾 마스터 데이터 세팅 
         // =======================
-        const tripStart = new Date("2026-03-15").getTime();
-        const tripEnd = new Date("2026-03-19").getTime(); 
+        // ※ 4월 15일 기준으로 완벽하게 날짜 로직 수정 ※
+        const tripStart = new Date("2026-04-15T00:00:00").getTime();
+        const tripEnd = new Date("2026-04-19T00:00:00").getTime(); 
         const rouletteMembers = ['할아버지 🎯', '할머니 🎯', '아빠 🎯', '엄마 🎯', '이모 🎯', '이모부 🎯'];
 
         const initialItinerary = [
@@ -444,7 +422,7 @@
         });
 
         // =======================
-        // 🕒 1. 브리핑 & D-Day 로직
+        // 🕒 1. 브리핑 & D-Day 로직 (정교한 자정 기준 계산)
         // =======================
         function updateRealTimeBriefing() {
             if (itinerary.length === 0) return;
@@ -459,10 +437,16 @@
         }
 
         function updateDDay() {
-            const today = new Date().getTime();
-            const diff = tripStart - today;
-            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('d-day').innerText = days > 0 ? `D-${days}` : (days === 0 ? "DAY-0" : `여행 ${Math.abs(days)+1}일차`);
+            const now = new Date();
+            // 자정 기준으로 날짜 차이만 깔끔하게 계산
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+            // 여행 시작일 2026년 4월 15일 (자바스크립트 월은 0부터 시작하므로 3이 4월)
+            const startDate = new Date(2026, 3, 15).getTime(); 
+            
+            const diff = startDate - today;
+            const days = Math.round(diff / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('d-day').innerText = days > 0 ? `D-${days}` : (days === 0 ? "D-DAY" : `여행 ${Math.abs(days)+1}일차`);
         }
 
         // =======================
