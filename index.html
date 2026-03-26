@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱</title>
+    <title>가족 나트랑 여행 수호앱 v7</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <!-- 3. 도구 & 정보 탭 (치트키 추가) -->
+        <!-- 3. 도구 & 정보 탭 (치트키 및 신규 기능 추가) -->
         <div id="tools" class="tab-content space-y-6">
             <h2 class="text-lg font-bold">🧮 여행 도구 & 치트키</h2>
             
@@ -110,8 +110,43 @@
                 </div>
             </div>
 
+            <!-- 신규 킬러기능 1: 실시간 공동 경비 장부 -->
             <div class="bg-white p-4 rounded-xl shadow border">
-                <h3 class="font-bold mb-3"><i class="fas fa-divide mr-2 text-green-500"></i>N분의 1 비용 정산</h3>
+                <div class="flex justify-between items-end mb-3 border-b pb-2">
+                    <h3 class="font-bold text-blue-600"><i class="fas fa-wallet mr-2"></i>실시간 공동 경비 장부</h3>
+                    <span id="total-expense-display" class="font-bold text-lg text-red-500">0 동</span>
+                </div>
+                
+                <div class="flex space-x-2 mb-3">
+                    <input type="text" id="expense-desc" placeholder="내역 (예: 목식당)" class="w-1/2 p-2 border rounded bg-gray-50 text-sm">
+                    <input type="number" id="expense-amount" placeholder="금액 (VND)" class="w-1/2 p-2 border rounded bg-gray-50 text-sm">
+                    <button onclick="addExpense()" class="bg-blue-600 text-white px-3 rounded font-bold whitespace-nowrap">추가</button>
+                </div>
+                
+                <div class="bg-blue-50 p-3 rounded-lg mb-3 flex justify-between items-center shadow-inner">
+                    <span class="text-sm font-bold text-gray-700">8명 기준 1인당 정산액:</span>
+                    <span id="per-person-krw" class="font-bold text-blue-700 text-lg">₩ 0</span>
+                </div>
+
+                <ul id="expense-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                    <!-- 지출 내역 목록 (Firebase 실시간 연동) -->
+                </ul>
+            </div>
+
+            <!-- 신규 킬러기능 2: 가족 복불복 룰렛 -->
+            <div class="bg-pink-50 p-4 rounded-xl shadow border border-pink-100 text-center">
+                <h3 class="font-bold mb-3 text-pink-600"><i class="fas fa-gift mr-2"></i>누가 쏠까? 복불복 룰렛 🎯</h3>
+                <div id="roulette-result" class="text-2xl font-bold text-gray-800 py-4 bg-white rounded-lg border-2 border-dashed border-pink-300 mb-3 h-16 flex items-center justify-center transition-all duration-300">
+                    버튼을 눌러주세요!
+                </div>
+                <button onclick="startRoulette()" class="w-full bg-pink-500 text-white font-bold p-3 rounded-xl shadow hover:bg-pink-600 transition transform active:scale-95">
+                    룰렛 돌리기 🎲
+                </button>
+            </div>
+
+            <!-- (기존) N분의 1 비용 정산 (단순 계산기) -->
+            <div class="bg-white p-4 rounded-xl shadow border">
+                <h3 class="font-bold mb-3"><i class="fas fa-divide mr-2 text-green-500"></i>단순 N/1 계산기</h3>
                 <input type="number" id="total-expense" placeholder="총 지출 금액 (VND) 입력" class="w-full p-3 border rounded mb-2">
                 <input type="number" id="num-people" value="8" placeholder="인원 수 입력" class="w-full p-3 border rounded mb-2">
                 <p id="split-result" class="font-bold text-xl text-green-600 text-center py-2">₩-- / 인당</p>
@@ -142,7 +177,7 @@
             <p class="text-[10px] text-blue-500 mb-4">* 스피커 아이콘(🔊)을 누르면 현지 발음이 나옵니다.</p>
             
             <div class="space-y-6">
-                <!-- 식당 섹션 예시 (다른 섹션도 동일한 구조로 확장 가능) -->
+                <!-- 식당 섹션 -->
                 <div>
                     <h3 class="font-bold text-orange-600 border-b pb-2 mb-3"><i class="fas fa-utensils mr-2"></i>식당 & 카페</h3>
                     <div class="grid grid-cols-1 gap-3">
@@ -253,15 +288,24 @@
 
     <!-- 일정 추가/수정 모달 -->
     <div id="itinerary-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden p-6 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-2xl w-full max-w-md space-y-3 shadow-2xl">
-            <h3 id="modal-title" class="text-lg font-bold">일정 추가</h3>
+        <div class="bg-white p-6 rounded-2xl w-full max-w-md space-y-3 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h3 id="modal-title" class="text-lg font-bold">일정 관리</h3>
             <input type="hidden" id="edit-index">
             <input type="text" id="form-date" placeholder="날짜 (예: 16일(목))" class="w-full p-2 border rounded bg-gray-50">
             <input type="text" id="form-time" placeholder="시간 (예: 09:40~)" class="w-full p-2 border rounded bg-gray-50">
             <textarea id="form-place" placeholder="일정 명칭" class="w-full p-2 border rounded bg-gray-50 h-16"></textarea>
             <input type="text" id="form-grab" placeholder="Grab 검색어" class="w-full p-2 border rounded bg-gray-50">
-            <input type="url" id="form-link" placeholder="구글 지도 링크" class="w-full p-2 border rounded bg-gray-50">
+            
+            <!-- 링크 다중 입력 컨테이너 추가 -->
+            <div id="links-container" class="space-y-2">
+                <!-- 링크 입력칸이 동적으로 생성되는 곳 -->
+            </div>
+            <button type="button" onclick="addLinkInput()" class="w-full text-sm text-blue-600 font-bold bg-blue-50 p-2 rounded border border-blue-100 border-dashed">
+                <i class="fas fa-plus mr-1"></i>구글 지도 링크 추가
+            </button>
+
             <textarea id="form-remarks" placeholder="비고 (remarks)" class="w-full p-2 border rounded h-20 bg-gray-50"></textarea>
+            
             <div class="flex space-x-2 pt-2">
                 <button onclick="saveItineraryItem()" class="flex-1 bg-blue-600 text-white p-3 rounded font-bold">저장</button>
                 <button onclick="closeModal()" class="flex-1 bg-gray-300 p-3 rounded font-bold text-gray-700">취소</button>
@@ -373,6 +417,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadItinerary();
             loadShoppingList();
+            loadExpenses(); // 실시간 공동 경비 장부 불러오기
             initWeatherOpenMeteo();
             initExchangeRate();
             initExpenseTools();
@@ -385,17 +430,110 @@
         function closeSosModal() { document.getElementById('sos-modal').classList.add('hidden'); }
 
         // =======================
+        // 실시간 공동 경비 장부 (신규 기능)
+        // =======================
+        let expensesList = [];
+
+        function loadExpenses() {
+            db.ref('expenses').on('value', (snapshot) => {
+                const data = snapshot.val();
+                expensesList = [];
+                let totalVND = 0;
+                if (data) {
+                    Object.entries(data).forEach(([key, val]) => {
+                        expensesList.push({ ...val, firebaseKey: key });
+                        totalVND += Number(val.amount) || 0;
+                    });
+                }
+                renderExpenses(totalVND);
+            });
+        }
+
+        function addExpense() {
+            const desc = document.getElementById('expense-desc').value;
+            const amount = document.getElementById('expense-amount').value;
+            if(!desc || !amount) { alert('내역과 금액을 모두 입력해주세요.'); return; }
+            
+            db.ref('expenses').push({
+                desc: desc,
+                amount: Number(amount),
+                timestamp: Date.now()
+            });
+            
+            document.getElementById('expense-desc').value = '';
+            document.getElementById('expense-amount').value = '';
+        }
+
+        function deleteExpense(key) {
+            if(confirm('이 지출 내역을 삭제할까요?')) {
+                db.ref(`expenses/${key}`).remove();
+            }
+        }
+
+        function renderExpenses(totalVND) {
+            document.getElementById('total-expense-display').innerText = totalVND.toLocaleString() + ' ₫';
+            
+            let perPersonVND = totalVND / 8; // 8인 대가족 기준 자동 정산
+            let perPersonKRW = (perPersonVND * vndToKrwRate).toFixed(0);
+            document.getElementById('per-person-krw').innerText = `₩ ${Number(perPersonKRW).toLocaleString()}`;
+
+            const list = document.getElementById('expense-list');
+            list.innerHTML = '';
+            
+            // 최신순으로 위에 표시
+            expensesList.sort((a, b) => b.timestamp - a.timestamp).forEach(item => {
+                let html = `
+                    <li class="flex justify-between items-center p-2 bg-white border rounded text-sm shadow-sm">
+                        <span class="font-bold text-gray-700 flex-1 truncate pr-2">${item.desc}</span>
+                        <span class="font-mono text-blue-600 mr-2">${Number(item.amount).toLocaleString()} ₫</span>
+                        <button onclick="deleteExpense('${item.firebaseKey}')" class="text-red-400 p-1"><i class="fas fa-times"></i></button>
+                    </li>
+                `;
+                list.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        // =======================
+        // 복불복 룰렛 (신규 기능)
+        // =======================
+        const rouletteMembers = ['할아버지 🎯', '할머니 🎯', '아빠(지훈) 🎯', '엄마 🎯', '첫째 🎯', '지안이 🎯', '삼촌 🎯', '고모 🎯']; 
+        let isSpinning = false;
+
+        function startRoulette() {
+            if(isSpinning) return;
+            isSpinning = true;
+            const resultEl = document.getElementById('roulette-result');
+            let counter = 0;
+            const maxSpins = 20; // 빠르게 돌아가는 횟수
+            
+            const interval = setInterval(() => {
+                const randomName = rouletteMembers[Math.floor(Math.random() * rouletteMembers.length)];
+                resultEl.innerText = randomName;
+                resultEl.classList.remove('text-pink-600', 'scale-110');
+                resultEl.classList.add('text-gray-400');
+                counter++;
+                
+                if(counter >= maxSpins) {
+                    clearInterval(interval);
+                    const finalResult = rouletteMembers[Math.floor(Math.random() * rouletteMembers.length)];
+                    resultEl.innerText = "🎉 " + finalResult + " 🎉";
+                    resultEl.classList.remove('text-gray-400');
+                    resultEl.classList.add('text-pink-600', 'scale-110');
+                    isSpinning = false;
+                }
+            }, 80); // 속도 (0.08초마다 변경)
+        }
+
+        // =======================
         // 쇼핑 리스트 CRUD (Firebase 연동)
         // =======================
         function loadShoppingList() {
-            // 초기 데이터 밀어넣기 로직 (DB가 비어있을 때 딱 한 번 실행됨)
             db.ref('shopping').once('value').then((snapshot) => {
                 if (!snapshot.exists()) {
                     initialShoppingList.forEach(item => db.ref('shopping').push(item));
                 }
             });
 
-            // 실시간 리스너
             db.ref('shopping').on('value', (snapshot) => {
                 const data = snapshot.val();
                 shoppingList = [];
@@ -511,6 +649,13 @@
             } catch (e) {
                 summary.innerText = "₩5,500 (고정값)";
             }
+            
+            // 환율 셋팅 완료 시, 실시간 경부 장부의 KRW 재계산 호출
+            if(expensesList.length > 0) {
+                let totalVND = expensesList.reduce((acc, curr) => acc + Number(curr.amount), 0);
+                renderExpenses(totalVND);
+            }
+
             const vndInput = document.getElementById('vnd-input');
             const krwInput = document.getElementById('krw-input');
             vndInput.addEventListener('input', () => {
@@ -536,17 +681,40 @@
         }
 
         // =======================
+        // 다중 링크 입력 로직 (신규 추가)
+        // =======================
+        function addLinkInput(value = '') {
+            const container = document.getElementById('links-container');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'flex space-x-2';
+            
+            const input = document.createElement('input');
+            input.type = 'url';
+            input.placeholder = '구글 지도 링크';
+            input.className = 'w-full p-2 border rounded bg-gray-50 flex-1 form-link-item text-sm';
+            input.value = value;
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'bg-red-50 text-red-400 w-10 rounded flex items-center justify-center flex-shrink-0';
+            removeBtn.innerHTML = '<i class="fas fa-minus"></i>';
+            removeBtn.onclick = () => wrapper.remove();
+            
+            wrapper.appendChild(input);
+            wrapper.appendChild(removeBtn);
+            container.appendChild(wrapper);
+        }
+
+        // =======================
         // 일정 관리 (Firebase 연동)
         // =======================
         function loadItinerary() {
-            // 초기 데이터 밀어넣기 로직 (DB가 비어있을 때 딱 한 번 실행됨)
             db.ref('itinerary').once('value').then((snapshot) => {
                 if (!snapshot.exists()) {
                     initialItinerary.forEach(item => db.ref('itinerary').push(item));
                 }
             });
 
-            // 실시간 리스너
             db.ref('itinerary').on('value', (snapshot) => {
                 const data = snapshot.val();
                 itinerary = [];
@@ -612,6 +780,12 @@
         function openAddForm() {
             closeModal();
             document.getElementById('modal-title').innerText = "일정 추가";
+            
+            // 새 일정 시 기본 링크 칸 1개 생성
+            const container = document.getElementById('links-container');
+            container.innerHTML = '';
+            addLinkInput(); 
+            
             document.getElementById('delete-btn').classList.add('hidden');
             document.getElementById('itinerary-modal').classList.remove('hidden');
         }
@@ -625,35 +799,54 @@
             document.getElementById('form-time').value = item.time;
             document.getElementById('form-place').value = item.place;
             document.getElementById('form-grab').value = item.grab;
-            document.getElementById('form-link').value = item.link;
             document.getElementById('form-remarks').value = item.remarks;
+            
+            // 기존 링크들을 동적 입력칸으로 세팅
+            const container = document.getElementById('links-container');
+            container.innerHTML = '';
+            
+            let allLinks = [];
+            if (item.link) allLinks.push(item.link);
+            if (item.extraLinks && item.extraLinks.length > 0) allLinks.push(...item.extraLinks);
+            
+            if (allLinks.length === 0) {
+                addLinkInput(); // 비어있어도 최소 1개는 보여줌
+            } else {
+                allLinks.forEach(link => addLinkInput(link));
+            }
+
             document.getElementById('delete-btn').classList.remove('hidden');
             document.getElementById('itinerary-modal').classList.remove('hidden');
         }
 
         function saveItineraryItem() {
             let index = document.getElementById('edit-index').value;
+            
+            // 다중 링크 값 취합
+            const linkInputs = document.querySelectorAll('.form-link-item');
+            const validLinks = Array.from(linkInputs).map(inp => inp.value.trim()).filter(val => val !== '');
+            
+            let mainLink = validLinks.length > 0 ? validLinks[0] : "";
+            let extras = validLinks.length > 1 ? validLinks.slice(1) : [];
+
             let item = {
                 date: document.getElementById('form-date').value || "일정 미정",
                 time: document.getElementById('form-time').value,
                 place: document.getElementById('form-place').value || "장소 없음",
                 grab: document.getElementById('form-grab').value,
-                link: document.getElementById('form-link').value,
-                extraLinks: index !== "" ? (itinerary[index].extraLinks || []) : [], 
+                link: mainLink,
+                extraLinks: extras,
                 remarks: document.getElementById('form-remarks').value
             };
 
             if (index !== "") {
-                // 기존 데이터 수정
                 let key = itinerary[index].firebaseKey;
                 db.ref(`itinerary/${key}`).set(item);
             } else {
-                // 새 데이터 추가
                 db.ref('itinerary').push(item);
             }
 
             closeModal();
-            // renderItinerary()는 Firebase의 on('value') 리스너가 자동으로 처리합니다!
         }
 
         function deleteItineraryItem() {
@@ -677,6 +870,7 @@
             document.getElementById('itinerary-modal').classList.add('hidden');
             document.getElementById('edit-index').value = "";
             document.getElementById('itinerary-modal').querySelectorAll('input[type="text"], input[type="url"], textarea').forEach(el => el.value = "");
+            document.getElementById('links-container').innerHTML = ''; // 모달 닫을 때 링크 컨테이너 깔끔하게 비움
         }
 
         function copyText(text) {
