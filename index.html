@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱</title>
+    <title>가족 나트랑 여행 수호앱 v4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -13,566 +13,279 @@
         .tab-content.active { display: block; }
         .tab-btn.active-tab { color: #3b82f6; border-bottom: 3px solid #3b82f6; }
         .check-item.checked .text-content { text-decoration: line-through; color: #9ca3af; }
-        /* 흔들리는 애니메이션 (SOS 버튼용) */
-        @keyframes shake {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
-            100% { transform: rotate(0deg); }
-        }
+        @keyframes shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-5deg); } 75% { transform: rotate(5deg); } }
         .shake-animation { animation: shake 2s infinite ease-in-out; }
     </style>
 </head>
-<body class="bg-gray-50 pb-20 relative">
+<body class="bg-gray-50 pb-20">
 
-    <!-- 헤더 & 날씨 맞춤 코디 알림 -->
     <header class="bg-blue-600 text-white p-4 sticky top-0 z-40 shadow-lg">
         <div class="flex justify-between items-start">
             <div>
-                <h1 class="text-xl font-bold">🇻🇳 나트랑 수호앱</h1>
-                <a href="https://photos.app.goo.gl/3bg5xhorX58sJ1v66" target="_blank" class="inline-block mt-2 bg-white/20...">
+                <h1 class="text-xl font-bold">🇻🇳 변가네 나트랑 수호앱</h1>
+                <a href="https://photos.app.goo.gl/YourLinkHere" target="_blank" class="inline-block mt-2 bg-white/20 px-3 py-1 rounded-full text-xs font-bold hover:bg-white/30 transition">
                     <i class="fas fa-image mr-1"></i>우리 가족 사진관 📸
                 </a>
             </div>
             <div class="text-right flex flex-col items-end">
                 <div class="flex items-center space-x-2">
-                    <span id="weather-icon" class="text-2xl">⏳</span>
+                    <span id="weather-icon" class="text-2xl">☀️</span>
                     <span id="weather-summary" class="text-sm font-bold text-blue-100">날씨 로딩중</span>
                 </div>
-                <!-- 킬러기능 5: 날씨 기반 챙길 물건 알림 -->
-                <p id="weather-tip" class="text-[10px] bg-blue-800 text-yellow-300 px-2 py-1 rounded mt-1 font-bold animate-pulse">정보 분석중...</p>
+                <p id="weather-tip" class="text-[10px] bg-blue-800 text-yellow-300 px-2 py-1 rounded mt-1 font-bold">팁 분석중...</p>
             </div>
         </div>
     </header>
 
     <main class="p-4">
-        
         <!-- 1. 일정 탭 -->
         <div id="schedule" class="tab-content active space-y-4">
             <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100 text-center text-sm">
-                <p class="text-gray-500">현재 환율 (10만 동 기준)</p>
-                <p id="rate-summary" class="font-bold text-blue-600 text-lg">₩로딩중...</p>
+                <p class="text-gray-500">실시간 환율 (10만 동 기준)</p>
+                <p id="rate-summary" class="font-bold text-blue-600 text-lg font-mono">₩로딩중...</p>
             </div>
             <div id="itinerary-list" class="space-y-6"></div>
-            <button onclick="openAddForm()" class="w-full bg-blue-600 text-white p-3 rounded-lg font-bold shadow"><i class="fas fa-plus mr-2"></i>일정 추가하기</button>
+            <button onclick="openAddForm()" class="w-full bg-blue-600 text-white p-3 rounded-lg font-bold shadow"><i class="fas fa-plus mr-2"></i>새 일정 추가</button>
         </div>
 
         <!-- 2. 쇼핑 탭 -->
         <div id="shopping" class="tab-content space-y-4">
-            <div class="flex justify-between items-end mb-4">
-                <h2 class="text-lg font-bold">🛒 필수 쇼핑 체크리스트</h2>
-                <button onclick="openShoppingModal()" class="bg-blue-600 text-white px-3 py-1 rounded text-xs font-bold shadow">+ 항목 추가</button>
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-lg font-bold">🛒 쇼핑 체크리스트</h2>
+                <button onclick="openShoppingModal()" class="bg-blue-600 text-white px-3 py-1 rounded text-xs font-bold shadow">+ 항목추가</button>
             </div>
-            <div class="bg-white p-4 rounded-xl shadow border">
-                <h3 class="font-bold text-orange-600 border-b pb-2 mb-3"><i class="fas fa-store mr-2"></i>담시장 (16일)</h3>
-                <ul id="dam-list" class="space-y-2"></ul>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow border">
-                <h3 class="font-bold text-green-600 border-b pb-2 mb-3"><i class="fas fa-pills mr-2"></i>티엔푸 약국 (17일)</h3>
-                <ul id="pharmacy-list" class="space-y-2"></ul>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow border">
-                <h3 class="font-bold text-purple-600 border-b pb-2 mb-3"><i class="fas fa-tshirt mr-2"></i>악어집/슈렉 (17일)</h3>
-                <ul id="fake-list" class="space-y-2"></ul>
-            </div>
-            <div class="bg-white p-4 rounded-xl shadow border">
-                <h3 class="font-bold text-red-600 border-b pb-2 mb-3"><i class="fas fa-shopping-cart mr-2"></i>롯데마트 (18일)</h3>
-                <ul id="mart-list" class="space-y-2"></ul>
+            <div id="shopping-container" class="space-y-4">
+                <div class="bg-white p-4 rounded-xl shadow border"><h3 class="font-bold text-orange-600 border-b pb-2 mb-2">담시장 (16일)</h3><ul id="dam-list" class="space-y-2"></ul></div>
+                <div class="bg-white p-4 rounded-xl shadow border"><h3 class="font-bold text-green-600 border-b pb-2 mb-2">티엔푸 약국 (17일)</h3><ul id="pharmacy-list" class="space-y-2"></ul></div>
+                <div class="bg-white p-4 rounded-xl shadow border"><h3 class="font-bold text-purple-600 border-b pb-2 mb-2">악어집/슈렉 (17일)</h3><ul id="fake-list" class="space-y-2"></ul></div>
+                <div class="bg-white p-4 rounded-xl shadow border"><h3 class="font-bold text-red-600 border-b pb-2 mb-2">롯데마트 (18일)</h3><ul id="mart-list" class="space-y-2"></ul></div>
             </div>
         </div>
 
-        <!-- 3. 도구 & 정보 탭 (치트키 추가) -->
-        <div id="tools" class="tab-content space-y-6">
-            <h2 class="text-lg font-bold">🧮 여행 도구 & 치트키</h2>
-            
-            <!-- 킬러기능 3: 인간 키오스크 치트키 -->
-            <div class="bg-indigo-50 p-4 rounded-xl shadow border border-indigo-100">
-                <h3 class="font-bold mb-3 text-indigo-700"><i class="fas fa-id-card mr-2"></i>복사 치트키 (호텔/정보)</h3>
-                <div class="space-y-2">
-                    <div class="flex justify-between items-center bg-white p-2 rounded border">
-                        <span class="text-xs font-bold text-gray-600">르모어 호텔 주소</span>
-                        <button onclick="copyText('33A Tô Hiến Thành, Tân Lập, Nha Trang')" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded text-xs font-bold">복사</button>
-                    </div>
-                    <div class="flex justify-between items-center bg-white p-2 rounded border">
-                        <span class="text-xs font-bold text-gray-600">쉐라톤 호텔 주소</span>
-                        <button onclick="copyText('26-28 Trần Phú, Lộc Thọ, Nha Trang')" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded text-xs font-bold">복사</button>
-                    </div>
-                    <div class="flex justify-between items-center bg-white p-2 rounded border">
-                        <span class="text-xs font-bold text-gray-600">가족 영문명 (체크인용)</span>
-                        <button onclick="alert('가족들의 여권 영문명을 코드에 추가해두시면 편합니다!'); copyText('HONG GILDONG, HONG GILSUN...');" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded text-xs font-bold">복사</button>
-                    </div>
-                </div>
+        <!-- 3. 도구/정보 탭 -->
+        <div id="tools" class="tab-content space-y-4">
+            <h2 class="text-lg font-bold">🧮 여행 도구함</h2>
+            <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
+                <h3 class="font-bold mb-3 text-indigo-700">📋 복사 치트키 (호텔 주소)</h3>
+                <button onclick="copyText('33A Tô Hiến Thành, Tân Lập, Nha Trang')" class="w-full mb-2 bg-white p-2 rounded border text-xs text-left">📍 르모어 호텔 (15일)</button>
+                <button onclick="copyText('26-28 Trần Phú, Lộc Thọ, Nha Trang')" class="w-full bg-white p-2 rounded border text-xs text-left">📍 쉐라톤 호텔 (16~18일)</button>
             </div>
-
             <div class="bg-white p-4 rounded-xl shadow border">
-                <h3 class="font-bold mb-3"><i class="fas fa-divide mr-2 text-green-500"></i>N분의 1 비용 정산</h3>
-                <input type="number" id="total-expense" placeholder="총 지출 금액 (VND) 입력" class="w-full p-3 border rounded mb-2">
-                <input type="number" id="num-people" value="8" placeholder="인원 수 입력" class="w-full p-3 border rounded mb-2">
-                <p id="split-result" class="font-bold text-xl text-green-600 text-center py-2">₩-- / 인당</p>
-            </div>
-
-            <!-- 킬러기능 4: 베트남 매너 팁 가이드 -->
-            <div class="bg-yellow-50 p-4 rounded-xl shadow border border-yellow-100">
-                <h3 class="font-bold mb-2 text-yellow-800"><i class="fas fa-coins mr-2"></i>베트남 매너 팁(Tip) 가이드</h3>
-                <ul class="text-xs text-gray-700 space-y-1">
-                    <li>✔️ <b>마사지 (60분):</b> 5만 동 (~2,700원)</li>
-                    <li>✔️ <b>마사지 (90분):</b> 7만~10만 동 (~4,000원)</li>
-                    <li>✔️ <b>호텔 벨보이 (짐):</b> 2만 동 / 객실당 (~1,000원)</li>
-                    <li>✔️ <b>하우스키핑 (청소):</b> 2만 동 / 매일 아침 침대 위</li>
-                    <li><span class="text-red-500">* 식당/카페는 팁이 의무가 아닙니다!</span></li>
-                </ul>
-            </div>
-
-            <div class="bg-white p-4 rounded-xl shadow border">
-                <h3 class="font-bold mb-3"><i class="fas fa-money-bill-wave mr-2 text-blue-500"></i>환율 계산기</h3>
-                <input type="number" id="vnd-input" placeholder="베트남 동 (VND) 입력" class="w-full p-3 border rounded mb-2 text-lg">
-                <input type="number" id="krw-input" placeholder="한국 원 (KRW)" class="w-full p-3 border rounded bg-gray-100 text-lg font-bold text-blue-600" readonly>
+                <h3 class="font-bold mb-2">💰 1/N 정산기</h3>
+                <input type="number" id="total-expense" placeholder="금액 (VND)" class="w-full p-2 border rounded mb-2">
+                <p id="split-result" class="text-center text-green-600 font-bold">₩-- / 인당</p>
             </div>
         </div>
 
-        <!-- 4. 회화 탭 -->
-<div id="phrases" class="tab-content pb-10">
+        <!-- 4. 회화 탭 (TTS 발음 포함) -->
+        <div id="phrases" class="tab-content space-y-4 pb-10">
             <h2 class="text-lg font-bold mb-4">📢 말하는 생존 베트남어</h2>
-            <p class="text-[10px] text-blue-500 mb-4">* 스피커 아이콘(🔊)을 누르면 현지 발음이 나옵니다.</p>
-            
-            <div class="space-y-6">
-                <!-- 식당 섹션 예시 (다른 섹션도 동일한 구조로 확장 가능) -->
-                <div>
-                    <h3 class="font-bold text-orange-600 border-b pb-2 mb-3"><i class="fas fa-utensils mr-2"></i>식당 & 카페</h3>
-                    <div class="grid grid-cols-1 gap-3">
-                        <!-- 고수 빼주세요 -->
-                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 flex justify-between items-center shadow-sm" onclick="speak('Không rau mùi')">
-                            <div class="text-left">
-                                <p class="text-xs text-gray-500">고수 빼주세요</p>
-                                <p class="text-xl font-bold text-black italic">Không rau mùi</p>
-                                <p class="text-sm text-blue-600 font-bold mt-1">[ 콩 라우 무이 ]</p>
-                            </div>
-                            <button class="text-2xl text-orange-400 p-2"><i class="fas fa-volume-up"></i></button>
-                        </div>
-
-                        <!-- 안 맵게 해주세요 -->
-                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 flex justify-between items-center shadow-sm" onclick="speak('Không cay')">
-                            <div class="text-left">
-                                <p class="text-xs text-gray-500">안 맵게 해주세요 (아이용)</p>
-                                <p class="text-xl font-bold text-black italic">Không cay</p>
-                                <p class="text-sm text-blue-600 font-bold mt-1">[ 콩 까이 ]</p>
-                            </div>
-                            <button class="text-2xl text-orange-400 p-2"><i class="fas fa-volume-up"></i></button>
-                        </div>
-
-                        <!-- 계산서 주세요 -->
-                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 flex justify-between items-center shadow-sm" onclick="speak('Tính tiền')">
-                            <div class="text-left">
-                                <p class="text-xs text-gray-500">계산해 주세요</p>
-                                <p class="text-xl font-bold text-black italic">Tính tiền</p>
-                                <p class="text-sm text-blue-600 font-bold mt-1">[ 띵 띠엔 ]</p>
-                            </div>
-                            <button class="text-2xl text-orange-400 p-2"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                    </div>
+            <div class="space-y-4">
+                <div onclick="speak('Cho mượn xe đẩy em bé')" class="bg-teal-50 p-4 rounded-xl border flex justify-between items-center shadow-sm">
+                    <div><p class="text-xs text-gray-500">유모차 빌려주세요</p><p class="text-lg font-bold">Cho mượn xe đẩy em bé</p><p class="text-sm text-blue-600 font-bold">[ 쪼 므언 쎄 더이 엠 베 ]</p></div>
+                    <i class="fas fa-volume-up text-2xl text-teal-400"></i>
                 </div>
-
-                <!-- 호텔 섹션 -->
-                <div>
-                    <h3 class="font-bold text-teal-600 border-b pb-2 mb-3"><i class="fas fa-bed mr-2"></i>호텔 & 숙소</h3>
-                    <div class="bg-teal-50 p-4 rounded-xl border border-teal-100 flex justify-between items-center shadow-sm" onclick="speak('Cho mượn xe đẩy em bé')">
-                        <div class="text-left">
-                            <p class="text-xs text-gray-500">유모차 좀 빌려주세요</p>
-                            <p class="text-lg font-bold text-black italic">Cho mượn xe đẩy em bé</p>
-                            <p class="text-sm text-blue-600 font-bold mt-1">[ 쪼 므언 쎄 더이 엠 베 ]</p>
-                        </div>
-                        <button class="text-2xl text-teal-400 p-2"><i class="fas fa-volume-up"></i></button>
-                    </div>
+                <div onclick="speak('Không cay')" class="bg-orange-50 p-4 rounded-xl border flex justify-between items-center shadow-sm">
+                    <div><p class="text-xs text-gray-500">안 맵게 해주세요 (아이용)</p><p class="text-lg font-bold">Không cay</p><p class="text-sm text-blue-600 font-bold">[ 콩 까이 ]</p></div>
+                    <i class="fas fa-volume-up text-2xl text-orange-400"></i>
                 </div>
-                
-                <!-- 쇼핑 섹션 -->
-                <div>
-                    <h3 class="font-bold text-purple-600 border-b pb-2 mb-3"><i class="fas fa-shopping-bag mr-2"></i>쇼핑 & 흥정</h3>
-                    <div class="grid grid-cols-1 gap-3">
-                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100 flex justify-between items-center shadow-sm" onclick="speak('Giảm giá đi')">
-                            <div class="text-left">
-                                <p class="text-xs text-gray-500">깎아주세요 (할인)</p>
-                                <p class="text-xl font-bold text-black italic">Giảm giá đi</p>
-                                <p class="text-sm text-blue-600 font-bold mt-1">[ 쟘 쟈 디 ]</p>
-                            </div>
-                            <button class="text-2xl text-purple-400 p-2"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                    </div>
+                <div onclick="speak('Không rau mùi')" class="bg-orange-50 p-4 rounded-xl border flex justify-between items-center shadow-sm">
+                    <div><p class="text-xs text-gray-500">고수 빼주세요</p><p class="text-lg font-bold">Không rau mùi</p><p class="text-sm text-blue-600 font-bold">[ 콩 라우 무이 ]</p></div>
+                    <i class="fas fa-volume-up text-2xl text-orange-400"></i>
+                </div>
+                <div onclick="speak('Giảm giá đi')" class="bg-purple-50 p-4 rounded-xl border flex justify-between items-center shadow-sm">
+                    <div><p class="text-xs text-gray-500">깎아주세요 (흥정)</p><p class="text-lg font-bold">Giảm giá đi</p><p class="text-sm text-blue-600 font-bold">[ 쟘 쟈 디 ]</p></div>
+                    <i class="fas fa-volume-up text-2xl text-purple-400"></i>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- 킬러기능 1: 지안이 SOS 버튼 (유튜브 연결) -->
-    <button onclick="openSosModal()" class="fixed bottom-24 right-4 bg-red-500 text-white w-16 h-16 rounded-full shadow-2xl flex flex-col items-center justify-center z-50 shake-animation border-4 border-white">
-        <span class="text-2xl">👶</span>
-        <span class="text-[10px] font-bold mt-1">SOS</span>
+    <!-- 지안 SOS 버튼 -->
+    <button onclick="document.getElementById('sos-modal').classList.remove('hidden')" class="fixed bottom-24 right-4 bg-red-500 text-white w-16 h-16 rounded-full shadow-2xl z-50 shake-animation border-4 border-white">
+        <span class="text-2xl">👶</span><br><span class="text-[10px] font-bold">SOS</span>
     </button>
 
     <!-- 지안 SOS 모달 -->
-    <div id="sos-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex flex-col items-center justify-center p-6 backdrop-blur-sm">
-        <div class="bg-white p-6 rounded-3xl w-full max-w-sm text-center shadow-2xl relative">
-            <button onclick="closeSosModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fas fa-times"></i></button>
-            <h3 class="text-2xl font-bold mb-2 text-red-500">🚨 지안이 비상사태!</h3>
-            <p class="text-gray-500 text-sm mb-6">1초만에 평화를 되찾는 마법의 버튼</p>
-            
+    <div id="sos-modal" class="fixed inset-0 bg-black/70 z-[60] hidden flex items-center justify-center p-6">
+        <div class="bg-white p-6 rounded-3xl w-full max-w-sm text-center">
+            <h3 class="text-xl font-bold text-red-500 mb-4">🚨 지안이 비상 사태!</h3>
             <div class="space-y-3">
-                <a href="https://www.youtube.com/results?search_query=레스큐+타요+연속보기" target="_blank" class="block w-full bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-xl font-bold text-lg shadow">
-                    🚌 레스큐 타요 출동!
-                </a>
-                <a href="https://www.youtube.com/results?search_query=고고다이노+연속보기" target="_blank" class="block w-full bg-green-500 hover:bg-green-600 text-white p-4 rounded-xl font-bold text-lg shadow">
-                    🦖 고고다이노 연속보기
-                </a>
-                <a href="https://www.youtube.com/results?search_query=공룡+자동차+장난감+놀이" target="_blank" class="block w-full bg-yellow-400 hover:bg-yellow-500 text-yellow-900 p-4 rounded-xl font-bold text-lg shadow">
-                    🏎️ 장난감 자동차 & 공룡 놀이
-                </a>
+                <a href="https://www.youtube.com/results?search_query=레스큐+타요+연속보기" target="_blank" class="block w-full bg-blue-500 text-white p-4 rounded-xl font-bold text-lg">🚌 타요 출동!</a>
+                <a href="https://www.youtube.com/results?search_query=고고다이노+연속보기" target="_blank" class="block w-full bg-green-500 text-white p-4 rounded-xl font-bold text-lg">🦖 고고다이노!</a>
             </div>
+            <button onclick="document.getElementById('sos-modal').classList.add('hidden')" class="mt-6 text-gray-400 underline">닫기</button>
         </div>
     </div>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-2 shadow-[0_-5px_15px_rgba(0,0,0,0.05)] z-40">
-        <button onclick="showTab('schedule')" class="tab-btn active-tab flex flex-col items-center w-1/4 p-2">
-            <i class="fas fa-calendar-alt text-xl mb-1"></i><span class="text-[10px] font-bold">일정</span>
-        </button>
-        <button onclick="showTab('shopping')" class="tab-btn flex flex-col items-center w-1/4 p-2">
-            <i class="fas fa-shopping-bag text-xl mb-1"></i><span class="text-[10px] font-bold">쇼핑</span>
-        </button>
-        <button onclick="showTab('tools')" class="tab-btn flex flex-col items-center w-1/4 p-2">
-            <i class="fas fa-star text-xl mb-1"></i><span class="text-[10px] font-bold">도구/정보</span>
-        </button>
-        <button onclick="showTab('phrases')" class="tab-btn flex flex-col items-center w-1/4 p-2">
-            <i class="fas fa-comment-dots text-xl mb-1"></i><span class="text-[10px] font-bold">회화</span>
-        </button>
+    <!-- 푸터 네비게이션 -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-2 z-40">
+        <button onclick="showTab('schedule')" class="tab-btn active-tab flex flex-col items-center p-2 w-1/4"><i class="fas fa-calendar-alt mb-1"></i><span class="text-[10px] font-bold">일정</span></button>
+        <button onclick="showTab('shopping')" class="tab-btn flex flex-col items-center p-2 w-1/4"><i class="fas fa-shopping-bag mb-1"></i><span class="text-[10px] font-bold">쇼핑</span></button>
+        <button onclick="showTab('tools')" class="tab-btn flex flex-col items-center p-2 w-1/4"><i class="fas fa-calculator mb-1"></i><span class="text-[10px] font-bold">도구</span></button>
+        <button onclick="showTab('phrases')" class="tab-btn flex flex-col items-center p-2 w-1/4"><i class="fas fa-comment-dots mb-1"></i><span class="text-[10px] font-bold">회화</span></button>
     </nav>
 
-    <!-- 일정 추가/수정 모달 -->
-    <div id="itinerary-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden p-6 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-2xl w-full max-w-md space-y-3 shadow-2xl">
-            <h3 id="modal-title" class="text-lg font-bold">일정 추가</h3>
-            <input type="hidden" id="edit-index">
-            <input type="text" id="form-date" placeholder="날짜 (예: 16일(목))" class="w-full p-2 border rounded bg-gray-50">
-            <input type="text" id="form-time" placeholder="시간 (예: 09:40~)" class="w-full p-2 border rounded bg-gray-50">
-            <textarea id="form-place" placeholder="일정 명칭" class="w-full p-2 border rounded bg-gray-50 h-16"></textarea>
-            <input type="text" id="form-grab" placeholder="Grab 검색어" class="w-full p-2 border rounded bg-gray-50">
-            <input type="url" id="form-link" placeholder="구글 지도 링크" class="w-full p-2 border rounded bg-gray-50">
-            <textarea id="form-remarks" placeholder="비고 (remarks)" class="w-full p-2 border rounded h-20 bg-gray-50"></textarea>
-            <div class="flex space-x-2 pt-2">
-                <button onclick="saveItineraryItem()" class="flex-1 bg-blue-600 text-white p-3 rounded font-bold">저장</button>
-                <button onclick="closeModal()" class="flex-1 bg-gray-300 p-3 rounded font-bold text-gray-700">취소</button>
+    <!-- 일정 모달 -->
+    <div id="itinerary-modal" class="fixed inset-0 bg-black/50 z-[100] hidden p-6 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-2xl w-full max-w-md space-y-3">
+            <h3 id="modal-title" class="text-lg font-bold">일정 관리</h3>
+            <input type="hidden" id="edit-id">
+            <input type="text" id="form-date" placeholder="날짜 (예: 16일)" class="w-full p-2 border rounded">
+            <input type="text" id="form-time" placeholder="시간 (예: 09:40)" class="w-full p-2 border rounded">
+            <textarea id="form-place" placeholder="장소" class="w-full p-2 border rounded"></textarea>
+            <input type="text" id="form-grab" placeholder="Grab 검색어" class="w-full p-2 border rounded">
+            <input type="url" id="form-link" placeholder="구글맵 주소" class="w-full p-2 border rounded">
+            <textarea id="form-remarks" placeholder="비고" class="w-full p-2 border rounded h-20"></textarea>
+            <div class="flex space-x-2">
+                <button onclick="saveItineraryToFirebase()" class="flex-1 bg-blue-600 text-white p-3 rounded font-bold">저장</button>
+                <button onclick="closeModal()" class="flex-1 bg-gray-300 p-3 rounded font-bold">취소</button>
             </div>
-            <button id="delete-btn" onclick="deleteItineraryItem()" class="w-full bg-red-50 text-red-500 p-3 rounded font-bold hidden mt-2">이 일정 삭제하기</button>
+            <button id="delete-btn" onclick="deleteItineraryFromFirebase()" class="w-full text-red-500 text-sm hidden">일정 삭제</button>
         </div>
     </div>
 
-    <!-- 쇼핑 추가 모달 -->
-    <div id="shopping-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden p-6 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-2xl w-full max-w-md space-y-3 shadow-2xl">
-            <h3 class="text-lg font-bold">쇼핑 리스트 추가</h3>
-            <select id="shopping-category" class="w-full p-2 border rounded bg-gray-50 font-bold">
-                <option value="dam">담시장</option>
-                <option value="pharmacy">티엔푸 약국</option>
-                <option value="fake">악어집/슈렉 짝퉁샵</option>
-                <option value="mart">롯데마트</option>
-            </select>
-            <input type="text" id="shopping-text" placeholder="살 물건 입력" class="w-full p-3 border rounded bg-gray-50">
-            <div class="flex space-x-2 pt-2">
-                <button onclick="saveShoppingItem()" class="flex-1 bg-blue-600 text-white p-3 rounded font-bold">추가</button>
-                <button onclick="closeShoppingModal()" class="flex-1 bg-gray-300 p-3 rounded font-bold text-gray-700">취소</button>
-            </div>
-        </div>
-    </div>
+    <!-- Firebase SDK (v9 이상) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
-    <script>
-        // 원본 일정 데이터 100% 유지
-        const initialItinerary = [
-            {date: "15일(수)", time: "14:40", place: "부개->운서역주차장", grab: "", link: "", extraLinks: [], remarks: "50분소요"},
-            {date: "15일(수)", time: "~16:00", place: "운서역->인천공항(저녁식사 및 수속)", grab: "Incheon International Airport Terminal 1", link: "https://www.google.com/maps/search/?api=1&query=Incheon+International+Airport+Terminal+1", extraLinks: [], remarks: "15분소요, 16:00도착必"},
-            {date: "15일(수)", time: "19:00~22:30", place: "인천공항->나트랑도착", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "15일(수)", time: "23:00~24:00", place: "픽업카탑승(1시간소요), 숙소도착", grab: "", link: "", extraLinks: [], remarks: "50분소요 / 1터미널 2번게이트"},
-            {date: "15일(수)", time: "24:30~", place: "숙소체크인, 환전ATM", grab: "Le More Hotel Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Le+More+Hotel+Nha+Trang", extraLinks: [], remarks: "르모어호텔"},
-            {date: "16일(목)", time: "8:00~9:30", place: "기상 및 조식\n시간 여유되면 반미 사먹기도 가능", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "16일(목)", time: "9:40", place: "퇴실 및 렌트카탑승(짐포함)", grab: "", link: "", extraLinks: [], remarks: "4  시간+@"},
-            {date: "16일(목)", time: "9:50~10:40", place: "포나가르사원", grab: "Thap Ba Ponagar Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Thap+Ba+Ponagar+Nha+Trang", extraLinks: [], remarks: "입장료 21만동 (지안무료) , 7:00~10:30 공연 어깨, 무릎노출x ,끈나시, 반바지x, 슬리퍼ㅇ"},
-            {date: "16일(목)", time: "10:50~11:50", place: "혼총곶, 베이크보이(디저트)", grab: "Hon Chong Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Hon+Chong+Nha+Trang", extraLinks: ["https://www.google.com/maps/search/?api=1&query=Bake+Boy+Nha+Trang"], remarks: "입장료 21만동 (지안무료)"},
-            {date: "16일(목)", time: "12:00~13:00", place: "담시장 쇼핑", grab: "Cho Dam Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Cho+Dam+Nha+Trang", extraLinks: [], remarks: "트라이크챙길것 담시장 망고쥬스 사먹기"},
-            {date: "16일(목)", time: "13:00~14:00", place: "점심식사 : 당반꾸엔", grab: "Nem Nuong Dang Van Quyen Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Nem+Nuong+Dang+Van+Quyen+Nha+Trang", extraLinks: [], remarks: "넴느엉, 분띳느엉, 에그롤 등 약 70만동"},
-            {date: "16일(목)", time: "14:30~15:00", place: "숙소 체크인 (쉐라톤)", grab: "Sheraton Nha Trang Hotel & Spa", link: "https://www.google.com/maps/search/?api=1&query=Sheraton+Nha+Trang+Hotel+%26+Spa", extraLinks: [], remarks: ""},
-            {date: "16일(목)", time: "", place: "휴식 후 시내", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "16일(목)", time: "", place: "타이니네일스파(네일아트 및 마사지)", grab: "Tiny Nail Spa Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Tiny+Nail+Spa+Nha+Trang", extraLinks: [], remarks: "*예약필수 / 남자들은 네일아트 후 늦게 합류해도 좋음 어른네일22만동 , 아이네일10만동, 마사지39만동"},
-            {date: "16일(목)", time: "", place: "척칩(고구마튀김), 65번과일가게 등 간식구매", grab: "Chuck Chip Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Chuck+Chip+Nha+Trang", extraLinks: ["https://www.google.com/maps/search/?api=1&query=Vua+Trai+Cay+65+Vo+Tru+Nha+Trang"], remarks: ""},
-            {date: "16일(목)", time: "18:30", place: "저녁식사 : 목식당 (씨푸드)", grab: "Moc Quan Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Moc+Quan+Nha+Trang", extraLinks: [], remarks: "예약완료"},
-            {date: "16일(목)", time: "", place: "안카페 or 올라카페", grab: "An Cafe Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=An+Cafe+Nha+Trang", extraLinks: ["https://www.google.com/maps/search/?api=1&query=Ola+Cafe+Nha+Trang"], remarks: ""},
-            {date: "16일(목)", time: "", place: "시내->숙소복귀", grab: "", link: "", extraLinks: [], remarks: "도보10분"},
-            {date: "17일(금)", time: "~8:50", place: "기상 및 조식", grab: "", link: "", extraLinks: [], remarks: "대충 세수 후 다녀와서 씻기~"},
-            {date: "17일(금)", time: "9:30~13:50", place: "아이리조트 머드스파(워터파크)", grab: "I-Resort Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=I-Resort+Nha+Trang", extraLinks: [], remarks: "그랩2대\n머드스파-여자는 상/하의 남자는 하의만 줌 + 수건1장 현금지참(내부간식구매시), 버릴속옷입고가기 래쉬가드,방수팩,슬리퍼,세면도구"},
-            {date: "17일(금)", time: "", place: "숙소 복귀 및 씻고 재정비", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "17일(금)", time: "14:00", place: "점심식사 : 피자포피스", grab: "Pizza 4Ps Sheraton Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Pizza+4Ps+Sheraton+Nha+Trang", extraLinks: [], remarks: "예약완료"},
-            {date: "17일(금)", time: "14:30~", place: "센트럴마켓, 티엔푸약국, 남프엉, 악어집, 슈렉", grab: "Central Market Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Central+Market+Nha+Trang", extraLinks: [
-                "https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu+Nha+Trang",
-                "https://www.google.com/maps/search/?api=1&query=Nam+Phuong+Nha+Trang",
-                "https://www.google.com/maps/search/?api=1&query=A-KEO+Nha+Trang",
-                "https://www.google.com/maps/search/?api=1&query=Shop+Shrek+Nha+Trang"
-            ], remarks: ""},
-            {date: "17일(금)", time: "16:30~", place: "마사지", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "17일(금)", time: "18:30~", place: "저녁식사 : 안토이 (분짜, 반쎄오, 곱창쌀국수 등)", grab: "An Thoi Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=An+Thoi+Nha+Trang", extraLinks: [], remarks: "예약불가, 번호표 대기"},
-            {date: "17일(금)", time: "", place: "탑쩜흐엉 및 해변가, 야시장 구경", grab: "Tram Huong Tower Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Tram+Huong+Tower+Nha+Trang", extraLinks: ["https://www.google.com/maps/search/?api=1&query=Nha+Trang+Night+Market"], remarks: ""},
-            {date: "17일(금)", time: "", place: "숙소복귀", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "18일(토)", time: "9:00", place: "기상 및 조식", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "18일(토)", time: "", place: "롯데마트 쇼핑", grab: "Lotte Mart Gold Coast Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Gold+Coast+Nha+Trang", extraLinks: [], remarks: ""},
-            {date: "18일(토)", time: "~12:00", place: "숙소 복귀 후 짐정리 퇴실", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "18일(토)", time: "", place: "쉐라톤->베나자라운지", grab: "Venaza Store Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Venaza+Store+Nha+Trang", extraLinks: [], remarks: "그랩2대"},
-            {date: "18일(토)", time: "12:00~", place: "베나자라운지에 짐 보관", grab: "", link: "", extraLinks: [], remarks: "베나자 카드"},
-            {date: "18일(토)", time: "", place: "점심식사 : 껌땀 (베트남식 백반)", grab: "Com Tam 82 Nha Trang", link: "https://www.google.com/maps/search/?api=1&query=Com+Tam+82+Nha+Trang", extraLinks: [], remarks: "껌땀82"},
-            {date: "18일(토)", time: "", place: "풋마사지", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "18일(토)", time: "", place: "시내, 카페?", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "18일(토)", time: "17:30~", place: "저녁식사", grab: "", link: "", extraLinks: [], remarks: ""},
-            {date: "18일(토)", time: "18:30", place: "공항 픽업차량 탑승", grab: "Cam Ranh International Airport", link: "https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks: [], remarks: "50분소요, 19:30 도착必"},
-            {date: "18일(토)", time: "19:30", place: "공항도착->인천", grab: "", link: "", extraLinks: [], remarks: "23:30 이륙/6:45착륙"}
-        ];
+        const firebaseConfig = {
+            apiKey: "AIzaSyAqlBylKkE-KFvAFghWMM8egP-K3HZMqeo",
+            authDomain: "nhatrang-trip.firebaseapp.com",
+            databaseURL: "https://nhatrang-trip-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "nhatrang-trip",
+            storageBucket: "nhatrang-trip.firebasestorage.app",
+            messagingSenderId: "246629439315",
+            appId: "1:246629439315:web:99a3e74b2b4cbb783473a6",
+            measurementId: "G-5YMQ1MQZX9"
+        };
 
-        const initialShoppingList = [
-            { id: 'd1', category: 'dam', text: '라탄 가방 / 모자', checked: false },
-            { id: 'd2', category: 'dam', text: '가족 하와이안 셔츠, 원피스', checked: false },
-            { id: 'd3', category: 'dam', text: '건망고 (시식해보고 구입)', checked: false },
-            { id: 'p1', category: 'pharmacy', text: '비판텐 (아이용 만능 피부 연고)', checked: false },
-            { id: 'p2', category: 'pharmacy', text: '볼타렌 (어르신 근육통 연고)', checked: false },
-            { id: 'p3', category: 'pharmacy', text: '스트렙실 (인후통 사탕)', checked: false },
-            { id: 'f1', category: 'fake', text: '크록스 및 지비츠 (아이들용)', checked: false },
-            { id: 'f2', category: 'fake', text: '나이키/아디다스 스포츠 의류', checked: false },
-            { id: 'm1', category: 'mart', text: '체리쉬 망고 푸딩', checked: false },
-            { id: 'm2', category: 'mart', text: '탑젤리 (망고맛)', checked: false },
-            { id: 'm3', category: 'mart', text: '마카다미아 / 건과일', checked: false }
-        ];
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-        let itinerary = [];
-        let shoppingList = [];
-        let vndToKrwRate = 0.055;
+        // 전역 함수로 노출
+        window.saveItineraryToFirebase = saveItineraryToFirebase;
+        window.deleteItineraryFromFirebase = deleteItineraryFromFirebase;
+        window.toggleShoppingFirebase = toggleShoppingFirebase;
+        window.deleteShoppingFirebase = deleteShoppingFirebase;
+        window.saveShoppingItem = saveShoppingItem;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadItinerary();
-            loadShoppingList();
-            initWeatherOpenMeteo();
-            initExchangeRate();
-            initExpenseTools();
+        // 1. 실시간 일정 동기화
+        onValue(ref(db, 'itinerary'), (snapshot) => {
+            const data = snapshot.val();
+            renderItinerary(data ? Object.entries(data).map(([id, val]) => ({...val, id})) : []);
         });
 
-        // =======================
-        // SOS 기능
-        // =======================
-        function openSosModal() { document.getElementById('sos-modal').classList.remove('hidden'); }
-        function closeSosModal() { document.getElementById('sos-modal').classList.add('hidden'); }
-
-        // =======================
-        // 쇼핑 리스트 CRUD
-        // =======================
-        function loadShoppingList() {
-            let saved = localStorage.getItem('family_shopping_v3');
-            shoppingList = saved ? JSON.parse(saved) : initialShoppingList;
-            if (!saved) localStorage.setItem('family_shopping_v3', JSON.stringify(shoppingList));
-            renderShoppingList();
+        function saveItineraryToFirebase() {
+            const id = document.getElementById('edit-id').value;
+            const item = {
+                date: document.getElementById('form-date').value,
+                time: document.getElementById('form-time').value,
+                place: document.getElementById('form-place').value,
+                grab: document.getElementById('form-grab').value,
+                link: document.getElementById('form-link').value,
+                remarks: document.getElementById('form-remarks').value
+            };
+            if(id) set(ref(db, `itinerary/${id}`), item);
+            else push(ref(db, 'itinerary'), item);
+            closeModal();
         }
 
-        function toggleShoppingItem(id) {
-            let item = shoppingList.find(i => i.id === id);
-            if(item) {
-                item.checked = !item.checked;
-                localStorage.setItem('family_shopping_v3', JSON.stringify(shoppingList));
-                renderShoppingList();
+        function deleteItineraryFromFirebase() {
+            const id = document.getElementById('edit-id').value;
+            if(confirm("일정을 삭제하시겠습니까?")) {
+                remove(ref(db, `itinerary/${id}`));
+                closeModal();
             }
         }
 
-        function renderShoppingList() {
-            const damList = document.getElementById('dam-list');
-            const pharmList = document.getElementById('pharmacy-list');
-            const fakeList = document.getElementById('fake-list');
-            const martList = document.getElementById('mart-list');
-            
-            damList.innerHTML = ''; pharmList.innerHTML = ''; fakeList.innerHTML = ''; martList.innerHTML = '';
-
-            shoppingList.forEach(item => {
-                let html = `
-                    <li class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer check-item ${item.checked ? 'checked' : ''}" onclick="toggleShoppingItem('${item.id}')">
-                        <div class="w-6 h-6 flex items-center justify-center border-2 rounded mr-3 flex-shrink-0 ${item.checked ? 'bg-green-500 border-green-500' : 'border-gray-300'}">
-                            ${item.checked ? '<i class="fas fa-check text-white text-xs"></i>' : ''}
-                        </div>
-                        <span class="flex-1 text-content">${item.text}</span>
-                        <button onclick="deleteShoppingItem('${item.id}', event)" class="ml-2 text-red-400 hover:text-red-600 p-1"><i class="fas fa-trash-alt text-sm"></i></button>
-                    </li>`;
-                
-                if(item.category === 'dam') damList.insertAdjacentHTML('beforeend', html);
-                else if(item.category === 'pharmacy') pharmList.insertAdjacentHTML('beforeend', html);
-                else if(item.category === 'fake') fakeList.insertAdjacentHTML('beforeend', html);
-                else martList.insertAdjacentHTML('beforeend', html);
-            });
-        }
-
-        function openShoppingModal() {
-            document.getElementById('shopping-modal').classList.remove('hidden');
-            document.getElementById('shopping-text').value = '';
-        }
-
-        function closeShoppingModal() { document.getElementById('shopping-modal').classList.add('hidden'); }
+        // 2. 실시간 쇼핑 리스트 동기화
+        onValue(ref(db, 'shopping'), (snapshot) => {
+            renderShopping(snapshot.val() || {});
+        });
 
         function saveShoppingItem() {
-            let cat = document.getElementById('shopping-category').value;
-            let txt = document.getElementById('shopping-text').value;
-            if(!txt) { alert('살 물건을 입력해주세요.'); return; }
-            shoppingList.push({ id: 's' + Date.now(), category: cat, text: txt, checked: false });
-            localStorage.setItem('family_shopping_v3', JSON.stringify(shoppingList));
-            closeShoppingModal();
-            renderShoppingList();
+            const cat = document.getElementById('shopping-category').value;
+            const txt = document.getElementById('shopping-text').value;
+            if(!txt) return;
+            push(ref(db, 'shopping'), { category: cat, text: txt, checked: false });
+            document.getElementById('shopping-modal').classList.add('hidden');
         }
 
-        function deleteShoppingItem(id, event) {
-            event.stopPropagation();
-            if(!confirm("이 항목을 삭제하시겠습니까?")) return;
-            shoppingList = shoppingList.filter(i => i.id !== id);
-            localStorage.setItem('family_shopping_v3', JSON.stringify(shoppingList));
-            renderShoppingList();
+        function toggleShoppingFirebase(id, currentStatus) {
+            set(ref(db, `shopping/${id}/checked`), !currentStatus);
         }
 
-        // =======================
-        // 날씨 및 드레스코드 알림
-        // =======================
-        async function initWeatherOpenMeteo() {
-            const iconEl = document.getElementById('weather-icon');
-            const summaryEl = document.getElementById('weather-summary');
-            const tipEl = document.getElementById('weather-tip');
-            const url = "https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh";
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                const current = data.current_weather;
-                const code = current.weathercode;
-                
-                let icon = "☀️", desc = "맑음", tip = "선크림과 모자 필수 ☀️";
-                
-                if (code >= 1 && code <= 3) { icon = "🌤️"; desc = "구름조금"; }
-                else if (code == 45 || code == 48) { icon = "🌫️"; desc = "안개"; }
-                else if (code >= 51 && code <= 67) { icon = "🌧️"; desc = "비"; tip = "비가 와요! 우산 챙기세요 ☔"; }
-                else if (code >= 80 && code <= 82) { icon = "🌦️"; desc = "소나기"; tip = "우산 챙기세요 ☔"; }
-                else if (code >= 95) { icon = "⛈️"; desc = "번개/비"; tip = "실내 활동을 권장해요 ⚡"; }
-
-                if(current.temperature >= 32 && code < 50) { tip = "폭염주의! 얼음물 꼭 챙기세요 💦"; }
-
-                iconEl.innerText = icon;
-                summaryEl.innerText = `${Math.round(current.temperature)}℃ / ${desc}`;
-                tipEl.innerText = `💡 챙길물건: ${tip}`;
-            } catch (error) {
-                iconEl.innerText = "❌";
-                summaryEl.innerText = "날씨 오류";
-                tipEl.innerText = "날씨 정보를 불러오지 못했습니다.";
-            }
+        function deleteShoppingFirebase(id) {
+            if(confirm("항목을 삭제합니까?")) remove(ref(db, `shopping/${id}`));
         }
 
-        async function initExchangeRate() {
-            const summary = document.getElementById('rate-summary');
-            try {
-                const response = await fetch('https://open.er-api.com/v6/latest/VND');
-                const data = await response.json();
-                vndToKrwRate = data.rates.KRW;
-                let krw100k = (100000 * vndToKrwRate).toFixed(0);
-                summary.innerText = `₩${Number(krw100k).toLocaleString()}`;
-            } catch (e) {
-                summary.innerText = "₩5,500 (고정값)";
-            }
-            const vndInput = document.getElementById('vnd-input');
-            const krwInput = document.getElementById('krw-input');
-            vndInput.addEventListener('input', () => {
-                krwInput.value = vndInput.value ? (vndInput.value * vndToKrwRate).toFixed(0) : '';
+        // --- UI 렌더링 함수 ---
+        function renderItinerary(data) {
+            const list = document.getElementById('itinerary-list');
+            list.innerHTML = '';
+            if(data.length === 0) { list.innerHTML = '<p class="text-center text-gray-400 py-10">일정이 비어있습니다.</p>'; return; }
+            
+            // 날짜순 정렬
+            data.sort((a,b) => a.date.localeCompare(b.date));
+            
+            data.forEach(item => {
+                const html = `
+                    <div class="bg-white p-4 rounded-xl shadow-sm border mb-4">
+                        <div class="flex justify-between items-start">
+                            <div onclick="openEditForm('${item.id}', ${JSON.stringify(item).replace(/"/g, '&quot;')})" class="flex-1 pr-2">
+                                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded inline-block mb-1">${item.date} ${item.time}</span>
+                                <h3 class="font-bold text-lg leading-tight">${item.place}</h3>
+                                ${item.remarks ? `<p class="mt-2 text-xs text-gray-600 bg-gray-50 p-2 rounded leading-relaxed">${item.remarks}</p>` : ''}
+                            </div>
+                            <div class="flex flex-col items-end space-y-2">
+                                ${item.link ? `<a href="${item.link}" target="_blank" class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><i class="fas fa-map-marker-alt"></i></a>` : ''}
+                                ${item.grab ? `<button onclick="copyText('${item.grab}')" class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center"><i class="far fa-copy"></i></button>` : ''}
+                            </div>
+                        </div>
+                    </div>`;
+                list.insertAdjacentHTML('beforeend', html);
             });
         }
 
-        function initExpenseTools() {
-            const expenseInput = document.getElementById('total-expense');
-            const peopleInput = document.getElementById('num-people');
-            const resultEl = document.getElementById('split-result');
-            function calc() {
-                if(expenseInput.value && peopleInput.value > 0) {
-                    let perPersonVnd = expenseInput.value / peopleInput.value;
-                    let perPersonKrw = (perPersonVnd * vndToKrwRate).toFixed(0);
-                    resultEl.innerText = `₩${Number(perPersonKrw).toLocaleString()} / 인당`;
-                } else {
-                    resultEl.innerText = '₩-- / 인당';
-                }
-            }
-            expenseInput.addEventListener('input', calc);
-            peopleInput.addEventListener('input', calc);
+        function renderShopping(data) {
+            const cats = ['dam', 'pharmacy', 'fake', 'mart'];
+            cats.forEach(c => document.getElementById(`${c}-list`).innerHTML = '');
+            Object.entries(data).forEach(([id, item]) => {
+                const html = `
+                    <li class="flex items-center justify-between p-1">
+                        <div class="flex items-center flex-1 cursor-pointer ${item.checked ? 'text-gray-300 line-through' : ''}" onclick="toggleShoppingFirebase('${id}', ${item.checked})">
+                            <i class="far ${item.checked ? 'fa-check-square text-green-500' : 'fa-square'} mr-2"></i>
+                            <span class="text-sm">${item.text}</span>
+                        </div>
+                        <i onclick="deleteShoppingFirebase('${id}')" class="far fa-trash-alt text-red-200 ml-2"></i>
+                    </li>`;
+                document.getElementById(`${item.category}-list`).insertAdjacentHTML('beforeend', html);
+            });
         }
+    </script>
 
-        // =======================
-        // 일정 관리
-        // =======================
-        function loadItinerary() {
-            let saved = localStorage.getItem('family_itinerary_hero');
-            itinerary = saved ? JSON.parse(saved) : initialItinerary;
-            if (!saved) localStorage.setItem('family_itinerary_hero', JSON.stringify(itinerary));
-            renderItinerary();
-        }
-
-        function renderItinerary() {
-            const list = document.getElementById('itinerary-list');
-            list.innerHTML = '';
-            
-            let grouped = itinerary.reduce((r, a) => {
-                r[a.date] = [...r[a.date] || [], a];
-                return r;
-            }, {});
-
-            for (let date in grouped) {
-                let items = grouped[date];
-                list.insertAdjacentHTML('beforeend', `<h2 class="text-lg font-bold border-l-4 border-blue-500 pl-2 mb-3 mt-6">${date}</h2>`);
-
-                items.forEach((item) => {
-                    let realIndex = itinerary.indexOf(item);
-                    
-                    let linksHtml = '';
-                    let allLinks = [];
-                    if (item.link) allLinks.push(item.link);
-                    if (item.extraLinks && item.extraLinks.length > 0) allLinks.push(...item.extraLinks);
-
-                    if (allLinks.length === 1) {
-                        linksHtml += `<a href="${allLinks[0]}" target="_blank" class="bg-blue-50 text-blue-600 w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold mb-1 shadow-sm"><i class="fas fa-map-marker-alt"></i></a>`;
-                    } else if (allLinks.length > 1) {
-                        allLinks.forEach((url, i) => {
-                            linksHtml += `<a href="${url}" target="_blank" class="bg-blue-50 text-blue-600 px-3 py-2 rounded-full flex items-center justify-center text-[10px] font-bold mb-1 shadow-sm w-full">지도${i+1}</a>`;
-                        });
-                    }
-
-                    let itemHtml = `
-                        <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 mb-3">
-                            <div class="flex justify-between items-start">
-                                <div onclick="openEditForm(${realIndex})" class="flex-1 w-2/3 pr-2">
-                                    ${item.time ? `<span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded inline-block mb-1">${item.time}</span>` : ''}
-                                    <h3 class="font-bold text-lg whitespace-pre-wrap">${item.place}</h3>
-                                    ${item.grab ? `<p class="text-[11px] text-gray-500 mt-1 truncate"><i class="fas fa-car mr-1"></i>${item.grab}</p>` : ''}
-                                    ${item.remarks ? `<p class="mt-2 text-[13px] text-gray-700 bg-gray-50 p-2 rounded-lg border border-gray-100 whitespace-pre-wrap leading-relaxed">${item.remarks}</p>` : ''}
-                                </div>
-                                <div class="flex flex-col ml-1 items-end w-1/3 justify-start pt-1">
-                                    ${linksHtml}
-                                    ${item.grab ? `<button onclick="copyText('${item.grab}')" class="bg-blue-600 text-white w-10 h-10 rounded-full shadow flex items-center justify-center mt-1"><i class="far fa-copy"></i></button>` : ''}
-                                    <button onclick="openEditForm(${realIndex})" class="text-xs text-gray-400 mt-2 underline">수정</button>
-                                </div>
-                            </div>
-                        </div>`;
-                    list.insertAdjacentHTML('beforeend', itemHtml);
-                });
-            }
+    <script>
+        // 보조 유틸리티 함수들
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active-tab');
+            window.scrollTo(0, 0);
         }
 
         function openAddForm() {
-            closeModal();
-            document.getElementById('modal-title').innerText = "일정 추가";
+            document.getElementById('edit-id').value = "";
+            document.getElementById('modal-title').innerText = "새 일정 추가";
             document.getElementById('delete-btn').classList.add('hidden');
             document.getElementById('itinerary-modal').classList.remove('hidden');
         }
 
-        function openEditForm(index) {
-            closeModal();
-            let item = itinerary[index];
+        function openEditForm(id, item) {
+            document.getElementById('edit-id').value = id;
             document.getElementById('modal-title').innerText = "일정 수정";
-            document.getElementById('edit-index').value = index;
             document.getElementById('form-date').value = item.date;
             document.getElementById('form-time').value = item.time;
             document.getElementById('form-place').value = item.place;
@@ -583,66 +296,49 @@
             document.getElementById('itinerary-modal').classList.remove('hidden');
         }
 
-        function saveItineraryItem() {
-            let index = document.getElementById('edit-index').value;
-            let item = {
-                date: document.getElementById('form-date').value || "일정 미정",
-                time: document.getElementById('form-time').value,
-                place: document.getElementById('form-place').value || "장소 없음",
-                grab: document.getElementById('form-grab').value,
-                link: document.getElementById('form-link').value,
-                extraLinks: index !== "" ? itinerary[index].extraLinks : [], 
-                remarks: document.getElementById('form-remarks').value
-            };
-
-            if (index !== "") { itinerary[index] = item; }
-            else { itinerary.push(item); }
-
-            localStorage.setItem('family_itinerary_hero', JSON.stringify(itinerary));
-            closeModal();
-            renderItinerary();
-        }
-
-        function deleteItineraryItem() {
-            if(!confirm("이 일정을 삭제하시겠습니까?")) return;
-            let index = document.getElementById('edit-index').value;
-            itinerary.splice(index, 1);
-            localStorage.setItem('family_itinerary_hero', JSON.stringify(itinerary));
-            closeModal();
-            renderItinerary();
-        }
-
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active-tab');
-            window.scrollTo(0, 0);
-        }
-
-        function closeModal() {
-            document.getElementById('itinerary-modal').classList.add('hidden');
-            document.getElementById('edit-index').value = "";
-            document.getElementById('itinerary-modal').querySelectorAll('input[type="text"], input[type="url"], textarea').forEach(el => el.value = "");
-        }
+        function closeModal() { document.getElementById('itinerary-modal').classList.add('hidden'); }
+        function openShoppingModal() { document.getElementById('shopping-modal').classList.remove('hidden'); }
 
         function copyText(text) {
-            if(!text) return;
-            navigator.clipboard.writeText(text).then(() => {
-                alert(`📋 클립보드에 복사되었습니다:\n[ ${text} ]`);
-            }).catch(err => {
-                alert('복사 실패');
-            });
+            navigator.clipboard.writeText(text).then(() => alert(`📋 복사완료: ${text}`));
         }
 
-        // 베트남어 TTS 발음 함수
         function speak(text) {
-            // 브라우저의 발음 엔진 호출
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'vi-VN'; // 베트남어 설정
-            utterance.rate = 0.9;     // 조금 천천히 말하도록 설정
+            utterance.lang = 'vi-VN';
+            utterance.rate = 0.9;
             window.speechSynthesis.speak(utterance);
         }
+
+        // 초기 날씨/환율 로직
+        async function initMeta() {
+            try {
+                const weatherRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh");
+                const weatherData = await weatherRes.json();
+                document.getElementById('weather-summary').innerText = `${Math.round(weatherData.current_weather.temperature)}℃ 나트랑`;
+                
+                const rateRes = await fetch('https://open.er-api.com/v6/latest/VND');
+                const rateData = await rateRes.json();
+                document.getElementById('rate-summary').innerText = `₩${(100000 * rateData.rates.KRW).toFixed(0).toLocaleString()}`;
+            } catch (e) { console.error(e); }
+        }
+        initMeta();
     </script>
+
+    <!-- 쇼핑 모달 -->
+    <div id="shopping-modal" class="fixed inset-0 bg-black/50 z-[100] hidden p-6 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-2xl w-full max-w-md space-y-3">
+            <h3 class="text-lg font-bold">쇼핑 항목 추가</h3>
+            <select id="shopping-category" class="w-full p-2 border rounded">
+                <option value="dam">담시장</option>
+                <option value="pharmacy">약국</option>
+                <option value="fake">짝퉁샵</option>
+                <option value="mart">롯데마트</option>
+            </select>
+            <input type="text" id="shopping-text" placeholder="살 물건" class="w-full p-2 border rounded">
+            <button onclick="saveShoppingItem()" class="w-full bg-blue-600 text-white p-3 rounded font-bold">추가</button>
+            <button onclick="document.getElementById('shopping-modal').classList.add('hidden')" class="w-full text-gray-400">취소</button>
+        </div>
+    </div>
 </body>
 </html>
