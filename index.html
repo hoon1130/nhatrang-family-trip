@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v28 (최종 완결본)</title>
+    <title>가족 나트랑 여행 수호앱 v30 (앱 내장 번역기 탑재본)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -138,9 +138,9 @@
                 <ul id="expense-list" class="space-y-2 max-h-60 overflow-y-auto pr-1 text-sm"></ul>
             </div>
 
-            <!-- 🎯 효도 룰렛 -->
             <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 text-center relative overflow-hidden">
                 <h3 class="font-black mb-5 text-slate-800"><i class="fas fa-dice mr-2 text-pink-500"></i>누가 쏠까? 복불복</h3>
+                
                 <div class="relative w-[240px] h-[240px] mx-auto mb-4 border-4 border-pink-300 rounded-full shadow-lg overflow-hidden">
                     <div id="roulette-wheel" class="roulette-wheel">
                         <div class="roulette-text text-pink-900" style="transform: rotate(-90deg);">할아버지</div>
@@ -152,6 +152,7 @@
                     </div>
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[12px] border-r-[12px] border-t-[20px] border-l-transparent border-r-transparent border-t-pink-600 z-10 drop-shadow-md"></div>
                 </div>
+
                 <div id="roulette-result" class="text-xl font-black text-pink-600 py-3 bg-pink-50 rounded-2xl border border-dashed border-pink-200 mb-5 h-14 flex items-center justify-center">대기중...</div>
                 <button onclick="spinRoulette()" class="w-full bg-pink-500 text-white font-black p-4 rounded-2xl shadow-lg active:scale-95 transition">룰렛 돌리기 🎯</button>
             </div>
@@ -209,7 +210,25 @@
 
         <!-- 5. 회화 탭 -->
         <div id="phrases" class="tab-content pb-10 space-y-6">
-            <h2 class="text-xl font-black text-slate-800 px-1">📢 서바이벌 베트남어</h2>
+            <h2 class="text-xl font-black text-slate-800 px-1 mb-4">📢 서바이벌 베트남어</h2>
+            
+            <!-- 🌐 신규: 앱 내장 실시간 자동 번역기 (API 사용) -->
+            <div class="bg-blue-50 p-5 rounded-[2rem] border border-blue-100 shadow-sm mb-6">
+                <h3 class="font-black text-blue-800 mb-3"><i class="fas fa-language mr-2"></i>실시간 앱내 번역기 (한 ➔ 벳)</h3>
+                <div class="flex space-x-2 mb-3">
+                    <input type="text" id="translate-input" placeholder="한국어로 입력하세요" class="w-full p-3 bg-white border-none rounded-xl text-sm font-bold shadow-inner outline-none" onkeypress="if(event.key==='Enter') inAppTranslate()">
+                    <button onclick="inAppTranslate()" class="bg-blue-600 text-white px-4 rounded-xl font-black shadow-md active:scale-95 transition">번역</button>
+                </div>
+                
+                <!-- 번역 결과가 나타나는 창 -->
+                <div id="translate-result-box" class="hidden bg-white p-4 rounded-xl border border-blue-200 shadow-inner">
+                    <p id="translate-result" class="text-lg font-black text-slate-800 mb-2"></p>
+                    <button onclick="speakTranslated()" class="w-full bg-blue-100 text-blue-700 py-2 rounded-lg font-black text-xs active:bg-blue-200 transition">
+                        <i class="fas fa-volume-up mr-1"></i>베트남어로 말하기
+                    </button>
+                </div>
+            </div>
+
             <div class="bg-stone-50 p-5 rounded-[2rem] border border-stone-200 shadow-sm">
                 <h3 class="font-black text-stone-700 border-b border-stone-200 pb-3 mb-4">☕ 부모님 & 로은, 지안 추천 메뉴</h3>
                 <div class="grid grid-cols-1 gap-3">
@@ -219,7 +238,7 @@
                     <div onclick="speak('Cơm gà')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center border-2 border-orange-100 cursor-pointer active:scale-95 transition"><div><p class="text-[10px] text-orange-400 font-bold uppercase">Com ga</p><p class="text-sm font-black">로은&지안: 부드러운 닭고기 덮밥</p></div><i class="fas fa-volume-up text-orange-500"></i></div>
                 </div>
             </div>
-            <div id="phrase-list" class="space-y-8">
+            <div id="phrase-list" class="space-y-8 mt-6">
                 <div><h3 class="font-black text-orange-600 px-1 mb-4">🍽️ 식당 & 주문</h3><div class="space-y-2" id="food-phrases"></div></div>
                 <div><h3 class="font-black text-purple-600 px-1 mb-4">💆 마사지 & 스파</h3><div class="space-y-2" id="spa-phrases"></div></div>
                 <div><h3 class="font-black text-emerald-600 px-1 mb-4">🚕 이동 & 차량</h3><div class="space-y-2" id="move-phrases"></div></div>
@@ -254,13 +273,13 @@
         <p class="mt-10 text-2xl font-black text-yellow-800">Xin cảm ơn! 🙏</p>
     </div>
 
-    <!-- 일정 관리 모달 -->
+    <!-- 일정 추가/수정 모달 -->
     <div id="itinerary-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm"><div class="bg-white p-6 rounded-[2.5rem] w-full max-w-md shadow-2xl max-h-[85vh] overflow-y-auto"><h3 id="modal-title" class="text-xl font-black mb-5 text-slate-800">일정 관리</h3><input type="hidden" id="edit-key"><div class="space-y-4"><div><label class="text-[10px] font-black text-slate-400 ml-2">날짜</label><input type="text" id="form-date" placeholder="16일(목)" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div><div><label class="text-[10px] font-black text-slate-400 ml-2">시간</label><input type="text" id="form-time" placeholder="09:40" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div><div><label class="text-[10px] font-black text-slate-400 ml-2">장소 명칭</label><textarea id="form-place" placeholder="어디 가나요?" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-20"></textarea></div><div><label class="text-[10px] font-black text-slate-400 ml-2">그랩/택시 목적지</label><input type="text" id="form-grab" placeholder="베트남 주소/상호명" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div><div><label class="text-[10px] font-black text-slate-400 ml-2 mb-1 block">구글 지도 링크</label><div id="links-container" class="space-y-2"></div><button type="button" onclick="addLinkInput()" class="w-full text-[11px] text-blue-600 font-black bg-blue-50 p-3 rounded-2xl border border-dashed border-blue-200 mt-2 hover:bg-blue-100 transition">+ 지도 링크 추가</button></div><div><label class="text-[10px] font-black text-slate-400 ml-2">비고/꿀팁</label><textarea id="form-remarks" placeholder="예약 시간, 주의사항 등" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-24"></textarea></div></div><div class="flex space-x-3 mt-8"><button onclick="saveItineraryItem()" class="flex-1 bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg">저장하기</button><button onclick="closeModal()" class="flex-1 bg-slate-100 text-slate-500 p-4 rounded-2xl font-black">닫기</button></div><button id="delete-btn" onclick="deleteItineraryItem()" class="w-full text-red-400 text-xs mt-5 font-black underline hidden text-center">이 일정 삭제하기</button></div></div>
     
     <!-- 쇼핑 모달 -->
     <div id="shopping-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm"><div class="bg-white p-8 rounded-[2.5rem] w-full max-w-md shadow-2xl"><h3 class="text-xl font-black mb-6 text-slate-800 text-center">🛒 쇼핑 리스트 추가</h3><div class="space-y-4"><select id="shopping-category" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-black shadow-inner outline-none"><option value="dam">담시장</option><option value="pharmacy">티엔푸 약국</option><option value="fake">짝퉁샵</option><option value="mart">롯데마트</option></select><input type="text" id="shopping-text" placeholder="무엇을 사야 하나요?" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner outline-none"></div><div class="flex space-x-3 mt-8"><button onclick="saveShoppingItem()" class="flex-1 bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg">추가</button><button onclick="closeShoppingModal()" class="flex-1 bg-slate-100 text-slate-500 p-4 rounded-2xl font-black">취소</button></div></div></div>
     
-    <!-- 지안 SOS 모달 -->
+    <!-- 🚨 지안 SOS 모달 -->
     <div id="sos-modal" class="fixed inset-0 bg-slate-900/80 z-[150] hidden flex flex-col items-center justify-center p-8 backdrop-blur-md"><div class="bg-white p-8 rounded-[3rem] w-full max-w-sm text-center shadow-2xl relative border-4 border-red-100"><button onclick="closeSosModal()" class="absolute top-6 right-6 text-slate-300 text-2xl hover:text-slate-500"><i class="fas fa-times"></i></button><h3 class="text-3xl font-black mb-2 text-red-500 tracking-tighter">🚨 지안이 비상!</h3><p class="text-slate-400 text-[10px] mb-8 font-black uppercase tracking-widest">Peace Button</p><div class="space-y-4"><a href="https://www.youtube.com/results?search_query=레스큐+타요+연속보기" target="_blank" class="block w-full bg-blue-500 text-white p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🚌 타요 출동!</a><a href="https://www.youtube.com/results?search_query=고고다이노+연속보기" target="_blank" class="block w-full bg-emerald-500 text-white p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🦖 고고다이노!</a><a href="https://www.youtube.com/results?search_query=공룡+자동차+장난감+놀이" target="_blank" class="block w-full bg-yellow-400 text-yellow-900 p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🏎️ 자동차 & 공룡 놀이</a></div></div></div>
 
     <script>
@@ -270,7 +289,7 @@
         const tripStart = new Date("2026-04-15T00:00:00").getTime();
         const rouletteMembers = ['할아버지', '할머니', '아빠', '엄마', '이모', '이모부'];
 
-        // 🔥 자동 통역 사전 (DB에 영어가 있어도 무조건 베트남어로 띄워줌)
+        // 🔥 자동 통역 사전 (기존 영어를 무조건 베트남어로 치환)
         const viMap = {
             "Cam Ranh International Airport": "Sân bay Quốc tế Cam Ranh",
             "Le More Hotel Nha Trang": "Khách sạn Le More (33A Tô Hiến Thành)",
@@ -306,7 +325,40 @@
             updateDDay(); renderPhrases(); 
         });
 
-        // 🎯 룰렛 로직 
+        // 🌐 앱 내장 실시간 번역기 (무료 API 연동)
+        async function inAppTranslate() {
+            const input = document.getElementById('translate-input').value.trim();
+            if(!input) return alert("번역할 한국어를 입력해주세요!");
+            
+            const resultBox = document.getElementById('translate-result-box');
+            const resultText = document.getElementById('translate-result');
+            
+            resultBox.classList.remove('hidden');
+            resultText.innerText = "번역 중... ⏳";
+            
+            try {
+                // 오픈소스 무료 번역 API (MyMemory) 활용 - 한 -> 벳
+                const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=ko|vi`);
+                const data = await res.json();
+                
+                if(data && data.responseData && data.responseData.translatedText) {
+                    resultText.innerText = data.responseData.translatedText;
+                } else {
+                    resultText.innerText = "번역에 실패했습니다. 다시 시도해주세요.";
+                }
+            } catch(e) {
+                resultText.innerText = "네트워크 오류가 발생했습니다.";
+            }
+        }
+        
+        // 🗣️ 번역된 결과물 음성으로 읽어주기
+        function speakTranslated() {
+            const text = document.getElementById('translate-result').innerText;
+            if(text && !text.includes("번역 중") && !text.includes("오류") && !text.includes("실패")) {
+                speak(text);
+            }
+        }
+
         let isSpinning = false; let currentRotation = 0;
         function spinRoulette() {
             if(isSpinning) return;
@@ -324,7 +376,7 @@
             }, 4000);
         }
 
-        // 🚕 택시 카드 호출 함수 (영어 -> 베트남어 자동 번역 적용)
+        // 🚕 택시 카드 호출
         function showTaxiCard(place) {
             let viPlace = viMap[place] || place; 
             document.getElementById('taxi-destination').innerText = viPlace;
@@ -332,15 +384,14 @@
         }
         function closeTaxiModal() { document.getElementById('taxi-modal').classList.add('hidden'); }
 
-        // 🚨 위치 & 기타 공통
         let currentAddr = "위치 정보가 없습니다.";
         function calculateDistance(lat1, lon1, lat2, lon2) { const R = 6371; const dLat = (lat2 - lat1) * Math.PI / 180; const dLon = (lon2 - lon1) * Math.PI / 180; const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2); return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); }
         function findNearbySpots(myLat, myLon) { const nearbyList = nhatrangHotspots.map(spot => ({ ...spot, dist: calculateDistance(myLat, myLon, spot.lat, spot.lon) })).sort((a,b) => a.dist - b.dist).slice(0, 3); const listEl = document.getElementById('nearby-list'); document.getElementById('nearby-container').classList.remove('hidden'); listEl.innerHTML = ''; nearbyList.forEach(spot => { listEl.insertAdjacentHTML('beforeend', `<a href="https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lon}" target="_blank" class="flex justify-between items-center p-3 bg-blue-50 rounded-xl border border-blue-100 active:scale-95 transition"><div><p class="text-sm font-black text-slate-800">${spot.name}</p><p class="text-[10px] text-blue-500 font-bold">현재 위치에서 약 ${spot.dist.toFixed(1)}km</p></div><i class="fas fa-external-link-alt text-blue-300"></i></a>`); }); }
         function updateLocationInfo() { const addrEl = document.getElementById('current-address'); const icon = document.getElementById('gps-refresh-icon'); addrEl.innerText = "GPS 신호 잡는 중..."; if (icon) icon.classList.add('fa-spin'); if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(async (p) => { try { const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${p.coords.latitude}&lon=${p.coords.longitude}&accept-language=vi`); const d = await r.json(); currentAddr = (d && d.display_name) ? d.display_name.split(',').slice(0, 4).join(', ') : `좌표: ${p.coords.latitude.toFixed(4)}`; addrEl.innerText = currentAddr; findNearbySpots(p.coords.latitude, p.coords.longitude); } catch (e) { addrEl.innerText = "주소 변환 실패"; } if (icon) icon.classList.remove('fa-spin'); }, () => { addrEl.innerText = "브라우저 GPS 설정을 확인하세요."; if(icon) icon.classList.remove('fa-spin'); }, { timeout: 10000, enableHighAccuracy: true }); } }
         function speakCurrentLocation() { const u = new SpeechSynthesisUtterance(`Tôi đang ở ${currentAddr}. Làm ơn giúp tôi.`); u.lang = 'vi-VN'; u.rate = 0.8; window.speechSynthesis.speak(u); }
         function renderPhrases() { Object.keys(phrases).forEach(c => { const con = document.getElementById(`${c}-phrases`); if(!con) return; phrases[c].forEach(i => { con.insertAdjacentHTML('beforeend', `<div onclick="speak('${i.v}')" class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center active:scale-95 transition cursor-pointer"><div><p class="text-[10px] text-slate-400 font-bold mb-0.5">${i.k}</p><p class="text-base font-black text-slate-800">${i.v}</p><p class="text-xs text-blue-500 font-bold mt-1">[ ${i.p} ]</p></div><i class="fas fa-volume-up text-blue-400 text-xl bg-blue-50 p-2 rounded-full"></i></div>`); }); }); }
-        
-        // 📅 일정
+        function speak(t) { const u = new SpeechSynthesisUtterance(t); u.lang = 'vi-VN'; u.rate = 0.9; window.speechSynthesis.speak(u); }
+
         function loadItinerary() { db.ref('itinerary').once('value').then(s => { if (!s.exists()) initialItinerary.forEach(i => db.ref('itinerary').push(i)); }); db.ref('itinerary').on('value', s => { itinerary = []; const data = s.val(); if(data) Object.entries(data).forEach(([k, v]) => itinerary.push({...v, firebaseKey: k})); renderItinerary(); }); }
         function renderItinerary() { 
             const list = document.getElementById('itinerary-list'); list.innerHTML = ''; 
@@ -352,19 +403,22 @@
                     let linksHtml = allLinks.map(url => `<a href="${url}" target="_blank" onclick="event.stopPropagation()" class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-100 mb-1 active:scale-95 transition"><i class="fas fa-map-marker-alt text-xs"></i></a>`).join(''); 
                     let baseLen = item.place.length + (item.grab ? item.grab.length : 0); let walkMin = (baseLen % 15) + 5; let carMin = Math.ceil(walkMin / 3) + 2; 
                     
+                    let isKorea = item.place.includes("인천") || item.place.includes("운서") || (item.grab && item.grab.includes("Incheon"));
+                    let safeGrab = item.grab ? item.grab.replace(/'/g, "\\'") : '';
+                    
                     list.insertAdjacentHTML('beforeend', `
                         <div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100 mb-4 flex justify-between items-start transition hover:shadow-md">
                             <div class="flex-1 pr-3">
                                 <div class="flex items-center mb-2"><span class="text-[10px] font-black text-blue-700 bg-blue-50 px-3 py-1 rounded-xl border border-blue-100">${item.time || 'TBD'}</span></div>
                                 <h3 class="font-black text-slate-800 text-lg leading-tight mb-2">${item.place}</h3>
                                 ${item.remarks ? `<div class="bg-slate-50 p-4 rounded-2xl text-[11px] text-slate-500 font-bold mb-2 shadow-inner">${item.remarks}</div>` : ''}
-                                ${item.grab ? `
+                                ${(item.grab && !isKorea) ? `
                                     <div class="mt-2 mb-2">
-                                        <button onclick="showTaxiCard('${item.grab}')" class="bg-yellow-400 text-yellow-900 px-3 py-2 rounded-xl text-xs font-black shadow-sm active:scale-95 transition w-full text-left flex items-center">
+                                        <button onclick="showTaxiCard('${safeGrab}')" class="bg-yellow-400 text-yellow-900 px-3 py-2 rounded-xl text-xs font-black shadow-sm active:scale-95 transition w-full text-left flex items-center">
                                             <i class="fas fa-taxi mr-2 text-lg"></i> 기사님 보여주기 (택시 탑승시)
                                         </button>
                                     </div>` : ''}
-                                <div class="mt-2 flex space-x-3 text-[10px] font-bold text-slate-400 bg-slate-50 inline-flex p-2 rounded-xl"><span><i class="fas fa-walking mr-1"></i>도보 ${walkMin}분</span><span><i class="fas fa-car mr-1"></i>그랩 ${carMin}분</span></div>
+                                ${(!isKorea) ? `<div class="mt-2 flex space-x-3 text-[10px] font-bold text-slate-400 bg-slate-50 inline-flex p-2 rounded-xl"><span><i class="fas fa-walking mr-1"></i>도보 ${walkMin}분</span><span><i class="fas fa-car mr-1"></i>그랩 ${carMin}분</span></div>` : ''}
                             </div>
                             <div class="flex flex-col items-center pt-1">${linksHtml}<button onclick="event.stopPropagation(); openEditForm(${realIdx})" class="bg-slate-100 text-slate-500 px-4 py-2 rounded-xl text-xs font-black mt-2 w-full hover:bg-slate-200">수정</button></div>
                         </div>`); 
@@ -383,19 +437,7 @@
         function closeShoppingModal() { document.getElementById('shopping-modal').classList.add('hidden'); }
         function saveShoppingItem() { const c = document.getElementById('shopping-category').value; const t = document.getElementById('shopping-text').value; if(t) db.ref('shopping').push({ category: c, text: t, checked: false }); closeShoppingModal(); }
         
-        // 💰 가계부 (좀비 샘플 완전 퇴치됨)
-        function loadExpenses() { 
-            db.ref('expenses').on('value', s => { 
-                expensesList = []; let total = 0; const data = s.val(); 
-                if(data) Object.entries(data).forEach(([k, v]) => { expensesList.push({...v, firebaseKey: k}); total += Number(v.amount); }); 
-                document.getElementById('total-expense-display').innerText = total.toLocaleString() + ' ₫'; 
-                document.getElementById('per-person-krw').innerText = `₩ ${Number((total/8)*vndToKrwRate).toFixed(0).toLocaleString()}`; 
-                const list = document.getElementById('expense-list'); list.innerHTML = ''; 
-                expensesList.sort((a,b)=>b.timestamp-a.timestamp).forEach(i => { 
-                    list.insertAdjacentHTML('beforeend', `<li class="flex justify-between items-center p-4 bg-slate-50 rounded-2xl mb-2 shadow-inner border border-slate-100"><span class="text-xs mr-2">${i.category ? i.category.split(' ')[0] : '🎸'}</span><span class="font-black text-slate-700 flex-1 truncate pr-2">${i.desc}</span><span class="font-mono text-blue-600 font-bold">${Number(i.amount).toLocaleString()} ₫<button onclick="if(confirm('삭제할까요?')) db.ref('expenses/${i.firebaseKey}').remove()" class="text-red-400 ml-3">×</button></span></li>`); 
-                }); 
-            }); 
-        }
+        function loadExpenses() { db.ref('expenses').on('value', s => { expensesList = []; let total = 0; const data = s.val(); if(data) Object.entries(data).forEach(([k, v]) => { expensesList.push({...v, firebaseKey: k}); total += Number(v.amount); }); document.getElementById('total-expense-display').innerText = total.toLocaleString() + ' ₫'; document.getElementById('per-person-krw').innerText = `₩ ${Number((total/8)*vndToKrwRate).toFixed(0).toLocaleString()}`; const list = document.getElementById('expense-list'); list.innerHTML = ''; expensesList.sort((a,b)=>b.timestamp-a.timestamp).forEach(i => { list.insertAdjacentHTML('beforeend', `<li class="flex justify-between items-center p-4 bg-slate-50 rounded-2xl mb-2 shadow-inner border border-slate-100"><span class="text-xs mr-2">${i.category ? i.category.split(' ')[0] : '🎸'}</span><span class="font-black text-slate-700 flex-1 truncate pr-2">${i.desc}</span><span class="font-mono text-blue-600 font-bold">${Number(i.amount).toLocaleString()} ₫<button onclick="if(confirm('삭제할까요?')) db.ref('expenses/${i.firebaseKey}').remove()" class="text-red-400 ml-3">×</button></span></li>`); }); }); }
         function addExpense() { const cat = document.getElementById('expense-category').value; const desc = document.getElementById('expense-desc').value; const amt = document.getElementById('expense-amount').value; if(desc && amt) db.ref('expenses').push({ category: cat, desc: desc, amount: Number(amt), timestamp: Date.now() }); document.getElementById('expense-desc').value = ''; document.getElementById('expense-amount').value = ''; }
         
         async function initExchangeRate() { try { const r = await fetch('https://open.er-api.com/v6/latest/VND'); const d = await r.json(); vndToKrwRate = d.rates.KRW; document.getElementById('rate-summary').innerText = `₩${Number((100000 * vndToKrwRate).toFixed(0)).toLocaleString()}`; } catch(e) { document.getElementById('rate-summary').innerText = "₩5,500"; } document.getElementById('vnd-input').oninput = (e) => { document.getElementById('krw-input').value = e.target.value ? `₩ ${(e.target.value * vndToKrwRate).toFixed(0).toLocaleString()}` : ''; }; }
