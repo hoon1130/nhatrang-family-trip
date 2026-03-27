@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
 
-    <title>가족 나트랑 여행 - 나트랑 가즈아! v56</title>
+    <title>가족 나트랑 여행 - 나트랑 가즈아! v57</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
@@ -181,8 +181,7 @@
         
         // ✨ 일정 꿀팁 데이터베이스 세팅 (키워드 매칭용으로 단순화)
         const placeTipsData = {
-            "airport": "<b>🛬 깜란 국제공항</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>수속 후 짐 찾고 나오자마자 유심 픽업이나 렌트카 기사님 미팅을 빠르게 진행하세요! 공항 환전소는 시내보다 비싸니 딱 당장 쓸 소액(당일 택시비 등)만 환전하는 게 좋습니다.",
-            "lemore": "<b>🏨 르모어 호텔</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>가성비 최고 0.5박 숙소입니다. 짐 풀고 근처 '김청'이나 '김빈' 금은방에서 환전하시면 환율이 가장 좋습니다! (5만동, 10만동 지폐 위주로 섞어서 달라고 하세요)",
+            "lemore": "<b>🏨 르모어 호텔</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>가성비 최고 0.5박 숙소입니다. 짐 풀고 현금이 필요하실 텐데, 최근 '김청/김빈' 등 금은방 불법 환전 단속이 매우 심해서 헛걸음하기 쉽습니다. <b>트래블로그/트래블월렛 카드</b>를 챙기셔서 근처 <b>VP Bank</b> 또는 <b>TP Bank ATM</b>에서 수수료 없이 출금하시는 것이 가장 안전하고 환율도 좋습니다!",
             "ponagar": "<b>🛕 포나가르 사원</b><br><br><b>📜 1분 히스토리:</b><br>8~13세기 베트남 중남부를 지배했던 '참파 왕국'의 힌두교 유적지입니다. '포나가르'는 '10개의 팔을 가진 여신'이라는 뜻입니다.<br><br><b>📸 포토존:</b><br>붉은 벽돌 기둥 사이로 들어오는 햇빛이 예술! 부모님들 인생샷 건지기 좋습니다.<br><br><b>💡 지훈 가이드 꿀팁:</b><br>무릎 위로 올라오는 바지나 치마, 나시는 입장 불가! (입구에서 무료 회색 가운을 대여해 줍니다)",
             "honchong": "<b>🌊 혼총 곶 & 🥐 베이크보이</b><br><br><b>📜 혼총 곶 포인트:</b><br>거대한 바위들이 신비롭게 겹쳐진 해안 절경입니다. 거인의 커다란 손자국이 바위에 찍혀 있는 전설이 있으니 로은, 지안이와 찾아보세요!<br><br><b>🥐 베이크보이 (Bake Boy):</b><br>더위에 지쳤을 때 오아시스 같은 곳! 에어컨 빵빵하고 베이커리가 정말 맛있습니다.<br><br><b>💡 지훈 가이드 꿀팁:</b><br>바다 구경 후 베이크보이에서 아이들 당 충전 필수! 땀 식히면서 다음 일정 정비하기 딱 좋습니다.",
             "phohanhphuc": "<b>🍜 포한푹 (Pho Hanh Phuc)</b><br><br><b>🏆 시그니처:</b><br>뚝배기 쌀국수 (팔팔 끓는 뚝배기에 생고기와 면을 직접 샤브샤브처럼 넣어 먹는 방식)<br><br><b>💡 지훈 가이드 꿀팁:</b><br>에어컨이 있어서 부모님 모시고 가기 좋은 깔끔한 쌀국수집입니다. 국물이 진해서 어르신들 만족도 200%! 아이들용으로는 일반 그릇에 담긴 쌀국수를 시켜주면 데일 염려 없이 안전합니다.",
@@ -274,16 +273,14 @@
                         grabBtns = dests.map(dest => `<button onclick="showTaxiCard('${dest.replace(/'/g, "\\'")}')" class="bg-yellow-400 text-yellow-900 px-3 py-2 rounded-xl text-xs font-black shadow-sm mb-1.5 mt-2 w-full text-left flex items-center active:scale-95 transition"><i class="fas fa-taxi mr-2 text-lg"></i>기사님 여기로 가주세요: ${dest}</button>`).join('');
                     }
 
-                    // 🔥 URL 링크 기반 초강력 꿀팁 스마트 매칭 기능
                     let combinedStr = (item.place + " " + (item.link || "") + " " + (item.extraLinks || []).join(" ")).toLowerCase();
                     let matchedTipKey = null;
                     
-                    // 💡 지훈 님 요청 반영: 인천/운서/공항픽업 등 특정 일정에서는 꿀팁 완전 제외
+                    // 인천, 운서, 픽업차량 등 꿀팁 예외 처리 로직 반영
                     let excludeTip = item.place.includes("인천") || item.place.includes("운서") || item.place.includes("픽업차량");
 
                     if (!excludeTip) {
-                        if (combinedStr.includes("cam+ranh") || combinedStr.includes("공항 도착")) matchedTipKey = "airport";
-                        else if (combinedStr.includes("le+more") || combinedStr.includes("르모어")) matchedTipKey = "lemore";
+                        if (combinedStr.includes("le+more") || combinedStr.includes("르모어")) matchedTipKey = "lemore";
                         else if (combinedStr.includes("ponagar") || combinedStr.includes("포나가르")) matchedTipKey = "ponagar";
                         else if (combinedStr.includes("hon+chong") || combinedStr.includes("bake+boy") || combinedStr.includes("혼총")) matchedTipKey = "honchong";
                         else if (combinedStr.includes("cho+dam") || combinedStr.includes("담시장")) matchedTipKey = "chodam";
