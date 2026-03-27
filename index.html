@@ -4,40 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- 🔥 무적의 베트남 국기 SVG 내장 코드! 인터넷 차단 절대 안당함! 🔥 -->
+    <!-- 🔥 100% 안전하게 구동되는 비행기 아이콘으로 원복 & 풀스크린 모드 확정 🔥 -->
+    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22%EB%82%98%ED%8A%B8%EB%9E%91%20%EA%B0%80%EC%A6%88%EC%95%84!%22%2C%22short_name%22%3A%22%EB%82%98%ED%8A%B8%EB%9E%91%20%EA%B0%80%EC%A6%88%EC%95%84!%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f8fafc%22%2C%22theme_color%22%3A%22%232563eb%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F3125%2F3125713.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D'>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="나트랑가즈아!">
     <meta name="theme-color" content="#2563eb">
     
-    <!-- 애플 & 안드로이드 범용 아이콘 (코드로 직접 그린 베트남 국기) -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23da251d'/%3E%3Cpath fill='%23ffcd00' d='M256 110l45 138h145l-117 85 45 138-118-86-118 86 45-138-117-85h145z'/%3E%3C/svg%3E">
-    <link rel="shortcut icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23da251d'/%3E%3Cpath fill='%23ffcd00' d='M256 110l45 138h145l-117 85 45 138-118-86-118 86 45-138-117-85h145z'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3125/3125713.png">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3125/3125713.png">
 
-    <title>가족 나트랑 여행 - 나트랑 가즈아! v48</title>
-    
-    <script>
-        // 안드로이드 앱 설치(PWA)를 완벽하게 속이기 위한 동적 매니페스트 주입 마법!
-        const manifestData = {
-            "name": "나트랑 가즈아!",
-            "short_name": "나트랑 가즈아!",
-            "start_url": ".",
-            "display": "standalone",
-            "background_color": "#f8fafc",
-            "theme_color": "#2563eb",
-            "icons": [{
-                "src": "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23da251d'/%3E%3Cpath fill='%23ffcd00' d='M256 110l45 138h145l-117 85 45 138-118-86-118 86 45-138-117-85h145z'/%3E%3C/svg%3E",
-                "sizes": "512x512",
-                "type": "image/svg+xml",
-                "purpose": "any maskable"
-            }]
-        };
-        const manifestStr = JSON.stringify(manifestData);
-        const manifestUrl = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(manifestStr);
-        document.write('<link rel="manifest" href="' + manifestUrl + '">');
-    </script>
-
+    <title>가족 나트랑 여행 - 나트랑 가즈아! v47</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
@@ -71,7 +49,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 대시보드 단독 새로고침 버튼 -->
             <div class="text-right flex items-center justify-end space-x-2">
                 <button onclick="refreshDashboard()" class="bg-white/10 hover:bg-white/20 p-2 rounded-full w-8 h-8 flex items-center justify-center active:scale-95 transition">
                     <i id="dashboard-refresh-icon" class="fas fa-sync-alt text-white/90 text-sm"></i>
@@ -229,19 +206,7 @@
         function closeShoppingModal() { document.getElementById('shopping-modal').classList.add('hidden'); }
         function saveShoppingItem() { const c = document.getElementById('shopping-category').value; const t = document.getElementById('shopping-text').value; if(t) db.ref('shopping').push({ category: c, text: t, checked: false }); closeShoppingModal(); }
         
-        async function initExchangeRate() { 
-            try { 
-                const r = await fetch('https://open.er-api.com/v6/latest/VND'); 
-                const d = await r.json(); 
-                vndToKrwRate = d.rates.KRW; 
-                document.getElementById('rate-summary').innerText = `₩${Number((100000 * vndToKrwRate).toFixed(0)).toLocaleString()}`; 
-            } catch(e) { 
-                document.getElementById('rate-summary').innerText = "₩5,500"; 
-            } 
-            document.getElementById('vnd-input').oninput = (e) => { 
-                document.getElementById('krw-input').value = e.target.value ? `₩ ${(e.target.value * vndToKrwRate).toFixed(0).toLocaleString()}` : ''; 
-            }; 
-        }
+        async function initExchangeRate() { try { const r = await fetch('https://open.er-api.com/v6/latest/VND'); const d = await r.json(); vndToKrwRate = d.rates.KRW; document.getElementById('rate-summary').innerText = `₩${Number((100000 * vndToKrwRate).toFixed(0)).toLocaleString()}`; } catch(e) { document.getElementById('rate-summary').innerText = "₩5,500"; } document.getElementById('vnd-input').oninput = (e) => { document.getElementById('krw-input').value = e.target.value ? `₩ ${(e.target.value * vndToKrwRate).toFixed(0).toLocaleString()}` : ''; }; }
         
         async function initWeatherOpenMeteo() { 
             try { 
