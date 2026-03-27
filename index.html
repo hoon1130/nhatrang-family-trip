@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v32 (카메라 번역 완결본)</title>
+    <title>가족 나트랑 여행 수호앱 v33 (자동번역 & 다이렉트 카메라)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
-    
-    <!-- 사진 번역(OCR) 엔진 -->
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
     <style>
@@ -27,7 +24,6 @@
         .animate-pulse-red { animation: pulse-red 2s infinite; }
         .briefing-card { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); }
 
-        /* 🎯 효도 룰렛판 */
         .roulette-wheel {
             width: 240px; height: 240px; border-radius: 50%;
             background: conic-gradient(from -15deg, #fbcfe8 0 30deg, #fce7f3 30deg 60deg, #f9a8d4 60deg 135deg, #f472b6 135deg 210deg, #ec4899 210deg 285deg, #db2777 285deg 360deg);
@@ -55,7 +51,6 @@
 
     <main class="p-4">
         
-        <!-- 1. 일정 탭 -->
         <div id="schedule" class="tab-content active space-y-4">
             <div class="grid grid-cols-2 gap-3">
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-center">
@@ -69,7 +64,6 @@
             <button onclick="openAddForm()" class="w-full bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg transition active:scale-95 mt-4"><i class="fas fa-plus-circle mr-2"></i>일정 추가하기</button>
         </div>
 
-        <!-- 2. 쇼핑 탭 -->
         <div id="shopping" class="tab-content space-y-4">
             <div class="flex justify-between items-end mb-4 px-1">
                 <h2 class="text-lg font-black text-slate-800">🛒 필수 쇼핑 리스트</h2>
@@ -83,7 +77,6 @@
             </div>
         </div>
 
-        <!-- 3. 가계부 탭 -->
         <div id="ledger" class="tab-content space-y-5">
             <div class="bg-blue-600 p-6 rounded-[2rem] shadow-lg text-white">
                 <h2 class="text-lg font-black mb-4"><i class="fas fa-exchange-alt mr-2 text-yellow-300"></i>실시간 환율 계산기</h2>
@@ -216,23 +209,24 @@
         <div id="phrases" class="tab-content pb-10 space-y-6">
             <h2 class="text-xl font-black text-slate-800 px-1 mb-4">📢 서바이벌 베트남어</h2>
             
-            <!-- 🌐 업데이트: 사진 번역 및 복사 기능이 추가된 앱 내 번역기 -->
+            <!-- 🌐 업데이트: 언어 자동 감지 & 다이렉트 카메라 번역기 -->
             <div class="bg-blue-50 p-5 rounded-[2rem] border border-blue-100 shadow-sm mb-6">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 id="translate-title" class="font-black text-blue-800"><i class="fas fa-language mr-2"></i>번역기 (한 ➔ 벳)</h3>
-                    <button onclick="toggleLang()" class="text-blue-600 bg-white px-3 py-1 rounded-lg text-xs font-black shadow-sm active:scale-95 border border-blue-200"><i class="fas fa-exchange-alt mr-1"></i>방향 전환</button>
+                    <h3 class="font-black text-blue-800"><i class="fas fa-language mr-2"></i>스마트 AI 번역기</h3>
+                    <span class="text-[10px] bg-blue-200 text-blue-700 px-2 py-1 rounded-md font-black">언어 자동 감지</span>
                 </div>
                 <div class="flex space-x-2 mb-3">
-                    <!-- 📷 사진 번역 버튼 추가 -->
-                    <input type="file" id="ocr-input" accept="image/*" class="hidden" onchange="processImage(this)">
+                    <!-- 📷 capture="environment" 적용: 누르면 카메라 바로 실행 -->
+                    <input type="file" id="ocr-input" accept="image/*" capture="environment" class="hidden" onchange="processImage(this)">
                     <button onclick="document.getElementById('ocr-input').click()" class="bg-slate-100 text-slate-600 px-4 rounded-xl font-black shadow-md active:scale-95 transition flex items-center justify-center">
                         <i class="fas fa-camera text-lg"></i>
                     </button>
-                    <input type="text" id="translate-input" placeholder="한국어로 입력하세요" class="w-full p-3 bg-white border-none rounded-xl text-sm font-bold shadow-inner outline-none" onkeypress="if(event.key==='Enter') inAppTranslate()">
+                    <!-- 입력창 안내문구 변경 -->
+                    <input type="text" id="translate-input" placeholder="한국어 또는 베트남어 입력" class="w-full p-3 bg-white border-none rounded-xl text-sm font-bold shadow-inner outline-none" onkeypress="if(event.key==='Enter') inAppTranslate()">
                     <button onclick="inAppTranslate()" class="bg-blue-600 text-white px-4 rounded-xl font-black shadow-md active:scale-95 transition">번역</button>
                 </div>
                 
-                <!-- 번역 결과창 (복사 버튼 추가) -->
+                <!-- 번역 결과창 (복사 버튼 포함) -->
                 <div id="translate-result-box" class="hidden bg-white p-4 rounded-xl border border-blue-200 shadow-inner relative">
                     <!-- 📋 복사 버튼 -->
                     <button onclick="copyTranslatedText()" class="absolute top-3 right-3 text-slate-400 hover:text-blue-500 active:scale-95 transition p-2">
@@ -241,8 +235,9 @@
                     
                     <p id="translate-result" class="text-lg font-black text-slate-800 mb-4 pr-8 break-words leading-tight"></p>
                     
+                    <!-- 스피커 텍스트가 번역 결과 언어에 맞게 자동 변경됨 -->
                     <button id="speak-btn" onclick="speakTranslated()" class="w-full bg-blue-100 text-blue-700 py-3 rounded-xl font-black text-sm active:bg-blue-200 transition">
-                        <i class="fas fa-volume-up mr-2"></i>베트남어로 말하기
+                        <i class="fas fa-volume-up mr-2"></i>읽어주기
                     </button>
                 </div>
             </div>
@@ -376,29 +371,28 @@
         });
 
         // ==========================================
-        // 🌐 번역기 언어 방향 및 복사, 카메라 로직
+        // 🌐 스마트 AI 번역기 (자동 언어 감지 & 카메라 직접 실행)
         // ==========================================
-        let isKoToVi = true;
-        function toggleLang() {
-            isKoToVi = !isKoToVi;
-            document.getElementById('translate-title').innerHTML = `<i class="fas fa-language mr-2"></i>번역기 (${isKoToVi ? '한 ➔ 벳' : '벳 ➔ 한'})`;
-            document.getElementById('translate-input').placeholder = isKoToVi ? '한국어로 입력하세요' : '베트남어로 입력하세요';
-            document.getElementById('speak-btn').innerHTML = `<i class="fas fa-volume-up mr-2"></i>${isKoToVi ? '베트남어로 말하기' : '한국어로 말하기'}`;
-            document.getElementById('translate-result-box').classList.add('hidden');
-            document.getElementById('translate-input').value = '';
-        }
+        let lastResultLang = 'vi-VN'; // 기본 결과물 스피커 언어 (베트남어)
 
         async function inAppTranslate() {
             const input = document.getElementById('translate-input').value.trim();
-            if(!input) return alert(isKoToVi ? "번역할 한국어를 입력해주세요!" : "번역할 베트남어를 입력해주세요!");
+            if(!input) return alert("번역할 텍스트를 입력해주세요!");
             
             const resultBox = document.getElementById('translate-result-box');
             const resultText = document.getElementById('translate-result');
+            const speakBtn = document.getElementById('speak-btn');
             
             resultBox.classList.remove('hidden');
             resultText.innerText = "번역 중... ⏳";
             
-            const langPair = isKoToVi ? "ko|vi" : "vi|ko";
+            // 💡 핵심: 한글이 하나라도 포함되어 있으면 한->벳, 아니면 벳->한 자동 설정
+            const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(input);
+            const langPair = isKorean ? "ko|vi" : "vi|ko";
+            
+            // 스피커 언어 및 버튼 텍스트 자동 변경
+            lastResultLang = isKorean ? 'vi-VN' : 'ko-KR';
+            speakBtn.innerHTML = `<i class="fas fa-volume-up mr-2"></i>${isKorean ? '베트남어로 읽기' : '한국어로 읽기'}`;
             
             try {
                 const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=${langPair}`);
@@ -418,13 +412,12 @@
             const text = document.getElementById('translate-result').innerText;
             if(text && !text.includes("번역 중") && !text.includes("오류") && !text.includes("실패") && !text.includes("분석 중")) {
                 const u = new SpeechSynthesisUtterance(text);
-                u.lang = isKoToVi ? 'vi-VN' : 'ko-KR';
+                u.lang = lastResultLang;
                 u.rate = 0.9;
                 window.speechSynthesis.speak(u);
             }
         }
 
-        // 📋 번역 결과 복사 기능
         function copyTranslatedText() {
             const text = document.getElementById('translate-result').innerText;
             if(text && !text.includes("번역 중") && !text.includes("오류") && !text.includes("실패") && !text.includes("분석 중")) {
@@ -432,7 +425,6 @@
             }
         }
 
-        // 📷 사진 번역 기능 (Tesseract.js 지연 로딩 사용)
         async function processImage(input) {
             if(!input.files || !input.files[0]) return;
             const file = input.files[0];
@@ -443,10 +435,6 @@
             resultText.innerText = "사진에서 글자를 추출 중입니다... ⏳\n(최대 10초 정도 소요될 수 있습니다)";
             
             try {
-                // 사진을 찍었을 때는 99% 베트남어 메뉴판이므로, 자동으로 벳->한 모드로 변경
-                if(isKoToVi) toggleLang(); 
-                
-                // 베트남어(vie) 언어 모델로 사진 인식 시작
                 const { data: { text } } = await Tesseract.recognize(file, 'vie', {
                     logger: m => {
                         if(m.status === 'recognizing text') {
@@ -457,7 +445,7 @@
                 
                 if(text.trim()) {
                     document.getElementById('translate-input').value = text.trim();
-                    inAppTranslate(); // 글자 추출 완료 후 자동 번역 실행
+                    inAppTranslate(); // 글자 추출 완료 후 바로 자동 번역 실행 (벳->한)
                 } else {
                     resultText.innerText = "사진에서 글자를 찾지 못했습니다. 조금 더 가까이서 찍어주세요.";
                 }
