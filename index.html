@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v35 (멀티 택시 목적지 완결본)</title>
+    <title>가족 나트랑 여행 수호앱 v36 (멀티 택시 & 에러픽스 완결본)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -208,29 +208,17 @@
             
             <div class="bg-blue-50 p-5 rounded-[2rem] border border-blue-100 shadow-sm mb-6">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-black text-blue-800"><i class="fas fa-language mr-2"></i>스마트 AI 번역기</h3>
+                    <h3 class="font-black text-blue-800"><i class="fas fa-language mr-2"></i>스마트 텍스트 번역기</h3>
                     <span class="text-[10px] bg-blue-200 text-blue-700 px-2 py-1 rounded-md font-black">언어 자동 감지</span>
                 </div>
-                
-                <p class="text-[10px] text-slate-500 font-bold mb-3 bg-white p-2 rounded-lg border border-blue-50">
-                    💡 메뉴판/간판 등 <span class="text-blue-600">사진 번역</span>은 폰에 기본 설치된 '구글 렌즈'나 '파파고' 앱을 쓰시는 것이 가장 빠르고 정확합니다!
-                </p>
-
                 <div class="flex space-x-2 mb-3">
                     <input type="text" id="translate-input" placeholder="한국어 또는 베트남어 입력" class="w-full p-3 bg-white border-none rounded-xl text-sm font-bold shadow-inner outline-none" onkeypress="if(event.key==='Enter') inAppTranslate()">
                     <button onclick="inAppTranslate()" class="bg-blue-600 text-white px-4 rounded-xl font-black shadow-md active:scale-95 transition">번역</button>
                 </div>
-                
                 <div id="translate-result-box" class="hidden bg-white p-4 rounded-xl border border-blue-200 shadow-inner relative">
-                    <button onclick="copyTranslatedText()" class="absolute top-3 right-3 text-slate-400 hover:text-blue-500 active:scale-95 transition p-2">
-                        <i class="fas fa-copy text-xl"></i>
-                    </button>
-                    
+                    <button onclick="copyTranslatedText()" class="absolute top-3 right-3 text-slate-400 hover:text-blue-500 active:scale-95 transition p-2"><i class="fas fa-copy text-xl"></i></button>
                     <p id="translate-result" class="text-lg font-black text-slate-800 mb-4 pr-8 break-words leading-tight"></p>
-                    
-                    <button id="speak-btn" onclick="speakTranslated()" class="w-full bg-blue-100 text-blue-700 py-3 rounded-xl font-black text-sm active:bg-blue-200 transition">
-                        <i class="fas fa-volume-up mr-2"></i>읽어주기
-                    </button>
+                    <button id="speak-btn" onclick="speakTranslated()" class="w-full bg-blue-100 text-blue-700 py-3 rounded-xl font-black text-sm active:bg-blue-200 transition"><i class="fas fa-volume-up mr-2"></i>읽어주기</button>
                 </div>
             </div>
 
@@ -321,72 +309,35 @@
         const tripStart = new Date("2026-04-15T00:00:00").getTime();
         const rouletteMembers = ['할아버지', '할머니', '아빠', '엄마', '이모', '이모부'];
 
+        // 🔥 자동 통역 사전 (기존 영어를 무조건 베트남어 다중 목적지로 자동 분할)
         const viMap = {
             "Cam Ranh International Airport": "Sân bay Quốc tế Cam Ranh",
             "Le More Hotel Nha Trang": "Khách sạn Le More (33A Tô Hiến Thành)",
             "Thap Ba Ponagar Nha Trang": "Tháp Bà Ponagar",
-            "Hon Chong Nha Trang": "Hòn Chồng",
+            "Hon Chong Nha Trang": "Hòn Chồng, Bake Boy", // 콤마로 쪼개서 두개로 나옴
             "Cho Dam Nha Trang": "Chợ Đầm",
             "Nem Nuong Dang Van Quyen Nha Trang": "Nem Nướng Đặng Văn Quyên",
             "Sheraton Nha Trang Hotel & Spa": "Khách sạn Sheraton (26-28 Trần Phú)",
             "Tiny Nail Spa Nha Trang": "Tiny Nail Spa",
-            "Chuck Chip Nha Trang": "Khoai lang lắc Chuck Chip",
+            "Chuck Chip Nha Trang": "Khoai lang lắc Chuck Chip, Sạp trái cây 65", // 콤마 분할
             "Moc Quan Nha Trang": "Hải sản Mộc Quán",
-            "An Cafe Nha Trang": "An Café",
+            "An Cafe Nha Trang": "An Café, Ola Café", // 콤마 분할
             "I-Resort Nha Trang": "Suối khoáng nóng I-Resort",
             "Pizza 4Ps Sheraton Nha Trang": "Pizza 4P's (Sheraton)",
-            "Central Market Nha Trang": "Chợ Đêm (Central Market)",
+            "Central Market Nha Trang": "Chợ Đêm (Central Market), Nhà thuốc Thiên Phú, Cửa hàng cá sấu", // 3개로 분할
             "An Thoi Nha Trang": "Nhà hàng Ăn Thôi",
-            "Tram Huong Tower Nha Trang": "Tháp Trầm Hương",
+            "Tram Huong Tower Nha Trang": "Tháp Trầm Hương, Chợ Đêm", // 콤마 분할
             "Lotte Mart Gold Coast Nha Trang": "Lotte Mart (Gold Coast)",
             "Venaza Store Nha Trang": "Venaza Lounge",
-            "Com Tam 82 Nha Trang": "Cơm tấm 82"
+            "Com Tam 82 Nha Trang": "Cơm tấm 82",
+            "Massage chân, Quán cà phê": "Massage chân, Quán cà phê"
         };
 
-        // 🔥 다중 택시 목적지 세팅이 포함된 34개 완벽 일정 세트!
-        const initialItinerary = [
-            {date:"15일(수)",time:"22:30",place:"✈️ 나트랑 깜란 공항 도착",grab:"Sân bay Quốc tế Cam Ranh",link:"",extraLinks:[],remarks:"비행기 착륙 후 수속 및 수하물 찾기"},
-            {date:"15일(수)",time:"23:00~24:00",place:"픽업카 탑승 및 숙소로 이동",grab:"",link:"",extraLinks:[],remarks:"50분소요 / 1터미널 2번게이트 픽업"},
-            {date:"15일(수)",time:"24:30~",place:"숙소 체크인 및 환전ATM",grab:"Khách sạn Le More (33A Tô Hiến Thành)",link:"https://www.google.com/maps/search/?api=1&query=Le+More+Hotel+Nha+Trang",extraLinks:[],remarks:"르모어호텔"},
-            {date:"16일(목)",time:"8:00~9:30",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"여유 시 근처에서 반미 사먹기"},
-            {date:"16일(목)",time:"9:40",place:"퇴실 및 렌트카 탑승(짐 포함)",grab:"",link:"",extraLinks:[],remarks:"렌트카 4시간+@ 이용 시작"},
-            {date:"16일(목)",time:"9:50~10:40",place:"포나가르 사원",grab:"Tháp Bà Ponagar",link:"https://www.google.com/maps/search/?api=1&query=Thap+Ba+Ponagar",extraLinks:[],remarks:"입장료 21만동(지안무료), 어깨/무릎노출X(반바지X), 슬리퍼O"},
-            // 💡 여러 목적지 콤마(,) 세팅 완료!
-            {date:"16일(목)",time:"10:50~11:50",place:"혼총곶 & 베이크보이(디저트)",grab:"Hòn Chồng, Bake Boy",link:"https://www.google.com/maps/search/?api=1&query=Hon+Chong",extraLinks:["https://www.google.com/maps/search/?api=1&query=Bake+Boy"],remarks:"입장료 21만동(지안무료)"},
-            {date:"16일(목)",time:"12:00~13:00",place:"담시장 쇼핑",grab:"Chợ Đầm",link:"https://www.google.com/maps/search/?api=1&query=Cho+Dam",extraLinks:[],remarks:"트라이크 챙길 것, 망고쥬스 사먹기"},
-            {date:"16일(목)",time:"13:00~14:00",place:"점심식사 : 당반꾸엔",grab:"Nem Nướng Đặng Văn Quyên",link:"https://www.google.com/maps/search/?api=1&query=Nem+Nuong+Dang+Van+Quyen",extraLinks:[],remarks:"넴느엉, 분띳느엉, 에그롤 등 약 70만동"},
-            {date:"16일(목)",time:"14:30~15:00",place:"숙소 체크인 (쉐라톤)",grab:"Khách sạn Sheraton (26-28 Trần Phú)",link:"https://www.google.com/maps/search/?api=1&query=Sheraton+Nha+Trang",extraLinks:[],remarks:""},
-            {date:"16일(목)",time:"",place:"휴식 후 시내",grab:"",link:"",extraLinks:[],remarks:""},
-            {date:"16일(목)",time:"",place:"타이니네일스파(네일아트 및 마사지)",grab:"Tiny Nail Spa",link:"https://www.google.com/maps/search/?api=1&query=Tiny+Nail+Spa",extraLinks:[],remarks:"*예약필수 / 어른네일 22만동, 아이 10만동, 마사지 39만동"},
-            // 💡 여러 목적지 콤마(,) 세팅 완료!
-            {date:"16일(목)",time:"",place:"척칩 & 65번 과일가게",grab:"Khoai lang lắc Chuck Chip, Sạp trái cây 65",link:"https://www.google.com/maps/search/?api=1&query=Chuck+Chip",extraLinks:["https://www.google.com/maps/search/?api=1&query=Vua+Trai+Cay+65"],remarks:"고구마튀김 및 과일 간식 구매"},
-            {date:"16일(목)",time:"18:30",place:"저녁식사 : 목식당 (씨푸드)",grab:"Hải sản Mộc Quán",link:"https://www.google.com/maps/search/?api=1&query=Moc+Quan",extraLinks:[],remarks:"예약완료"},
-            {date:"16일(목)",time:"",place:"안카페 or 올라카페",grab:"An Café",link:"https://www.google.com/maps/search/?api=1&query=An+Cafe",extraLinks:["https://www.google.com/maps/search/?api=1&query=Ola+Cafe"],remarks:""},
-            {date:"16일(목)",time:"",place:"시내 -> 숙소 복귀",grab:"",link:"",extraLinks:[],remarks:"도보 10분"},
-            {date:"17일(금)",time:"~8:50",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"세수만 하고 나갈 준비!"},
-            {date:"17일(금)",time:"9:30~13:50",place:"아이리조트 머드스파",grab:"Suối khoáng nóng I-Resort",link:"https://www.google.com/maps/search/?api=1&query=I-Resort",extraLinks:[],remarks:"그랩 2대 호출 / 버릴 속옷 지참, 수건 제공됨, 현금 필수"},
-            {date:"17일(금)",time:"",place:"숙소 복귀 및 씻고 재정비",grab:"",link:"",extraLinks:[],remarks:""},
-            {date:"17일(금)",time:"14:00",place:"점심식사 : 피자포피스",grab:"Pizza 4P's (Sheraton)",link:"https://www.google.com/maps/search/?api=1&query=Pizza+4Ps+Sheraton",extraLinks:[],remarks:"예약완료"},
-            // 💡 여러 목적지 콤마(,) 세팅 완료!
-            {date:"17일(금)",time:"14:30~",place:"센트럴마켓, 티엔푸약국, 악어집",grab:"Chợ Đêm (Central Market), Nhà thuốc Thiên Phú, Cửa hàng cá sấu",link:"https://www.google.com/maps/search/?api=1&query=Central+Market",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu","https://www.google.com/maps/search/?api=1&query=A-KEO"],remarks:""},
-            {date:"17일(금)",time:"16:30~",place:"마사지",grab:"",link:"",extraLinks:[],remarks:""},
-            {date:"17일(금)",time:"18:30~",place:"저녁식사 : 안토이",grab:"Nhà hàng Ăn Thôi",link:"https://www.google.com/maps/search/?api=1&query=An+Thoi",extraLinks:[],remarks:"예약불가, 번호표 대기 (분짜, 반쎄오, 곱창쌀국수 등)"},
-            {date:"17일(금)",time:"",place:"탑쩜흐엉 및 야시장 구경",grab:"Tháp Trầm Hương",link:"https://www.google.com/maps/search/?api=1&query=Tram+Huong+Tower",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Trang+Night+Market"],remarks:""},
-            {date:"17일(금)",time:"",place:"숙소 복귀",grab:"",link:"",extraLinks:[],remarks:""},
-            {date:"18일(토)",time:"9:00",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:""},
-            {date:"18일(토)",time:"",place:"롯데마트 쇼핑",grab:"Lotte Mart (Gold Coast)",link:"https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Gold+Coast",extraLinks:[],remarks:""},
-            {date:"18일(토)",time:"~12:00",place:"짐정리 및 퇴실",grab:"",link:"",extraLinks:[],remarks:""},
-            {date:"18일(토)",time:"",place:"쉐라톤 -> 베나자라운지",grab:"Venaza Lounge",link:"https://www.google.com/maps/search/?api=1&query=Venaza+Store",extraLinks:[],remarks:"그랩 2대 이동, 짐 보관"},
-            {date:"18일(토)",time:"",place:"점심식사 : 껌땀",grab:"Cơm tấm 82",link:"https://www.google.com/maps/search/?api=1&query=Com+Tam+82",extraLinks:[],remarks:"베트남식 백반"},
-            // 💡 여러 목적지 콤마(,) 세팅 완료!
-            {date:"18일(토)",time:"",place:"풋마사지 & 카페",grab:"Massage chân, Quán cà phê",link:"",extraLinks:[],remarks:""},
-            {date:"18일(토)",time:"17:30~",place:"저녁식사",grab:"",link:"",extraLinks:[],remarks:""},
-            {date:"18일(토)",time:"18:30",place:"공항 픽업차량 탑승",grab:"",link:"",extraLinks:[],remarks:"50분 소요, 19:30 도착 필수"},
-            {date:"18일(토)",time:"19:30",place:"✈️ 나트랑 공항 도착 (수속)",grab:"Sân bay Quốc tế Cam Ranh",link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport",extraLinks:[],remarks:"23:30 이륙"}
-        ];
-
+        const initialItinerary = [{date:"15일(수)",time:"22:30",place:"✈️ 나트랑 깜란 공항 도착",grab:"Sân bay Quốc tế Cam Ranh",link:"",extraLinks:[],remarks:"비행기 착륙 후 수속 및 수하물 찾기"},{date:"15일(수)",time:"23:00~24:00",place:"픽업카 탑승 및 숙소로 이동",grab:"",link:"",extraLinks:[],remarks:"50분소요 / 1터미널 2번게이트 픽업"},{date:"15일(수)",time:"24:30~",place:"숙소 체크인 및 환전ATM",grab:"Khách sạn Le More (33A Tô Hiến Thành)",link:"https://www.google.com/maps/search/?api=1&query=Le+More+Hotel+Nha+Trang",extraLinks:[],remarks:"르모어호텔"},{date:"16일(목)",time:"8:00~9:30",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"여유 시 근처에서 반미 사먹기"},{date:"16일(목)",time:"9:40",place:"퇴실 및 렌트카 탑승(짐 포함)",grab:"",link:"",extraLinks:[],remarks:"렌트카 4시간+@ 이용 시작"},{date:"16일(목)",time:"9:50~10:40",place:"포나가르 사원",grab:"Tháp Bà Ponagar",link:"https://www.google.com/maps/search/?api=1&query=Thap+Ba+Ponagar",extraLinks:[],remarks:"입장료 21만동(지안무료), 어깨/무릎노출X(반바지X), 슬리퍼O"},{date:"16일(목)",time:"10:50~11:50",place:"혼총곶 & 베이크보이(디저트)",grab:"Hòn Chồng, Bake Boy",link:"https://www.google.com/maps/search/?api=1&query=Hon+Chong",extraLinks:["https://www.google.com/maps/search/?api=1&query=Bake+Boy"],remarks:"입장료 21만동(지안무료)"},{date:"16일(목)",time:"12:00~13:00",place:"담시장 쇼핑",grab:"Chợ Đầm",link:"https://www.google.com/maps/search/?api=1&query=Cho+Dam",extraLinks:[],remarks:"트라이크 챙길 것, 망고쥬스 사먹기"},{date:"16일(목)",time:"13:00~14:00",place:"점심식사 : 당반꾸엔",grab:"Nem Nướng Đặng Văn Quyên",link:"https://www.google.com/maps/search/?api=1&query=Nem+Nuong+Dang+Van+Quyen",extraLinks:[],remarks:"넴느엉, 분띳느엉, 에그롤 등 약 70만동"},{date:"16일(목)",time:"14:30~15:00",place:"숙소 체크인 (쉐라톤)",grab:"Khách sạn Sheraton (26-28 Trần Phú)",link:"https://www.google.com/maps/search/?api=1&query=Sheraton+Nha+Trang",extraLinks:[],remarks:""},{date:"16일(목)",time:"",place:"휴식 후 시내",grab:"",link:"",extraLinks:[],remarks:""},{date:"16일(목)",time:"",place:"타이니네일스파(네일아트 및 마사지)",grab:"Tiny Nail Spa",link:"https://www.google.com/maps/search/?api=1&query=Tiny+Nail+Spa",extraLinks:[],remarks:"*예약필수 / 어른네일 22만동, 아이 10만동, 마사지 39만동"},{date:"16일(목)",time:"",place:"척칩 & 65번 과일가게",grab:"Khoai lang lắc Chuck Chip, Sạp trái cây 65",link:"https://www.google.com/maps/search/?api=1&query=Chuck+Chip",extraLinks:["https://www.google.com/maps/search/?api=1&query=Vua+Trai+Cay+65"],remarks:"고구마튀김 및 과일 간식 구매"},{date:"16일(목)",time:"18:30",place:"저녁식사 : 목식당 (씨푸드)",grab:"Hải sản Mộc Quán",link:"https://www.google.com/maps/search/?api=1&query=Moc+Quan",extraLinks:[],remarks:"예약완료"},{date:"16일(목)",time:"",place:"안카페 or 올라카페",grab:"An Café, Ola Café",link:"https://www.google.com/maps/search/?api=1&query=An+Cafe",extraLinks:["https://www.google.com/maps/search/?api=1&query=Ola+Cafe"],remarks:""},{date:"16일(목)",time:"",place:"시내 -> 숙소 복귀",grab:"",link:"",extraLinks:[],remarks:"도보 10분"},{date:"17일(금)",time:"~8:50",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"세수만 하고 나갈 준비!"},{date:"17일(금)",time:"9:30~13:50",place:"아이리조트 머드스파",grab:"Suối khoáng nóng I-Resort",link:"https://www.google.com/maps/search/?api=1&query=I-Resort",extraLinks:[],remarks:"그랩 2대 호출 / 버릴 속옷 지참, 수건 제공됨, 현금 필수"},{date:"17일(금)",time:"",place:"숙소 복귀 및 씻고 재정비",grab:"",link:"",extraLinks:[],remarks:""},{date:"17일(금)",time:"14:00",place:"점심식사 : 피자포피스",grab:"Pizza 4P's (Sheraton)",link:"https://www.google.com/maps/search/?api=1&query=Pizza+4Ps+Sheraton",extraLinks:[],remarks:"예약완료"},{date:"17일(금)",time:"14:30~",place:"센트럴마켓, 티엔푸약국, 악어집",grab:"Chợ Đêm (Central Market), Nhà thuốc Thiên Phú, Cửa hàng cá sấu",link:"https://www.google.com/maps/search/?api=1&query=Central+Market",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu","https://www.google.com/maps/search/?api=1&query=A-KEO"],remarks:""},{date:"17일(금)",time:"16:30~",place:"마사지",grab:"",link:"",extraLinks:[],remarks:""},{date:"17일(금)",time:"18:30~",place:"저녁식사 : 안토이",grab:"Nhà hàng Ăn Thôi",link:"https://www.google.com/maps/search/?api=1&query=An+Thoi",extraLinks:[],remarks:"예약불가, 번호표 대기 (분짜, 반쎄오, 곱창쌀국수 등)"},{date:"17일(금)",time:"",place:"탑쩜흐엉 및 야시장 구경",grab:"Tháp Trầm Hương, Chợ Đêm",link:"https://www.google.com/maps/search/?api=1&query=Tram+Huong+Tower",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Trang+Night+Market"],remarks:""},{date:"17일(금)",time:"",place:"숙소 복귀",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"9:00",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"",place:"롯데마트 쇼핑",grab:"Lotte Mart (Gold Coast)",link:"https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Gold+Coast",extraLinks:[],remarks:""},{date:"18일(토)",time:"~12:00",place:"짐정리 및 퇴실",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"",place:"쉐라톤 -> 베나자라운지",grab:"Venaza Lounge",link:"https://www.google.com/maps/search/?api=1&query=Venaza+Store",extraLinks:[],remarks:"그랩 2대 이동, 짐 보관"},{date:"18일(토)",time:"",place:"점심식사 : 껌땀",grab:"Cơm tấm 82",link:"https://www.google.com/maps/search/?api=1&query=Com+Tam+82",extraLinks:[],remarks:"베트남식 백반"},{date:"18일(토)",time:"",place:"풋마사지 & 카페",grab:"Massage chân, Quán cà phê",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"17:30~",place:"저녁식사",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"18:30",place:"공항 픽업차량 탑승",grab:"",link:"",extraLinks:[],remarks:"50분 소요, 19:30 도착 필수"},{date:"18일(토)",time:"19:30",place:"✈️ 나트랑 공항 도착 (수속)",grab:"Sân bay Quốc tế Cam Ranh",link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport",extraLinks:[],remarks:"23:30 이륙"}];
         const initialShoppingList = [{id:'d1',category:'dam',text:'라탄 가방 / 모자',checked:false},{id:'d2',category:'dam',text:'가족 하와이안 셔츠, 원피스',checked:false},{id:'d3',category:'dam',text:'건망고',checked:false},{id:'p1',category:'pharmacy',text:'비판텐 연고',checked:false},{id:'p2',category:'pharmacy',text:'볼타렌 연고',checked:false},{id:'p3',category:'pharmacy',text:'스트렙실',checked:false},{id:'f1',category:'fake',text:'크록스 및 지비츠',checked:false},{id:'f2',category:'fake',text:'나이키 스포츠 의류',checked:false},{id:'m1',category:'mart',text:'체리쉬 망고 푸딩',checked:false},{id:'m2',category:'mart',text:'탑젤리 (망고)',checked:false},{id:'m3',category:'mart',text:'마카다미아 / 건과일',checked:false}];
         const nhatrangHotspots = [{name:"🏰 포나가르 사원",lat:12.2653,lon:109.1958},{name:"🕉️ 롱선사 (거대 불상)",lat:12.2505,lon:109.1802},{name:"🧺 담시장 (쇼핑)",lat:12.2541,lon:109.1917},{name:"🌴 나트랑 해변",lat:12.2476,lon:109.1925},{name:"🍹 안토이 (Ăn Thôi)",lat:12.2435,lon:109.1956},{name:"🍜 마담프엉 (Madame Phuong)",lat:12.2410,lon:109.1960},{name:"🥪 반미판 (Banh Mi Phan)",lat:12.2520,lon:109.1900},{name:"🚿 아이리조트 (머드스파)",lat:12.2858,lon:109.1764}];
+        
+        // 💡 회화 데이터 보존 완료!
         const phrases = {food:[{k:"고수 빼주세요",v:"Không rau mùi",p:"콩 라우 무이"},{k:"안 맵게 해주세요 (아이용)",v:"Không cay",p:"콩 까이"},{k:"계산해 주세요",v:"Tính tiền",p:"띵 띠엔"},{k:"얼음 좀 주세요",v:"Cho tôi đá",p:"쪼 또이 다"},{k:"포장해 주세요",v:"Cho mang về",p:"쪼 망 베"}],spa:[{k:"살살 해주세요 (약하게)",v:"Nhẹ thôi",p:"니에 토이"},{k:"더 세게 해주세요 (강하게)",v:"Mạnh hơn",p:"망 헌"},{k:"에어컨 좀 줄여주세요",v:"Giảm điều hòa",p:"쟘 디에우 화"}],move:[{k:"여기 세워주세요",v:"Dừng ở đây",p:"증 어 더이"},{k:"조금만 기다려주세요",v:"Đợi một chút",p:"더이 못 쭛"},{k:"천천히 가주세요",v:"Đi chậm thôi",p:"디 쩜 토이"}],shop:[{k:"너무 비싸요!",v:"Đắt quá",p:"닷 꽈"},{k:"깎아주세요 (할인)",v:"Giảm giá đi",p:"쟘 쟈 디"}]};
 
         let itinerary = []; let shoppingList = []; let vndToKrwRate = 0.055; let expensesList = [];
@@ -399,7 +350,6 @@
 
         // 🌐 스마트 텍스트 번역기 (언어 자동 감지)
         let lastResultLang = 'vi-VN';
-
         async function inAppTranslate() {
             const input = document.getElementById('translate-input').value.trim();
             if(!input) return alert("번역할 텍스트를 입력해주세요!");
@@ -467,8 +417,7 @@
 
         // 🚕 택시 카드 호출
         function showTaxiCard(place) {
-            let viPlace = viMap[place] || place; 
-            document.getElementById('taxi-destination').innerText = viPlace;
+            document.getElementById('taxi-destination').innerText = place;
             document.getElementById('taxi-modal').classList.remove('hidden');
         }
         function closeTaxiModal() { document.getElementById('taxi-modal').classList.add('hidden'); }
@@ -483,7 +432,7 @@
 
         function loadItinerary() { db.ref('itinerary').once('value').then(s => { if (!s.exists()) initialItinerary.forEach(i => db.ref('itinerary').push(i)); }); db.ref('itinerary').on('value', s => { itinerary = []; const data = s.val(); if(data) Object.entries(data).forEach(([k, v]) => itinerary.push({...v, firebaseKey: k})); renderItinerary(); }); }
         
-        // 🔥 핵심 업데이트: 다중 그랩 목적지 렌더링 로직
+        // 🔥 핵심: 예전 데이터를 베트남어 다중 버튼으로 완벽하게 분할 렌더링
         function renderItinerary() { 
             const list = document.getElementById('itinerary-list'); list.innerHTML = ''; 
             let grouped = itinerary.reduce((r, a) => { r[a.date] = [...r[a.date] || [], a]; return r; }, {}); 
@@ -496,16 +445,19 @@
                     
                     let isKorea = item.place.includes("인천") || item.place.includes("운서") || (item.grab && item.grab.includes("Incheon"));
                     
-                    // 🔥 여러 그랩 목적지를 쉼표(,)로 분리해서 각각 버튼으로 만들기
                     let grabButtonsHtml = '';
                     if (item.grab && !isKorea) {
-                        let dests = item.grab.split(',').map(d => d.trim()).filter(d => d);
+                        // DB의 영문 텍스트를 베트남어로 치환 (다중 목적지 포함)
+                        let mappedGrab = viMap[item.grab.trim()] || item.grab;
+                        
+                        // 콤마로 쪼개서 각각의 버튼 생성
+                        let dests = mappedGrab.split(',').map(d => d.trim()).filter(d => d);
+                        
                         grabButtonsHtml = dests.map(dest => {
                             let safeDest = dest.replace(/'/g, "\\'");
-                            let viDest = viMap[dest] || dest; // 사전 번역 또는 원본 표시
                             return `<div class="mt-2 mb-1">
                                         <button onclick="showTaxiCard('${safeDest}')" class="bg-yellow-400 text-yellow-900 px-3 py-2 rounded-xl text-xs font-black shadow-sm active:scale-95 transition w-full text-left flex items-center">
-                                            <i class="fas fa-taxi mr-2 text-lg"></i> 기사님 보여주기 : ${viDest}
+                                            <i class="fas fa-taxi mr-2 text-lg"></i> 기사님 보여주기 : ${dest}
                                         </button>
                                     </div>`;
                         }).join('');
@@ -544,7 +496,16 @@
         
         async function initExchangeRate() { try { const r = await fetch('https://open.er-api.com/v6/latest/VND'); const d = await r.json(); vndToKrwRate = d.rates.KRW; document.getElementById('rate-summary').innerText = `₩${Number((100000 * vndToKrwRate).toFixed(0)).toLocaleString()}`; } catch(e) { document.getElementById('rate-summary').innerText = "₩5,500"; } document.getElementById('vnd-input').oninput = (e) => { document.getElementById('krw-input').value = e.target.value ? `₩ ${(e.target.value * vndToKrwRate).toFixed(0).toLocaleString()}` : ''; }; }
         async function initWeatherOpenMeteo() { try { const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh"); const d = await r.json(); const c = d.current_weather; document.getElementById('weather-temp').innerText = `${Math.round(c.temperature)}℃`; let t = "선크림 듬뿍! ☀️"; if(c.weathercode >= 51) t = "비 조심! 우산 필수 ☔"; document.getElementById('weather-tip').innerText = t; } catch(e) {} }
-        function updateDDay() { const now = new Date(); const today = new Date(now.getFullYear(), now.getMonth(), getDate()).getTime(); const diff = tripStart - today; const days = Math.round(diff / (1000 * 60 * 60 * 24)); document.getElementById('d-day').innerText = days > 0 ? `D-${days}` : (days === 0 ? "D-DAY" : `여행 ${Math.abs(days)+1}일차`); }
+        
+        // 💡 뼈아픈 오타가 있던 부분! now.getDate() 로 완벽 수정 완료!
+        function updateDDay() { 
+            const now = new Date(); 
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime(); 
+            const diff = tripStart - today; 
+            const days = Math.round(diff / (1000 * 60 * 60 * 24)); 
+            document.getElementById('d-day').innerText = days > 0 ? `D-${days}` : (days === 0 ? "D-DAY" : `여행 ${Math.abs(days)+1}일차`); 
+        }
+        
         function showTab(id) { document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active-tab')); document.getElementById(id).classList.add('active'); event.currentTarget.classList.add('active-tab'); window.scrollTo(0,0); }
         function closeModal() { document.getElementById('itinerary-modal').classList.add('hidden'); document.getElementById('links-container').innerHTML = ''; }
         function openSosModal() { document.getElementById('sos-modal').classList.remove('hidden'); }
