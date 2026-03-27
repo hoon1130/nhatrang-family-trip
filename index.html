@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 수호앱 v33 (자동번역 & 다이렉트 카메라)</title>
+    <title>가족 나트랑 여행 수호앱 v35 (멀티 택시 목적지 완결본)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap');
@@ -155,7 +154,6 @@
             </div>
         </div>
 
-        <!-- 4. 안전/SOS 탭 -->
         <div id="tools" class="tab-content space-y-6">
             <div class="bg-red-50 p-6 rounded-[2rem] border border-red-100 shadow-sm">
                 <h3 class="font-black mb-3 text-red-600 flex items-center justify-between">
@@ -205,37 +203,31 @@
             </div>
         </div>
 
-        <!-- 5. 회화 탭 -->
         <div id="phrases" class="tab-content pb-10 space-y-6">
             <h2 class="text-xl font-black text-slate-800 px-1 mb-4">📢 서바이벌 베트남어</h2>
             
-            <!-- 🌐 업데이트: 언어 자동 감지 & 다이렉트 카메라 번역기 -->
             <div class="bg-blue-50 p-5 rounded-[2rem] border border-blue-100 shadow-sm mb-6">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="font-black text-blue-800"><i class="fas fa-language mr-2"></i>스마트 AI 번역기</h3>
                     <span class="text-[10px] bg-blue-200 text-blue-700 px-2 py-1 rounded-md font-black">언어 자동 감지</span>
                 </div>
+                
+                <p class="text-[10px] text-slate-500 font-bold mb-3 bg-white p-2 rounded-lg border border-blue-50">
+                    💡 메뉴판/간판 등 <span class="text-blue-600">사진 번역</span>은 폰에 기본 설치된 '구글 렌즈'나 '파파고' 앱을 쓰시는 것이 가장 빠르고 정확합니다!
+                </p>
+
                 <div class="flex space-x-2 mb-3">
-                    <!-- 📷 capture="environment" 적용: 누르면 카메라 바로 실행 -->
-                    <input type="file" id="ocr-input" accept="image/*" capture="environment" class="hidden" onchange="processImage(this)">
-                    <button onclick="document.getElementById('ocr-input').click()" class="bg-slate-100 text-slate-600 px-4 rounded-xl font-black shadow-md active:scale-95 transition flex items-center justify-center">
-                        <i class="fas fa-camera text-lg"></i>
-                    </button>
-                    <!-- 입력창 안내문구 변경 -->
                     <input type="text" id="translate-input" placeholder="한국어 또는 베트남어 입력" class="w-full p-3 bg-white border-none rounded-xl text-sm font-bold shadow-inner outline-none" onkeypress="if(event.key==='Enter') inAppTranslate()">
                     <button onclick="inAppTranslate()" class="bg-blue-600 text-white px-4 rounded-xl font-black shadow-md active:scale-95 transition">번역</button>
                 </div>
                 
-                <!-- 번역 결과창 (복사 버튼 포함) -->
                 <div id="translate-result-box" class="hidden bg-white p-4 rounded-xl border border-blue-200 shadow-inner relative">
-                    <!-- 📋 복사 버튼 -->
                     <button onclick="copyTranslatedText()" class="absolute top-3 right-3 text-slate-400 hover:text-blue-500 active:scale-95 transition p-2">
                         <i class="fas fa-copy text-xl"></i>
                     </button>
                     
                     <p id="translate-result" class="text-lg font-black text-slate-800 mb-4 pr-8 break-words leading-tight"></p>
                     
-                    <!-- 스피커 텍스트가 번역 결과 언어에 맞게 자동 변경됨 -->
                     <button id="speak-btn" onclick="speakTranslated()" class="w-full bg-blue-100 text-blue-700 py-3 rounded-xl font-black text-sm active:bg-blue-200 transition">
                         <i class="fas fa-volume-up mr-2"></i>읽어주기
                     </button>
@@ -260,12 +252,10 @@
         </div>
     </main>
 
-    <!-- SOS 버튼 -->
     <button onclick="openSosModal()" class="fixed bottom-24 right-4 bg-red-500 text-white w-16 h-16 rounded-full shadow-2xl flex flex-col items-center justify-center z-[60] shake-animation border-4 border-white transition active:scale-110">
         <span class="text-2xl">👶</span><span class="text-[9px] font-black uppercase mt-0.5">SOS</span>
     </button>
 
-    <!-- 하단 네비게이션 -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-100 flex justify-around p-3 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)]">
         <button onclick="showTab('schedule')" class="tab-btn active-tab flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-calendar-check text-xl mb-1"></i><span class="text-[10px] font-black">일정</span></button>
         <button onclick="showTab('shopping')" class="tab-btn flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-shopping-bag text-xl mb-1"></i><span class="text-[10px] font-black">쇼핑</span></button>
@@ -274,7 +264,6 @@
         <button onclick="showTab('phrases')" class="tab-btn flex flex-col items-center w-1/5 p-1 transition"><i class="fas fa-comment-dots text-xl mb-1"></i><span class="text-[10px] font-black">회화</span></button>
     </nav>
 
-    <!-- 🚕 기사님 모달 -->
     <div id="taxi-modal" class="fixed inset-0 bg-yellow-400 z-[150] hidden flex flex-col items-center justify-center p-6 text-center">
         <button onclick="closeTaxiModal()" class="absolute top-8 right-8 text-yellow-800 text-4xl active:scale-95"><i class="fas fa-times"></i></button>
         <i class="fas fa-taxi text-6xl text-yellow-600 mb-6"></i>
@@ -286,7 +275,6 @@
         <p class="mt-10 text-2xl font-black text-yellow-800">Xin cảm ơn! 🙏</p>
     </div>
 
-    <!-- 일정 관리 모달 -->
     <div id="itinerary-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm">
         <div class="bg-white p-6 rounded-[2.5rem] w-full max-w-md shadow-2xl max-h-[85vh] overflow-y-auto">
             <h3 id="modal-title" class="text-xl font-black mb-5 text-slate-800">일정 관리</h3><input type="hidden" id="edit-key">
@@ -294,7 +282,7 @@
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">날짜</label><input type="text" id="form-date" placeholder="16일(목)" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">시간</label><input type="text" id="form-time" placeholder="09:40" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">장소 명칭</label><textarea id="form-place" placeholder="어디 가나요?" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-20"></textarea></div>
-                <div><label class="text-[10px] font-black text-slate-400 ml-2">그랩/택시 목적지</label><input type="text" id="form-grab" placeholder="베트남 주소/상호명" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
+                <div><label class="text-[10px] font-black text-slate-400 ml-2">그랩/택시 목적지 <span class="text-blue-500">(여러 곳은 쉼표 , 로 구분)</span></label><input type="text" id="form-grab" placeholder="베트남 주소/상호명" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner"></div>
                 <div><label class="text-[10px] font-black text-slate-400 ml-2 mb-1 block">구글 지도 링크</label><div id="links-container" class="space-y-2"></div><button type="button" onclick="addLinkInput()" class="w-full text-[11px] text-blue-600 font-black bg-blue-50 p-3 rounded-2xl border border-dashed border-blue-200 mt-2 hover:bg-blue-100 transition">+ 지도 링크 추가</button></div>
                 <div><label class="text-[10px] font-black text-slate-400 ml-2">비고/꿀팁</label><textarea id="form-remarks" placeholder="예약 시간, 주의사항 등" class="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold shadow-inner h-24"></textarea></div>
             </div>
@@ -303,7 +291,6 @@
         </div>
     </div>
     
-    <!-- 쇼핑 모달 -->
     <div id="shopping-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm">
         <div class="bg-white p-8 rounded-[2.5rem] w-full max-w-md shadow-2xl">
             <h3 class="text-xl font-black mb-6 text-slate-800 text-center">🛒 쇼핑 리스트 추가</h3>
@@ -315,7 +302,6 @@
         </div>
     </div>
     
-    <!-- 🚨 지안 SOS 모달 -->
     <div id="sos-modal" class="fixed inset-0 bg-slate-900/80 z-[150] hidden flex flex-col items-center justify-center p-8 backdrop-blur-md">
         <div class="bg-white p-8 rounded-[3rem] w-full max-w-sm text-center shadow-2xl relative border-4 border-red-100">
             <button onclick="closeSosModal()" class="absolute top-6 right-6 text-slate-300 text-2xl hover:text-slate-500"><i class="fas fa-times"></i></button>
@@ -357,7 +343,48 @@
             "Com Tam 82 Nha Trang": "Cơm tấm 82"
         };
 
-        const initialItinerary = [{date:"15일(수)",time:"22:30",place:"✈️ 나트랑 깜란 공항 도착",grab:"Sân bay Quốc tế Cam Ranh",link:"",extraLinks:[],remarks:"비행기 착륙 후 수속 및 수하물 찾기"},{date:"15일(수)",time:"23:00~24:00",place:"픽업카 탑승 및 숙소로 이동",grab:"",link:"",extraLinks:[],remarks:"50분소요 / 1터미널 2번게이트 픽업"},{date:"15일(수)",time:"24:30~",place:"숙소 체크인 및 환전ATM",grab:"Khách sạn Le More (33A Tô Hiến Thành)",link:"https://www.google.com/maps/search/?api=1&query=Le+More+Hotel+Nha+Trang",extraLinks:[],remarks:"르모어호텔"},{date:"16일(목)",time:"8:00~9:30",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"여유 시 근처에서 반미 사먹기"},{date:"16일(목)",time:"9:40",place:"퇴실 및 렌트카 탑승(짐 포함)",grab:"",link:"",extraLinks:[],remarks:"렌트카 4시간+@ 이용 시작"},{date:"16일(목)",time:"9:50~10:40",place:"포나가르 사원",grab:"Tháp Bà Ponagar",link:"https://www.google.com/maps/search/?api=1&query=Thap+Ba+Ponagar",extraLinks:[],remarks:"입장료 21만동(지안무료), 어깨/무릎노출X(반바지X), 슬리퍼O"},{date:"16일(목)",time:"10:50~11:50",place:"혼총곶 & 베이크보이(디저트)",grab:"Hòn Chồng",link:"https://www.google.com/maps/search/?api=1&query=Hon+Chong",extraLinks:["https://www.google.com/maps/search/?api=1&query=Bake+Boy"],remarks:"입장료 21만동(지안무료)"},{date:"16일(목)",time:"12:00~13:00",place:"담시장 쇼핑",grab:"Chợ Đầm",link:"https://www.google.com/maps/search/?api=1&query=Cho+Dam",extraLinks:[],remarks:"트라이크 챙길 것, 망고쥬스 사먹기"},{date:"16일(목)",time:"13:00~14:00",place:"점심식사 : 당반꾸엔",grab:"Nem Nướng Đặng Văn Quyên",link:"https://www.google.com/maps/search/?api=1&query=Nem+Nuong+Dang+Van+Quyen",extraLinks:[],remarks:"넴느엉, 분띳느엉, 에그롤 등 약 70만동"},{date:"16일(목)",time:"14:30~15:00",place:"숙소 체크인 (쉐라톤)",grab:"Khách sạn Sheraton (26-28 Trần Phú)",link:"https://www.google.com/maps/search/?api=1&query=Sheraton+Nha+Trang",extraLinks:[],remarks:""},{date:"16일(목)",time:"",place:"휴식 후 시내",grab:"",link:"",extraLinks:[],remarks:""},{date:"16일(목)",time:"",place:"타이니네일스파(네일아트 및 마사지)",grab:"Tiny Nail Spa",link:"https://www.google.com/maps/search/?api=1&query=Tiny+Nail+Spa",extraLinks:[],remarks:"*예약필수 / 어른네일 22만동, 아이 10만동, 마사지 39만동"},{date:"16일(목)",time:"",place:"척칩 & 65번 과일가게",grab:"Khoai lang lắc Chuck Chip",link:"https://www.google.com/maps/search/?api=1&query=Chuck+Chip",extraLinks:["https://www.google.com/maps/search/?api=1&query=Vua+Trai+Cay+65"],remarks:"고구마튀김 및 과일 간식 구매"},{date:"16일(목)",time:"18:30",place:"저녁식사 : 목식당 (씨푸드)",grab:"Hải sản Mộc Quán",link:"https://www.google.com/maps/search/?api=1&query=Moc+Quan",extraLinks:[],remarks:"예약완료"},{date:"16일(목)",time:"",place:"안카페 or 올라카페",grab:"An Café",link:"https://www.google.com/maps/search/?api=1&query=An+Cafe",extraLinks:["https://www.google.com/maps/search/?api=1&query=Ola+Cafe"],remarks:""},{date:"16일(목)",time:"",place:"시내 -> 숙소 복귀",grab:"",link:"",extraLinks:[],remarks:"도보 10분"},{date:"17일(금)",time:"~8:50",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"세수만 하고 나갈 준비!"},{date:"17일(금)",time:"9:30~13:50",place:"아이리조트 머드스파",grab:"Suối khoáng nóng I-Resort",link:"https://www.google.com/maps/search/?api=1&query=I-Resort",extraLinks:[],remarks:"그랩 2대 호출 / 버릴 속옷 지참, 수건 제공됨, 현금 필수"},{date:"17일(금)",time:"",place:"숙소 복귀 및 씻고 재정비",grab:"",link:"",extraLinks:[],remarks:""},{date:"17일(금)",time:"14:00",place:"점심식사 : 피자포피스",grab:"Pizza 4P's (Sheraton)",link:"https://www.google.com/maps/search/?api=1&query=Pizza+4Ps+Sheraton",extraLinks:[],remarks:"예약완료"},{date:"17일(금)",time:"14:30~",place:"센트럴마켓, 티엔푸약국, 악어집",grab:"Chợ Đêm (Central Market)",link:"https://www.google.com/maps/search/?api=1&query=Central+Market",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu","https://www.google.com/maps/search/?api=1&query=A-KEO"],remarks:""},{date:"17일(금)",time:"16:30~",place:"마사지",grab:"",link:"",extraLinks:[],remarks:""},{date:"17일(금)",time:"18:30~",place:"저녁식사 : 안토이",grab:"Nhà hàng Ăn Thôi",link:"https://www.google.com/maps/search/?api=1&query=An+Thoi",extraLinks:[],remarks:"예약불가, 번호표 대기 (분짜, 반쎄오, 곱창쌀국수 등)"},{date:"17일(금)",time:"",place:"탑쩜흐엉 및 야시장 구경",grab:"Tháp Trầm Hương",link:"https://www.google.com/maps/search/?api=1&query=Tram+Huong+Tower",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Trang+Night+Market"],remarks:""},{date:"17일(금)",time:"",place:"숙소 복귀",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"9:00",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"",place:"롯데마트 쇼핑",grab:"Lotte Mart (Gold Coast)",link:"https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Gold+Coast",extraLinks:[],remarks:""},{date:"18일(토)",time:"~12:00",place:"짐정리 및 퇴실",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"",place:"쉐라톤 -> 베나자라운지",grab:"Venaza Lounge",link:"https://www.google.com/maps/search/?api=1&query=Venaza+Store",extraLinks:[],remarks:"그랩 2대 이동, 짐 보관"},{date:"18일(토)",time:"",place:"점심식사 : 껌땀",grab:"Cơm tấm 82",link:"https://www.google.com/maps/search/?api=1&query=Com+Tam+82",extraLinks:[],remarks:"베트남식 백반"},{date:"18일(토)",time:"",place:"풋마사지 & 카페",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"17:30~",place:"저녁식사",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"18:30",place:"공항 픽업차량 탑승",grab:"",link:"",extraLinks:[],remarks:"50분 소요, 19:30 도착 필수"},{date:"18일(토)",time:"19:30",place:"✈️ 나트랑 공항 도착 (수속)",grab:"Sân bay Quốc tế Cam Ranh",link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport",extraLinks:[],remarks:"23:30 이륙"}];
+        // 🔥 다중 택시 목적지 세팅이 포함된 34개 완벽 일정 세트!
+        const initialItinerary = [
+            {date:"15일(수)",time:"22:30",place:"✈️ 나트랑 깜란 공항 도착",grab:"Sân bay Quốc tế Cam Ranh",link:"",extraLinks:[],remarks:"비행기 착륙 후 수속 및 수하물 찾기"},
+            {date:"15일(수)",time:"23:00~24:00",place:"픽업카 탑승 및 숙소로 이동",grab:"",link:"",extraLinks:[],remarks:"50분소요 / 1터미널 2번게이트 픽업"},
+            {date:"15일(수)",time:"24:30~",place:"숙소 체크인 및 환전ATM",grab:"Khách sạn Le More (33A Tô Hiến Thành)",link:"https://www.google.com/maps/search/?api=1&query=Le+More+Hotel+Nha+Trang",extraLinks:[],remarks:"르모어호텔"},
+            {date:"16일(목)",time:"8:00~9:30",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"여유 시 근처에서 반미 사먹기"},
+            {date:"16일(목)",time:"9:40",place:"퇴실 및 렌트카 탑승(짐 포함)",grab:"",link:"",extraLinks:[],remarks:"렌트카 4시간+@ 이용 시작"},
+            {date:"16일(목)",time:"9:50~10:40",place:"포나가르 사원",grab:"Tháp Bà Ponagar",link:"https://www.google.com/maps/search/?api=1&query=Thap+Ba+Ponagar",extraLinks:[],remarks:"입장료 21만동(지안무료), 어깨/무릎노출X(반바지X), 슬리퍼O"},
+            // 💡 여러 목적지 콤마(,) 세팅 완료!
+            {date:"16일(목)",time:"10:50~11:50",place:"혼총곶 & 베이크보이(디저트)",grab:"Hòn Chồng, Bake Boy",link:"https://www.google.com/maps/search/?api=1&query=Hon+Chong",extraLinks:["https://www.google.com/maps/search/?api=1&query=Bake+Boy"],remarks:"입장료 21만동(지안무료)"},
+            {date:"16일(목)",time:"12:00~13:00",place:"담시장 쇼핑",grab:"Chợ Đầm",link:"https://www.google.com/maps/search/?api=1&query=Cho+Dam",extraLinks:[],remarks:"트라이크 챙길 것, 망고쥬스 사먹기"},
+            {date:"16일(목)",time:"13:00~14:00",place:"점심식사 : 당반꾸엔",grab:"Nem Nướng Đặng Văn Quyên",link:"https://www.google.com/maps/search/?api=1&query=Nem+Nuong+Dang+Van+Quyen",extraLinks:[],remarks:"넴느엉, 분띳느엉, 에그롤 등 약 70만동"},
+            {date:"16일(목)",time:"14:30~15:00",place:"숙소 체크인 (쉐라톤)",grab:"Khách sạn Sheraton (26-28 Trần Phú)",link:"https://www.google.com/maps/search/?api=1&query=Sheraton+Nha+Trang",extraLinks:[],remarks:""},
+            {date:"16일(목)",time:"",place:"휴식 후 시내",grab:"",link:"",extraLinks:[],remarks:""},
+            {date:"16일(목)",time:"",place:"타이니네일스파(네일아트 및 마사지)",grab:"Tiny Nail Spa",link:"https://www.google.com/maps/search/?api=1&query=Tiny+Nail+Spa",extraLinks:[],remarks:"*예약필수 / 어른네일 22만동, 아이 10만동, 마사지 39만동"},
+            // 💡 여러 목적지 콤마(,) 세팅 완료!
+            {date:"16일(목)",time:"",place:"척칩 & 65번 과일가게",grab:"Khoai lang lắc Chuck Chip, Sạp trái cây 65",link:"https://www.google.com/maps/search/?api=1&query=Chuck+Chip",extraLinks:["https://www.google.com/maps/search/?api=1&query=Vua+Trai+Cay+65"],remarks:"고구마튀김 및 과일 간식 구매"},
+            {date:"16일(목)",time:"18:30",place:"저녁식사 : 목식당 (씨푸드)",grab:"Hải sản Mộc Quán",link:"https://www.google.com/maps/search/?api=1&query=Moc+Quan",extraLinks:[],remarks:"예약완료"},
+            {date:"16일(목)",time:"",place:"안카페 or 올라카페",grab:"An Café",link:"https://www.google.com/maps/search/?api=1&query=An+Cafe",extraLinks:["https://www.google.com/maps/search/?api=1&query=Ola+Cafe"],remarks:""},
+            {date:"16일(목)",time:"",place:"시내 -> 숙소 복귀",grab:"",link:"",extraLinks:[],remarks:"도보 10분"},
+            {date:"17일(금)",time:"~8:50",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"세수만 하고 나갈 준비!"},
+            {date:"17일(금)",time:"9:30~13:50",place:"아이리조트 머드스파",grab:"Suối khoáng nóng I-Resort",link:"https://www.google.com/maps/search/?api=1&query=I-Resort",extraLinks:[],remarks:"그랩 2대 호출 / 버릴 속옷 지참, 수건 제공됨, 현금 필수"},
+            {date:"17일(금)",time:"",place:"숙소 복귀 및 씻고 재정비",grab:"",link:"",extraLinks:[],remarks:""},
+            {date:"17일(금)",time:"14:00",place:"점심식사 : 피자포피스",grab:"Pizza 4P's (Sheraton)",link:"https://www.google.com/maps/search/?api=1&query=Pizza+4Ps+Sheraton",extraLinks:[],remarks:"예약완료"},
+            // 💡 여러 목적지 콤마(,) 세팅 완료!
+            {date:"17일(금)",time:"14:30~",place:"센트럴마켓, 티엔푸약국, 악어집",grab:"Chợ Đêm (Central Market), Nhà thuốc Thiên Phú, Cửa hàng cá sấu",link:"https://www.google.com/maps/search/?api=1&query=Central+Market",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu","https://www.google.com/maps/search/?api=1&query=A-KEO"],remarks:""},
+            {date:"17일(금)",time:"16:30~",place:"마사지",grab:"",link:"",extraLinks:[],remarks:""},
+            {date:"17일(금)",time:"18:30~",place:"저녁식사 : 안토이",grab:"Nhà hàng Ăn Thôi",link:"https://www.google.com/maps/search/?api=1&query=An+Thoi",extraLinks:[],remarks:"예약불가, 번호표 대기 (분짜, 반쎄오, 곱창쌀국수 등)"},
+            {date:"17일(금)",time:"",place:"탑쩜흐엉 및 야시장 구경",grab:"Tháp Trầm Hương",link:"https://www.google.com/maps/search/?api=1&query=Tram+Huong+Tower",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Trang+Night+Market"],remarks:""},
+            {date:"17일(금)",time:"",place:"숙소 복귀",grab:"",link:"",extraLinks:[],remarks:""},
+            {date:"18일(토)",time:"9:00",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:""},
+            {date:"18일(토)",time:"",place:"롯데마트 쇼핑",grab:"Lotte Mart (Gold Coast)",link:"https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Gold+Coast",extraLinks:[],remarks:""},
+            {date:"18일(토)",time:"~12:00",place:"짐정리 및 퇴실",grab:"",link:"",extraLinks:[],remarks:""},
+            {date:"18일(토)",time:"",place:"쉐라톤 -> 베나자라운지",grab:"Venaza Lounge",link:"https://www.google.com/maps/search/?api=1&query=Venaza+Store",extraLinks:[],remarks:"그랩 2대 이동, 짐 보관"},
+            {date:"18일(토)",time:"",place:"점심식사 : 껌땀",grab:"Cơm tấm 82",link:"https://www.google.com/maps/search/?api=1&query=Com+Tam+82",extraLinks:[],remarks:"베트남식 백반"},
+            // 💡 여러 목적지 콤마(,) 세팅 완료!
+            {date:"18일(토)",time:"",place:"풋마사지 & 카페",grab:"Massage chân, Quán cà phê",link:"",extraLinks:[],remarks:""},
+            {date:"18일(토)",time:"17:30~",place:"저녁식사",grab:"",link:"",extraLinks:[],remarks:""},
+            {date:"18일(토)",time:"18:30",place:"공항 픽업차량 탑승",grab:"",link:"",extraLinks:[],remarks:"50분 소요, 19:30 도착 필수"},
+            {date:"18일(토)",time:"19:30",place:"✈️ 나트랑 공항 도착 (수속)",grab:"Sân bay Quốc tế Cam Ranh",link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport",extraLinks:[],remarks:"23:30 이륙"}
+        ];
+
         const initialShoppingList = [{id:'d1',category:'dam',text:'라탄 가방 / 모자',checked:false},{id:'d2',category:'dam',text:'가족 하와이안 셔츠, 원피스',checked:false},{id:'d3',category:'dam',text:'건망고',checked:false},{id:'p1',category:'pharmacy',text:'비판텐 연고',checked:false},{id:'p2',category:'pharmacy',text:'볼타렌 연고',checked:false},{id:'p3',category:'pharmacy',text:'스트렙실',checked:false},{id:'f1',category:'fake',text:'크록스 및 지비츠',checked:false},{id:'f2',category:'fake',text:'나이키 스포츠 의류',checked:false},{id:'m1',category:'mart',text:'체리쉬 망고 푸딩',checked:false},{id:'m2',category:'mart',text:'탑젤리 (망고)',checked:false},{id:'m3',category:'mart',text:'마카다미아 / 건과일',checked:false}];
         const nhatrangHotspots = [{name:"🏰 포나가르 사원",lat:12.2653,lon:109.1958},{name:"🕉️ 롱선사 (거대 불상)",lat:12.2505,lon:109.1802},{name:"🧺 담시장 (쇼핑)",lat:12.2541,lon:109.1917},{name:"🌴 나트랑 해변",lat:12.2476,lon:109.1925},{name:"🍹 안토이 (Ăn Thôi)",lat:12.2435,lon:109.1956},{name:"🍜 마담프엉 (Madame Phuong)",lat:12.2410,lon:109.1960},{name:"🥪 반미판 (Banh Mi Phan)",lat:12.2520,lon:109.1900},{name:"🚿 아이리조트 (머드스파)",lat:12.2858,lon:109.1764}];
         const phrases = {food:[{k:"고수 빼주세요",v:"Không rau mùi",p:"콩 라우 무이"},{k:"안 맵게 해주세요 (아이용)",v:"Không cay",p:"콩 까이"},{k:"계산해 주세요",v:"Tính tiền",p:"띵 띠엔"},{k:"얼음 좀 주세요",v:"Cho tôi đá",p:"쪼 또이 다"},{k:"포장해 주세요",v:"Cho mang về",p:"쪼 망 베"}],spa:[{k:"살살 해주세요 (약하게)",v:"Nhẹ thôi",p:"니에 토이"},{k:"더 세게 해주세요 (강하게)",v:"Mạnh hơn",p:"망 헌"},{k:"에어컨 좀 줄여주세요",v:"Giảm điều hòa",p:"쟘 디에우 화"}],move:[{k:"여기 세워주세요",v:"Dừng ở đây",p:"증 어 더이"},{k:"조금만 기다려주세요",v:"Đợi một chút",p:"더이 못 쭛"},{k:"천천히 가주세요",v:"Đi chậm thôi",p:"디 쩜 토이"}],shop:[{k:"너무 비싸요!",v:"Đắt quá",p:"닷 꽈"},{k:"깎아주세요 (할인)",v:"Giảm giá đi",p:"쟘 쟈 디"}]};
@@ -370,10 +397,8 @@
             updateDDay(); renderPhrases(); 
         });
 
-        // ==========================================
-        // 🌐 스마트 AI 번역기 (자동 언어 감지 & 카메라 직접 실행)
-        // ==========================================
-        let lastResultLang = 'vi-VN'; // 기본 결과물 스피커 언어 (베트남어)
+        // 🌐 스마트 텍스트 번역기 (언어 자동 감지)
+        let lastResultLang = 'vi-VN';
 
         async function inAppTranslate() {
             const input = document.getElementById('translate-input').value.trim();
@@ -386,11 +411,9 @@
             resultBox.classList.remove('hidden');
             resultText.innerText = "번역 중... ⏳";
             
-            // 💡 핵심: 한글이 하나라도 포함되어 있으면 한->벳, 아니면 벳->한 자동 설정
             const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(input);
             const langPair = isKorean ? "ko|vi" : "vi|ko";
             
-            // 스피커 언어 및 버튼 텍스트 자동 변경
             lastResultLang = isKorean ? 'vi-VN' : 'ko-KR';
             speakBtn.innerHTML = `<i class="fas fa-volume-up mr-2"></i>${isKorean ? '베트남어로 읽기' : '한국어로 읽기'}`;
             
@@ -424,37 +447,6 @@
                 copyText(text);
             }
         }
-
-        async function processImage(input) {
-            if(!input.files || !input.files[0]) return;
-            const file = input.files[0];
-            const resultText = document.getElementById('translate-result');
-            const resultBox = document.getElementById('translate-result-box');
-            
-            resultBox.classList.remove('hidden');
-            resultText.innerText = "사진에서 글자를 추출 중입니다... ⏳\n(최대 10초 정도 소요될 수 있습니다)";
-            
-            try {
-                const { data: { text } } = await Tesseract.recognize(file, 'vie', {
-                    logger: m => {
-                        if(m.status === 'recognizing text') {
-                            resultText.innerText = `글자 추출 중... ${Math.round(m.progress * 100)}% ⏳`;
-                        }
-                    }
-                });
-                
-                if(text.trim()) {
-                    document.getElementById('translate-input').value = text.trim();
-                    inAppTranslate(); // 글자 추출 완료 후 바로 자동 번역 실행 (벳->한)
-                } else {
-                    resultText.innerText = "사진에서 글자를 찾지 못했습니다. 조금 더 가까이서 찍어주세요.";
-                }
-            } catch(e) {
-                resultText.innerText = "사진 인식 중 오류가 발생했습니다.";
-            }
-        }
-        // ==========================================
-
 
         let isSpinning = false; let currentRotation = 0;
         function spinRoulette() {
@@ -490,6 +482,8 @@
         function speak(t) { const u = new SpeechSynthesisUtterance(t); u.lang = 'vi-VN'; u.rate = 0.9; window.speechSynthesis.speak(u); }
 
         function loadItinerary() { db.ref('itinerary').once('value').then(s => { if (!s.exists()) initialItinerary.forEach(i => db.ref('itinerary').push(i)); }); db.ref('itinerary').on('value', s => { itinerary = []; const data = s.val(); if(data) Object.entries(data).forEach(([k, v]) => itinerary.push({...v, firebaseKey: k})); renderItinerary(); }); }
+        
+        // 🔥 핵심 업데이트: 다중 그랩 목적지 렌더링 로직
         function renderItinerary() { 
             const list = document.getElementById('itinerary-list'); list.innerHTML = ''; 
             let grouped = itinerary.reduce((r, a) => { r[a.date] = [...r[a.date] || [], a]; return r; }, {}); 
@@ -501,7 +495,21 @@
                     let baseLen = item.place.length + (item.grab ? item.grab.length : 0); let walkMin = (baseLen % 15) + 5; let carMin = Math.ceil(walkMin / 3) + 2; 
                     
                     let isKorea = item.place.includes("인천") || item.place.includes("운서") || (item.grab && item.grab.includes("Incheon"));
-                    let safeGrab = item.grab ? item.grab.replace(/'/g, "\\'") : '';
+                    
+                    // 🔥 여러 그랩 목적지를 쉼표(,)로 분리해서 각각 버튼으로 만들기
+                    let grabButtonsHtml = '';
+                    if (item.grab && !isKorea) {
+                        let dests = item.grab.split(',').map(d => d.trim()).filter(d => d);
+                        grabButtonsHtml = dests.map(dest => {
+                            let safeDest = dest.replace(/'/g, "\\'");
+                            let viDest = viMap[dest] || dest; // 사전 번역 또는 원본 표시
+                            return `<div class="mt-2 mb-1">
+                                        <button onclick="showTaxiCard('${safeDest}')" class="bg-yellow-400 text-yellow-900 px-3 py-2 rounded-xl text-xs font-black shadow-sm active:scale-95 transition w-full text-left flex items-center">
+                                            <i class="fas fa-taxi mr-2 text-lg"></i> 기사님 보여주기 : ${viDest}
+                                        </button>
+                                    </div>`;
+                        }).join('');
+                    }
                     
                     list.insertAdjacentHTML('beforeend', `
                         <div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100 mb-4 flex justify-between items-start transition hover:shadow-md">
@@ -509,12 +517,9 @@
                                 <div class="flex items-center mb-2"><span class="text-[10px] font-black text-blue-700 bg-blue-50 px-3 py-1 rounded-xl border border-blue-100">${item.time || 'TBD'}</span></div>
                                 <h3 class="font-black text-slate-800 text-lg leading-tight mb-2">${item.place}</h3>
                                 ${item.remarks ? `<div class="bg-slate-50 p-4 rounded-2xl text-[11px] text-slate-500 font-bold mb-2 shadow-inner">${item.remarks}</div>` : ''}
-                                ${(item.grab && !isKorea) ? `
-                                    <div class="mt-2 mb-2">
-                                        <button onclick="showTaxiCard('${safeGrab}')" class="bg-yellow-400 text-yellow-900 px-3 py-2 rounded-xl text-xs font-black shadow-sm active:scale-95 transition w-full text-left flex items-center">
-                                            <i class="fas fa-taxi mr-2 text-lg"></i> 기사님 보여주기 (택시 탑승시)
-                                        </button>
-                                    </div>` : ''}
+                                
+                                ${grabButtonsHtml}
+                                
                                 ${(!isKorea) ? `<div class="mt-2 flex space-x-3 text-[10px] font-bold text-slate-400 bg-slate-50 inline-flex p-2 rounded-xl"><span><i class="fas fa-walking mr-1"></i>도보 ${walkMin}분</span><span><i class="fas fa-car mr-1"></i>그랩 ${carMin}분</span></div>` : ''}
                             </div>
                             <div class="flex flex-col items-center pt-1">${linksHtml}<button onclick="event.stopPropagation(); openEditForm(${realIdx})" class="bg-slate-100 text-slate-500 px-4 py-2 rounded-xl text-xs font-black mt-2 w-full hover:bg-slate-200">수정</button></div>
@@ -539,7 +544,7 @@
         
         async function initExchangeRate() { try { const r = await fetch('https://open.er-api.com/v6/latest/VND'); const d = await r.json(); vndToKrwRate = d.rates.KRW; document.getElementById('rate-summary').innerText = `₩${Number((100000 * vndToKrwRate).toFixed(0)).toLocaleString()}`; } catch(e) { document.getElementById('rate-summary').innerText = "₩5,500"; } document.getElementById('vnd-input').oninput = (e) => { document.getElementById('krw-input').value = e.target.value ? `₩ ${(e.target.value * vndToKrwRate).toFixed(0).toLocaleString()}` : ''; }; }
         async function initWeatherOpenMeteo() { try { const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh"); const d = await r.json(); const c = d.current_weather; document.getElementById('weather-temp').innerText = `${Math.round(c.temperature)}℃`; let t = "선크림 듬뿍! ☀️"; if(c.weathercode >= 51) t = "비 조심! 우산 필수 ☔"; document.getElementById('weather-tip').innerText = t; } catch(e) {} }
-        function updateDDay() { const now = new Date(); const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime(); const diff = tripStart - today; const days = Math.round(diff / (1000 * 60 * 60 * 24)); document.getElementById('d-day').innerText = days > 0 ? `D-${days}` : (days === 0 ? "D-DAY" : `여행 ${Math.abs(days)+1}일차`); }
+        function updateDDay() { const now = new Date(); const today = new Date(now.getFullYear(), now.getMonth(), getDate()).getTime(); const diff = tripStart - today; const days = Math.round(diff / (1000 * 60 * 60 * 24)); document.getElementById('d-day').innerText = days > 0 ? `D-${days}` : (days === 0 ? "D-DAY" : `여행 ${Math.abs(days)+1}일차`); }
         function showTab(id) { document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active-tab')); document.getElementById(id).classList.add('active'); event.currentTarget.classList.add('active-tab'); window.scrollTo(0,0); }
         function closeModal() { document.getElementById('itinerary-modal').classList.add('hidden'); document.getElementById('links-container').innerHTML = ''; }
         function openSosModal() { document.getElementById('sos-modal').classList.remove('hidden'); }
