@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3125/3125713.png">
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3125/3125713.png">
 
-    <title>가족 나트랑 여행 - 나트랑 가즈아! v47</title>
+    <title>가족 나트랑 여행 - 나트랑 가즈아! v50</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
@@ -70,6 +70,45 @@
 
         <!-- 쇼핑 탭 -->
         <div id="shopping" class="tab-content space-y-4">
+            <!-- 🔥 추가된 호구 방지 시세표 -->
+            <div class="bg-rose-50 p-5 rounded-[2rem] border border-rose-200 shadow-sm mb-6">
+                <h3 class="font-black text-rose-700 mb-2 flex items-center justify-between">
+                    <span>🛡️ 호구 방지! 현지 적정 시세표</span>
+                    <span class="text-[10px] bg-rose-500 text-white px-2 py-1 rounded-lg">흥정 기준가</span>
+                </h3>
+                <p class="text-[10px] text-rose-600 font-bold mb-3">💡 시장 상인이 부르는 가격의 <strong>절반</strong>부터 흥정 시작하세요!</p>
+                <div class="grid grid-cols-1 gap-2">
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex justify-between items-center border border-rose-100">
+                        <div class="flex items-center space-x-3"><span class="text-xl">🥭</span><div><p class="text-xs font-black text-slate-800">애플망고 (1kg)</p><p class="text-[9px] text-slate-400 font-bold">보통 3~4개</p></div></div>
+                        <div class="text-right"><p class="text-sm font-black text-rose-600">3만 ~ 4만 ₫</p><p class="text-[9px] font-bold text-slate-400">약 1,600 ~ 2,200원</p></div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex justify-between items-center border border-rose-100">
+                        <div class="flex items-center space-x-3"><span class="text-xl">🧄</span><div><p class="text-xs font-black text-slate-800">망고스틴 (1kg)</p><p class="text-[9px] text-slate-400 font-bold">알이 큰 것 위주</p></div></div>
+                        <div class="text-right"><p class="text-sm font-black text-rose-600">5만 ~ 8만 ₫</p><p class="text-[9px] font-bold text-slate-400">약 2,700 ~ 4,400원</p></div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex justify-between items-center border border-rose-100">
+                        <div class="flex items-center space-x-3"><span class="text-xl">🐊</span><div><p class="text-xs font-black text-slate-800">크록스 (기본형)</p><p class="text-[9px] text-slate-400 font-bold">지비츠 별도</p></div></div>
+                        <div class="text-right"><p class="text-sm font-black text-rose-600">15만 ~ 18만 ₫</p><p class="text-[9px] font-bold text-slate-400">약 8,200 ~ 9,900원</p></div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex justify-between items-center border border-rose-100">
+                        <div class="flex items-center space-x-3"><span class="text-xl">👕</span><div><p class="text-xs font-black text-slate-800">스포츠 반팔/바지</p><p class="text-[9px] text-slate-400 font-bold">나이키/아디다스 짭</p></div></div>
+                        <div class="text-right"><p class="text-sm font-black text-rose-600">8만 ~ 10만 ₫</p><p class="text-[9px] font-bold text-slate-400">약 4,400 ~ 5,500원</p></div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex justify-between items-center border border-rose-100">
+                        <div class="flex items-center space-x-3"><span class="text-xl">🌺</span><div><p class="text-xs font-black text-slate-800">하와이안 세트</p><p class="text-[9px] text-slate-400 font-bold">셔츠+바지</p></div></div>
+                        <div class="text-right"><p class="text-sm font-black text-rose-600">10만 ~ 12만 ₫</p><p class="text-[9px] font-bold text-slate-400">약 5,500 ~ 6,600원</p></div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex justify-between items-center border border-rose-100">
+                        <div class="flex items-center space-x-3"><span class="text-xl">🌰</span><div><p class="text-xs font-black text-slate-800">마카다미아(500g)</p><p class="text-[9px] text-slate-400 font-bold">까는 쇠 포함</p></div></div>
+                        <div class="text-right"><p class="text-sm font-black text-rose-600">13만 ~ 15만 ₫</p><p class="text-[9px] font-bold text-slate-400">약 7,100 ~ 8,200원</p></div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl shadow-sm flex justify-between items-center border border-rose-100">
+                        <div class="flex items-center space-x-3"><span class="text-xl">👜</span><div><p class="text-xs font-black text-slate-800">라탄 가방 (중형)</p><p class="text-[9px] text-slate-400 font-bold">디테일별 상이</p></div></div>
+                        <div class="text-right"><p class="text-sm font-black text-rose-600">15만 ~ 25만 ₫</p><p class="text-[9px] font-bold text-slate-400">약 8,200 ~ 13,700원</p></div>
+                    </div>
+                </div>
+            </div>
+
             <div class="flex justify-between items-end mb-4 px-1"><h2 class="text-lg font-black text-slate-800">🛒 필수 쇼핑 리스트</h2><button onclick="openShoppingModal()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-black shadow-md active:scale-95 transition">+ 추가</button></div>
             <div class="space-y-4"><div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100"><h3 class="font-black text-orange-600 border-b border-slate-50 pb-3 mb-3"><i class="fas fa-store mr-2"></i>담시장 (16일)</h3><ul id="dam-list" class="space-y-1"></ul></div><div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100"><h3 class="font-black text-green-600 border-b border-slate-50 pb-3 mb-3"><i class="fas fa-pills mr-2"></i>티엔푸 약국 (17일)</h3><ul id="pharmacy-list" class="space-y-1"></ul></div><div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100"><h3 class="font-black text-purple-600 border-b border-slate-50 pb-3 mb-3"><i class="fas fa-tshirt mr-2"></i>악어집/슈렉 (17일)</h3><ul id="fake-list" class="space-y-1"></ul></div><div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100"><h3 class="font-black text-red-600 border-b border-slate-50 pb-3 mb-3"><i class="fas fa-shopping-cart mr-2"></i>롯데마트 (18일)</h3><ul id="mart-list" class="space-y-1"></ul></div></div>
         </div>
