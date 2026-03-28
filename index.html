@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
-    <title>가족 나트랑 여행 - 나트랑 가즈아! v81</title>
+    <title>가족 나트랑 여행 - 나트랑 가즈아! v82</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -380,13 +380,13 @@
             {date:"16일(목)", time:"16:30", place:"타이니네일 & 키즈네일", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Tiny+Nail+Nha+Trang", extraLinks:[], remarks:"실내에서 비 피하며 쾌적하게 뷰티 타임"},
             {date:"16일(목)", time:"18:30", place:"저녁식사 : 갈랑가", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Galangal+Nha+Trang", extraLinks:[], remarks:"깔끔한 실내 로컬 식당. 위생 최고!"},
             {date:"17일(금)", time:"09:00", place:"아이리조트 머드스파", grab:"", link:"https://www.google.com/maps/search/?api=1&query=I-Resort+Nha+Trang", extraLinks:[], remarks:"어차피 젖는 스파, 비 맞아도 꿀잼!"},
-            {date:"17일(금)", time:"13:30", place:"점심식사 : 빈산 (해산물)", grab:"", link:"https://maps.google.com/?cid=6439682500182775529&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ", extraLinks:[], remarks:"에어컨 빵빵한 해산물 식당"},
-            {date:"17일(금)", time:"15:00", place:"올라 카페 (Ola Cafe)", grab:"", link:"https://maps.google.com/?cid=17934411017304926435&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ", extraLinks:[], remarks:"동굴 인테리어 핫플. 극강의 시원함/쾌적함"},
+            {date:"17일(금)", time:"13:30", place:"점심식사 : 빈산 (해산물)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Vinsan+Seafood+Nha+Trang", extraLinks:[], remarks:"에어컨 빵빵한 해산물 식당"},
+            {date:"17일(금)", time:"15:00", place:"올라 카페 (Ola Cafe)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Ola+Cafe+Nha+Trang", extraLinks:[], remarks:"동굴 인테리어 핫플. 극강의 시원함/쾌적함"},
             {date:"17일(금)", time:"16:30", place:"💆 전신 마사지 (웰스파)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Well+Spa+Nha+Trang", extraLinks:[], remarks:"비 오고 습할 땐 뽀송한 마사지가 약"},
             {date:"17일(금)", time:"18:30", place:"저녁식사 : 마담프엉", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Madame+Phuong+Nha+Trang", extraLinks:[], remarks:"마사지샵과 가까워 이동 최소화"},
             {date:"18일(토)", time:"10:00", place:"티엔푸 약국 및 남프엉", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu+Nha+Trang", extraLinks:["https://www.google.com/maps/search/?api=1&query=Nam+Phuong+Nha+Trang"], remarks:"비 피해서 실내 상점 위주 알짜 쇼핑"},
             {date:"18일(토)", time:"12:00", place:"체크아웃 & 베나자 라운지", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Venaza+Lounge+Nha+Trang", extraLinks:[], remarks:"우산 없이 편하게 짐부터 던지기"},
-            {date:"18일(토)", time:"13:00", place:"점심식사 : 랑응온 (Lang Ngon)", grab:"", link:"https://maps.google.com/?cid=16730485184528777534&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ", extraLinks:[], remarks:"에어컨 나오고 예쁜 전통 인테리어 레스토랑"},
+            {date:"18일(토)", time:"13:00", place:"점심식사 : 랑응온 (Lang Ngon)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Lang+Ngon+Nha+Trang", extraLinks:[], remarks:"에어컨 나오고 예쁜 전통 인테리어 레스토랑"},
             {date:"18일(토)", time:"15:00", place:"로얄살롱 (이발관 코스)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Royal+Salon+Nha+Trang", extraLinks:[], remarks:"실내에서 할아버지, 아빠 힐링 풀코스"},
             {date:"18일(토)", time:"18:30", place:"공항으로 이동", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks:[], remarks:"우산 쓰지 않고 바로 차 탑승!"}
         ];
@@ -677,7 +677,15 @@
             }); 
         }
         
-        async function speak(t) { const u = new SpeechSynthesisUtterance(t); u.lang = 'vi-VN'; u.rate = 0.9; window.speechSynthesis.speak(u); }
+        function speak(t) {
+            const u = new SpeechSynthesisUtterance(t);
+            u.lang = 'vi-VN';
+            u.rate = 0.9;
+            const voices = window.speechSynthesis.getVoices();
+            const viVoice = voices.find(v => v.lang.includes('vi'));
+            if (viVoice) u.voice = viVoice;
+            window.speechSynthesis.speak(u);
+        }
         function speakTranslated() { const text = document.getElementById('translate-result').innerText; if(text && text !== "번역 중..." && text !== "오류 발생") speak(text); }
 
         let currentAddr = "위치 확인 중...";
