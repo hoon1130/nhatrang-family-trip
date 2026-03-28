@@ -355,6 +355,7 @@
         <button onclick="showTab('tools')" class="tab-btn flex flex-col items-center w-1/5 py-2 text-slate-500 dark:text-slate-500"><i class="fas fa-shield-alt text-[20px] mb-1.5"></i><span class="text-[9px] font-black">안전</span></button>
         <button onclick="showTab('phrases')" class="tab-btn flex flex-col items-center w-1/5 py-2 text-slate-500 dark:text-slate-500"><i class="fas fa-comment-dots text-[20px] mb-1.5"></i><span class="text-[9px] font-black">회화</span></button>
     </nav>
+    <!-- 모달들 -->
     <div id="flashcard-modal" class="fixed inset-0 bg-yellow-400 z-[200] hidden flex flex-col items-center justify-center p-6 text-center cursor-pointer" onclick="closeFlashcard()">
         <button class="absolute top-8 right-8 text-yellow-800 text-4xl"><i class="fas fa-times"></i></button>
         <h2 id="flashcard-text" class="text-[2.5rem] font-black text-slate-900 mb-6 leading-tight break-words w-full px-2" style="word-break: keep-all;"></h2>
@@ -362,6 +363,7 @@
         <p class="absolute bottom-10 text-yellow-700 font-bold text-sm opacity-60"><i class="fas fa-hand-pointer mr-1"></i> 화면을 터치하면 닫힙니다</p>
     </div>
 
+    <!-- 🔥 기능 5: 짐싸기 체크리스트 모달 -->
     <div id="packing-modal" class="fixed inset-0 bg-slate-900/90 dark:bg-black/90 z-[200] hidden flex flex-col p-5 backdrop-blur-md transition-opacity">
         <div class="bg-white dark:bg-slate-900 flex-1 rounded-[2rem] w-full max-w-md mx-auto shadow-2xl relative border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden">
             <div class="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900 rounded-t-[2rem]">
@@ -382,7 +384,8 @@
             </div>
 
             <div class="flex-1 overflow-y-auto p-5 space-y-6 pb-20" id="packing-content">
-                </div>
+                <!-- 짐싸기 콘텐츠가 여기에 JS로 렌더링됩니다 -->
+            </div>
         </div>
     </div>
 
@@ -493,7 +496,7 @@
             {date:"17일(금)", time:"18:30", place:"저녁식사 : 마담프엉", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Madame+Phuong+Nha+Trang", extraLinks:[], remarks:"마사지샵과 가까워 이동 최소화"},
             {date:"18일(토)", time:"10:00", place:"티엔푸 약국 및 남프엉", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu+Nha+Trang", extraLinks:["https://www.google.com/maps/search/?api=1&query=Nam+Phuong+Nha+Trang"], remarks:"비 피해서 실내 상점 위주 알짜 쇼핑"},
             {date:"18일(토)", time:"12:00", place:"체크아웃 & 베나자 라운지", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Venaza+Lounge+Nha+Trang", extraLinks:[], remarks:"우산 없이 편하게 짐부터 던지기"},
-            {date:"18일(토)", time:"13:00", place:"점심식사 : 랑응온 (Lang Ngon)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Lang+Ngon+Nha+Trang", extraLinks:[], remarks:"에어컨 나오고 예쁜 전통 인테리어 레스토랑"},
+            {date:"18일(토)", time:"13:00", place:"점심식사 : 랑응온 (Lang Ngon)", grab:"", link:"https://maps.google.com/?cid=16730485184528777534&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ", extraLinks:[], remarks:"에어컨 나오고 예쁜 전통 인테리어 레스토랑"},
             {date:"18일(토)", time:"15:00", place:"로얄살롱 (이발관 코스)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Royal+Salon+Nha+Trang", extraLinks:[], remarks:"실내에서 할아버지, 아빠 힐링 풀코스"},
             {date:"18일(토)", time:"18:30", place:"공항으로 이동", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks:[], remarks:"우산 쓰지 않고 바로 차 탑승!"}
         ];
@@ -902,4 +905,3 @@
     </script>
 </body>
 </html>
-
