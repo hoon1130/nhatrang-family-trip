@@ -14,27 +14,13 @@
     <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
 
-    <title>가족 나트랑 여행 - 나트랑 가즈아! v74</title>
+    <title>가족 나트랑 여행 - 나트랑 가즈아! v75</title>
     
-    <!-- Tailwind CSS (Dark Mode 설정 포함) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: { 
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            900: '#312e81',
-                        }
-                    }
-                } 
-            }
+            theme: { extend: { colors: { brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' } } } }
         }
     </script>
     
@@ -51,17 +37,8 @@
         .tab-btn.active-tab { color: #4f46e5; }
         .dark .tab-btn.active-tab { color: #818cf8; }
         
-        /* Glassmorphism Header */
-        .glass-header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        .dark .glass-header {
-            background: rgba(15, 23, 42, 0.85);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .dark .glass-header { background: rgba(15, 23, 42, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05); }
 
         @keyframes shake { 0% { transform: rotate(0deg); } 25% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } 75% { transform: rotate(-5deg); } 100% { transform: rotate(0deg); } }
         .shake-animation { animation: shake 2s infinite ease-in-out; }
@@ -70,39 +47,22 @@
         /* 🔥 극악 확률 모던 파스텔 룰렛 CSS */
         .roulette-wheel { 
             width: 240px; height: 240px; border-radius: 50%; 
-            /* 이모부 110도, 이모/엄마/아빠 각 70도, 할아버지/할머니 각각 20도 */
-            background: conic-gradient(from 0deg, 
-                #dbeafe 0 110deg,      /* 이모부: 0~110 */
-                #ede9fe 110deg 180deg, /* 이모: 110~180 */
-                #ffe4e6 180deg 250deg, /* 엄마: 180~250 */
-                #fef3c7 250deg 320deg, /* 아빠: 250~320 */
-                #d1fae5 320deg 340deg, /* 할아버지: 320~340 */
-                #cffafe 340deg 360deg  /* 할머니: 340~360 */
-            ); 
+            background: conic-gradient(from 0deg, #dbeafe 0 110deg, #ede9fe 110deg 180deg, #ffe4e6 180deg 250deg, #fef3c7 250deg 320deg, #d1fae5 320deg 340deg, #cffafe 340deg 360deg); 
             position: relative; 
             transition: transform 4s cubic-bezier(0.25, 0.1, 0.15, 1); 
         }
         .dark .roulette-wheel { 
-            background: conic-gradient(from 0deg, 
-                #1e3a8a 0 110deg, 
-                #4c1d95 110deg 180deg, 
-                #881337 180deg 250deg, 
-                #78350f 250deg 320deg, 
-                #064e3b 320deg 340deg, 
-                #164e63 340deg 360deg
-            ); 
+            background: conic-gradient(from 0deg, #1e3a8a 0 110deg, #4c1d95 110deg 180deg, #881337 180deg 250deg, #78350f 250deg 320deg, #064e3b 320deg 340deg, #164e63 340deg 360deg); 
         }
         .roulette-text { 
-            position: absolute; width: 110px; height: 40px; top: 100px; left: 120px; 
+            position: absolute; width: 100px; height: 30px; top: 105px; left: 120px; 
             transform-origin: 0 50%; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;
-            padding-left: 12px; gap: 6px;
+            padding-left: 15px; gap: 6px;
         }
         
         .mode-btn.active { background-color: #4f46e5 !important; color: #ffffff !important; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2); border-color: transparent !important;}
         .dark .mode-btn.active { background-color: #6366f1 !important; color: #ffffff !important; }
-        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
         .plan-b-mode .outdoor-item { opacity: 0.3; filter: grayscale(100%); pointer-events: none; transition: all 0.3s; }
     </style>
 </head>
@@ -138,7 +98,6 @@
     </header>
 
     <main class="p-5">
-        <!-- 일정 탭 -->
         <div id="schedule" class="tab-content active space-y-4">
             <div class="flex space-x-2 bg-white dark:bg-slate-900 p-1.5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-300">
                 <button onclick="setItineraryMode('original')" id="mode-btn-original" class="mode-btn active flex-1 py-2.5 text-xs font-black rounded-xl text-slate-500 dark:text-slate-400 bg-transparent border border-transparent transition-all">우리가족 코스</button>
@@ -157,7 +116,6 @@
             </button>
         </div>
 
-        <!-- 쇼핑 탭 -->
         <div id="shopping" class="tab-content space-y-5">
             <div class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
                 <div class="flex justify-between items-center mb-4">
@@ -209,7 +167,6 @@
             </div>
         </div>
 
-        <!-- 가계부 탭 -->
         <div id="ledger" class="tab-content space-y-5">
             <div class="bg-slate-800 dark:bg-slate-900 p-6 rounded-[2rem] shadow-lg text-white border border-slate-700 dark:border-slate-800 transition-colors duration-300">
                 <div class="flex justify-between items-center mb-5">
@@ -260,54 +217,46 @@
                 <i class="fas fa-camera mr-2"></i>이 내역을 이미지로 공유하기
             </button>
 
-            <!-- 🔥 완벽 부활! 극악 확률 지안이네 전용 캐릭터 룰렛 -->
             <div class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm text-center relative overflow-hidden mt-6 transition-colors duration-300">
                 <h3 class="font-black text-slate-800 dark:text-slate-100 mb-1 flex justify-center items-center">
                     <div class="w-8 h-8 rounded-full bg-pink-50 dark:bg-pink-900/30 flex items-center justify-center mr-2"><i class="fas fa-dice text-pink-500 dark:text-pink-400 text-sm"></i></div>누가 쏠까? 복불복
                 </h3>
                 <p class="text-[10px] text-slate-400 dark:text-slate-500 font-bold mb-5">(지안이 기준)</p>
                 
-                <div class="relative w-[240px] h-[240px] mx-auto mb-5 border-[5px] border-white dark:border-slate-800 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] overflow-hidden">
+                <div class="relative w-[240px] h-[240px] mx-auto mb-5 border-[6px] border-white dark:border-slate-800 rounded-full shadow-xl overflow-hidden">
                     <div id="roulette-wheel" class="roulette-wheel">
-                        <!-- 이모부(110도) 중심 -35도 -->
                         <div class="roulette-text text-blue-900 dark:text-blue-200" style="transform: rotate(-35deg);">
-                            <span class="text-[26px] drop-shadow-sm">👨🏻‍🦱</span><span class="text-[14px] font-black leading-tight">이모부</span>
+                            <span class="text-[20px]">👨🏻‍🦱</span><span class="text-[13px] font-black">이모부</span>
                         </div>
-                        <!-- 이모(70도) 중심 55도 -->
                         <div class="roulette-text text-violet-900 dark:text-violet-200" style="transform: rotate(55deg);">
-                            <span class="text-[22px] drop-shadow-sm">👩🏻‍🦰</span><span class="text-[11px] font-black leading-tight">이모</span>
+                            <span class="text-[18px]">👩🏻‍🦰</span><span class="text-[12px] font-black">이모</span>
                         </div>
-                        <!-- 엄마(70도) 중심 125도 -->
                         <div class="roulette-text text-rose-900 dark:text-rose-200" style="transform: rotate(125deg);">
-                            <span class="text-[22px] drop-shadow-sm">👩🏻</span><span class="text-[11px] font-black leading-tight">엄마</span>
+                            <span class="text-[18px]">👩🏻</span><span class="text-[12px] font-black">엄마</span>
                         </div>
-                        <!-- 아빠(70도) 중심 195도 -->
                         <div class="roulette-text text-amber-900 dark:text-amber-200" style="transform: rotate(195deg);">
-                            <span class="text-[22px] drop-shadow-sm">👨🏻</span><span class="text-[11px] font-black leading-tight">아빠</span>
+                            <span class="text-[18px]">👨🏻</span><span class="text-[12px] font-black">아빠</span>
                         </div>
-                        <!-- 할아버지(20도) 중심 240도 (아주 작게) -->
-                        <div class="roulette-text text-emerald-900 dark:text-emerald-200" style="transform: rotate(240deg);">
-                            <span class="text-[16px] drop-shadow-sm">👴</span><span class="text-[8px] font-black leading-tight">할아버지</span>
+                        <div class="roulette-text text-emerald-900 dark:text-emerald-200" style="transform: rotate(240deg); padding-left:10px;">
+                            <span class="text-[14px]">👴</span><span class="text-[9px] font-black">할아버지</span>
                         </div>
-                        <!-- 할머니(20도) 중심 260도 (아주 작게) -->
-                        <div class="roulette-text text-cyan-900 dark:text-cyan-200" style="transform: rotate(260deg);">
-                            <span class="text-[16px] drop-shadow-sm">👵</span><span class="text-[8px] font-black leading-tight">할머니</span>
+                        <div class="roulette-text text-cyan-900 dark:text-cyan-200" style="transform: rotate(260deg); padding-left:10px;">
+                            <span class="text-[14px]">👵</span><span class="text-[9px] font-black">할머니</span>
                         </div>
                     </div>
-                    <!-- 룰렛 화살표 -->
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[12px] border-r-[12px] border-t-[24px] border-l-transparent border-r-transparent border-t-brand-600 dark:border-t-brand-400 z-10 drop-shadow-md"></div>
+                    <div class="absolute top-1/2 left-1/2 w-6 h-6 bg-white dark:bg-slate-800 rounded-full -translate-x-1/2 -translate-y-1/2 shadow-md"></div>
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[12px] border-r-[12px] border-t-[24px] border-l-transparent border-r-transparent border-t-red-500 dark:border-t-red-400 z-10 drop-shadow-md"></div>
                 </div>
                 
-                <div id="roulette-result" class="text-lg font-black text-brand-600 dark:text-brand-400 py-3.5 bg-brand-50 dark:bg-brand-900/30 rounded-2xl border border-dashed border-brand-200 dark:border-brand-800 mb-5 h-14 flex items-center justify-center transition-colors">대기중...</div>
+                <div id="roulette-result" class="text-lg font-black text-brand-600 dark:text-brand-400 py-3.5 bg-brand-50 dark:bg-brand-900/30 rounded-2xl border border-dashed border-brand-200 dark:border-brand-800 mb-5 h-14 flex items-center justify-center transition-colors">당첨 대기 중...</div>
                 <button onclick="spinRoulette()" class="w-full bg-gradient-to-r from-brand-600 to-indigo-600 dark:from-brand-500 dark:to-indigo-500 text-white font-black p-4 rounded-2xl shadow-lg active:scale-[0.98] transition-all border border-transparent">
                     룰렛 돌리기 🎯
                 </button>
             </div>
         </div>
 
-        <!-- 안전/SOS 탭 -->
         <div id="tools" class="tab-content space-y-5">
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+            <div class="bg-blue-100 dark:bg-blue-900/40 p-5 rounded-[2rem] border border-blue-200 dark:border-blue-800 shadow-sm transition-colors duration-300">
                 <div class="flex items-center mb-4">
                     <div class="w-8 h-8 rounded-full bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center mr-3"><i class="fas fa-snowflake text-brand-600 dark:text-brand-400 text-sm"></i></div>
                     <h3 class="font-black text-slate-800 dark:text-slate-100">긴급 오아시스 레이더</h3>
@@ -315,7 +264,7 @@
                 <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold mb-4">가족들이 지치거나 화장실이 급할 때 무조건 여기로 뛰세요!</p>
                 <div class="space-y-2 text-xs font-bold text-slate-700 dark:text-slate-200">
                     <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700 flex justify-between items-center transition-colors"><span class="truncate">🛒 <b>골드코스트 (롯데마트 건물)</b></span><span class="text-[9px] bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 px-2 py-1 rounded border border-slate-200 dark:border-slate-600 shadow-sm">최상급 쾌적</span></div>
-                    <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700 flex justify-between items-center transition-colors"><span class="truncate">☕ <b>CCCP 커피 (CCCP Coffee)</b></span><span class="text-[9px] bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 px-2 py-1 rounded border border-slate-200 dark:border-slate-600 shadow-sm">에어컨+쇼파</span></div>
+                    <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700 flex justify-between items-center transition-colors"><span class="truncate">☕ <b>CCCP 커피 (CCCP Coffee)</b></span><span class="text-[9px] bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 px-2 py-1 rounded border border-slate-200 dark:border-slate-600 shadow-sm">에어컨+넓은좌석</span></div>
                     <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700 flex justify-between items-center transition-colors"><span class="truncate">🍕 <b>피자포피스 (쉐라톤 내)</b></span><span class="text-[9px] bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 px-2 py-1 rounded border border-slate-200 dark:border-slate-600 shadow-sm">화장실 깔끔</span></div>
                 </div>
             </div>
@@ -413,7 +362,6 @@
             </div>
         </div>
 
-        <!-- 회화 탭 -->
         <div id="phrases" class="tab-content pb-10 space-y-5">
             <div class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
                 <h3 class="font-black text-slate-800 dark:text-slate-100 mb-4"><i class="fas fa-language text-brand-500 mr-2"></i>스마트 번역기</h3>
@@ -455,12 +403,10 @@
         </div>
     </main>
 
-    <!-- SOS 플로팅 버튼 -->
     <button onclick="openSosModal()" class="fixed bottom-24 right-5 bg-red-500 text-white w-14 h-14 rounded-full shadow-[0_8px_30px_rgb(239,68,68,0.4)] flex flex-col items-center justify-center z-[60] shake-animation border-2 border-white dark:border-slate-900 transition active:scale-110">
         <span class="text-xl leading-none">👶</span><span class="text-[8px] font-black uppercase mt-0.5">SOS</span>
     </button>
 
-    <!-- Glassmorphism 하단 네비게이션 -->
     <nav class="glass-header fixed bottom-0 left-0 right-0 flex justify-around p-2 pb-safe z-50 transition-colors duration-300 shadow-[0_-10px_40px_rgba(0,0,0,0.04)]">
         <button onclick="showTab('schedule')" class="tab-btn active-tab flex flex-col items-center w-1/5 py-2 text-slate-400 dark:text-slate-500 transition-colors"><i class="fas fa-calendar-check text-[20px] mb-1.5"></i><span class="text-[9px] font-black">일정</span></button>
         <button onclick="showTab('shopping')" class="tab-btn flex flex-col items-center w-1/5 py-2 text-slate-400 dark:text-slate-500 transition-colors"><i class="fas fa-shopping-bag text-[20px] mb-1.5"></i><span class="text-[9px] font-black">쇼핑</span></button>
@@ -469,7 +415,6 @@
         <button onclick="showTab('phrases')" class="tab-btn flex flex-col items-center w-1/5 py-2 text-slate-400 dark:text-slate-500 transition-colors"><i class="fas fa-comment-dots text-[20px] mb-1.5"></i><span class="text-[9px] font-black">회화</span></button>
     </nav>
 
-    <!-- ✨ 꿀팁 모달 -->
     <div id="tip-modal" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[150] hidden p-5 flex items-center justify-center backdrop-blur-sm transition-opacity">
         <div class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] w-full max-w-md shadow-2xl relative border border-slate-100 dark:border-slate-800 max-h-[80vh] flex flex-col transition-colors">
             <div class="flex justify-between items-center mb-3 border-b border-slate-100 dark:border-slate-800 pb-3">
@@ -481,16 +426,12 @@
         </div>
     </div>
 
-    <!-- 택시 기사님 모달 -->
     <div id="taxi-modal" class="fixed inset-0 bg-yellow-400 z-[150] hidden flex flex-col items-center justify-center p-6 text-center"><button onclick="closeTaxiModal()" class="absolute top-8 right-8 text-yellow-800 text-4xl"><i class="fas fa-times"></i></button><i class="fas fa-taxi text-6xl text-yellow-600 mb-6"></i><h2 class="text-4xl font-black text-slate-900 mb-4 leading-tight">Làm ơn đưa tôi<br>đến đây.</h2><div class="bg-white w-full p-8 rounded-3xl shadow-2xl"><p id="taxi-destination" class="text-3xl font-black text-brand-600 break-words leading-snug">목적지</p></div><p class="mt-10 text-2xl font-black text-yellow-800">Xin cảm ơn! 🙏</p></div>
 
-    <!-- 일정 관리 모달 -->
     <div id="itinerary-modal" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm"><div class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] w-full max-w-md shadow-2xl max-h-[85vh] overflow-y-auto transition-colors border border-slate-100 dark:border-slate-800"><h3 id="modal-title" class="text-lg font-black mb-5 text-slate-800 dark:text-slate-100 border-b border-slate-100 dark:border-slate-800 pb-3">일정 관리</h3><input type="hidden" id="edit-key"><div class="space-y-4"><div><label class="text-[10px] font-black text-slate-400 ml-2">날짜</label><input type="text" id="form-date" placeholder="16일(목)" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-sm font-bold outline-none dark:text-white transition-colors"></div><div><label class="text-[10px] font-black text-slate-400 ml-2">시간</label><input type="text" id="form-time" placeholder="09:40" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-sm font-bold outline-none dark:text-white transition-colors"></div><div><label class="text-[10px] font-black text-slate-400 ml-2">장소 명칭</label><textarea id="form-place" placeholder="어디 가나요?" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-sm font-bold outline-none h-20 dark:text-white transition-colors"></textarea></div><div><label class="text-[10px] font-black text-slate-400 ml-2">그랩 목적지 <span class="text-brand-500">(쉼표 , 구분)</span></label><input type="text" id="form-grab" placeholder="베트남 주소/상호명" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-sm font-bold outline-none dark:text-white transition-colors"></div><div><label class="text-[10px] font-black text-slate-400 ml-2 mb-1 block">구글 지도 링크</label><div id="links-container" class="space-y-2"></div><button type="button" onclick="addLinkInput()" class="w-full text-[11px] text-brand-600 font-black bg-brand-50 dark:bg-brand-900/20 p-3 rounded-xl border border-dashed border-brand-200 dark:border-brand-800 mt-2">+ 링크 추가</button></div><div><label class="text-[10px] font-black text-slate-400 ml-2">비고/꿀팁</label><textarea id="form-remarks" placeholder="예약 시간 등" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-sm font-bold outline-none h-24 dark:text-white transition-colors"></textarea></div></div><div class="flex space-x-3 mt-6"><button onclick="saveItineraryItem()" class="flex-1 bg-slate-800 dark:bg-brand-600 text-white py-3.5 rounded-xl font-black shadow-md active:scale-95 transition">저장</button><button onclick="closeModal()" class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 py-3.5 rounded-xl font-black active:scale-95 transition">닫기</button></div><button id="delete-btn" onclick="deleteItineraryItem()" class="w-full text-red-400 text-xs mt-5 font-black underline hidden text-center">이 일정 삭제</button></div></div>
     
-    <!-- 쇼핑 모달 -->
     <div id="shopping-modal" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm"><div class="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] w-full max-w-md shadow-2xl transition-colors border border-slate-100 dark:border-slate-800"><h3 class="text-xl font-black mb-6 text-slate-800 dark:text-slate-100 text-center border-b border-slate-100 dark:border-slate-800 pb-3">🛒 쇼핑 리스트 추가</h3><div class="space-y-4"><select id="shopping-category" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-sm font-black outline-none dark:text-white transition-colors"><option value="dam">담시장</option><option value="pharmacy">티엔푸 약국</option><option value="fake">짝퉁샵</option><option value="mart">롯데마트</option></select><input type="text" id="shopping-text" placeholder="무엇을 사야 하나요?" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-sm font-bold outline-none dark:text-white transition-colors"></div><div class="flex space-x-3 mt-6"><button onclick="saveShoppingItem()" class="flex-1 bg-slate-800 dark:bg-brand-600 text-white py-3.5 rounded-xl font-black shadow-md active:scale-95 transition">추가</button><button onclick="closeShoppingModal()" class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 py-3.5 rounded-xl font-black active:scale-95 transition">취소</button></div></div></div>
     
-    <!-- 지안 SOS 모달 -->
     <div id="sos-modal" class="fixed inset-0 bg-slate-900/80 dark:bg-black/90 z-[150] hidden flex flex-col items-center justify-center p-8 backdrop-blur-md"><div class="bg-white dark:bg-slate-900 p-8 rounded-[3rem] w-full max-w-sm text-center shadow-2xl relative border-2 border-red-100 dark:border-red-900/50 transition-colors"><button onclick="closeSosModal()" class="absolute top-5 right-5 text-slate-300 dark:text-slate-600 hover:text-slate-500 text-2xl w-8 h-8 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center transition"><i class="fas fa-times"></i></button><div class="w-16 h-16 bg-red-50 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">🚨</span></div><h3 class="text-2xl font-black mb-2 text-red-500 tracking-tighter">지안이 비상!</h3><p class="text-slate-400 text-[9px] mb-6 font-black uppercase tracking-widest">Peace Button</p><div class="space-y-3"><a href="https://www.youtube.com/results?search_query=레스큐+타요+연속보기" target="_blank" class="block w-full bg-blue-500 text-white p-4 rounded-2xl font-black text-lg shadow-md active:scale-95 transition border border-blue-600">🚌 타요 출동!</a><a href="https://www.youtube.com/results?search_query=고고다이노+연속보기" target="_blank" class="block w-full bg-emerald-500 text-white p-4 rounded-2xl font-black text-lg shadow-md active:scale-95 transition border border-emerald-600">🦖 고고다이노!</a><a href="https://www.youtube.com/results?search_query=공룡+자동차+장난감+놀이" target="_blank" class="block w-full bg-amber-400 text-amber-900 p-4 rounded-2xl font-black text-lg shadow-md active:scale-95 transition border border-amber-500">🏎️ 자동차 & 공룡 놀이</a></div></div></div>
 
     <script>
@@ -579,58 +520,6 @@
 
         let itineraryFirebase = []; 
         let currentItineraryMode = 'original';
-        let expensesList = []; 
-        let expenseChart = null;
-        let vndToKrwRate = 0.055;
-
-        // 테마 초기화
-        function initTheme() {
-            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        }
-        initTheme();
-
-        // 메인 초기화 실행
-        document.addEventListener('DOMContentLoaded', () => { 
-            if (document.documentElement.classList.contains('dark')) {
-                document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
-            } else {
-                document.getElementById('theme-icon').classList.replace('fa-sun', 'fa-moon');
-            }
-            
-            loadItinerary(); 
-            loadShoppingList(); 
-            loadExpenses(); 
-            initWeatherOpenMeteo(); 
-            initExchangeRate(); 
-            updateLocationInfo(); 
-            updateDDay(); 
-            renderPhrases(); 
-        });
-
-        // 테마 토글
-        function toggleTheme() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                document.getElementById('theme-icon').classList.replace('fa-sun', 'fa-moon');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
-            }
-            if(expenseChart) updateChart(expenseChart.data.datasets[0].dataObj); 
-        }
-
-        async function refreshDashboard() {
-            const icon = document.getElementById('dashboard-refresh-icon');
-            if(icon) icon.classList.add('fa-spin');
-            try { await Promise.all([initWeatherOpenMeteo(), initExchangeRate()]); updateDDay(); } catch(e) {}
-            if(icon) setTimeout(() => { icon.classList.remove('fa-spin'); }, 500); 
-        }
 
         function loadItinerary() { 
             db.ref('itinerary').on('value', s => { 
@@ -643,9 +532,13 @@
         
         function setItineraryMode(mode) {
             currentItineraryMode = mode;
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active', 'bg-white', 'text-brand-600', 'shadow-sm', 'dark:bg-slate-800'));
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.add('text-slate-500', 'dark:text-slate-400'));
+            
             const activeBtn = document.getElementById(`mode-btn-${mode}`);
-            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-slate-500', 'dark:text-slate-400');
+            activeBtn.classList.add('active', 'bg-white', 'text-brand-600', 'shadow-sm', 'dark:bg-slate-800');
+            
             renderItinerary();
         }
 
@@ -805,148 +698,6 @@
         function closeTipModal() { document.getElementById('tip-modal').classList.add('hidden'); }
         function showTaxiCard(p) { document.getElementById('taxi-destination').innerText = p; document.getElementById('taxi-modal').classList.remove('hidden'); }
         function closeTaxiModal() { document.getElementById('taxi-modal').classList.add('hidden'); }
-
-        function loadExpenses() { 
-            db.ref('expenses').on('value', s => { 
-                expensesList = []; let total = 0; 
-                const totalsByCategory = {'🍽️ 식비':0, '🚕 교통':0, '🛒 쇼핑':0, '💆 마사지':0, '🎸 기타':0};
-                const d = s.val(); 
-                if(d) Object.entries(d).forEach(([k, v]) => { 
-                    expensesList.push({...v, firebaseKey: k}); 
-                    total += Number(v.amount); 
-                    if(totalsByCategory[v.category] !== undefined) totalsByCategory[v.category] += Number(v.amount);
-                }); 
-                
-                document.getElementById('total-expense-display').innerText = total.toLocaleString() + ' ₫'; 
-                document.getElementById('per-person-krw').innerText = `₩ ${Number((total/8)*vndToKrwRate).toFixed(0).toLocaleString()}`; 
-                
-                const list = document.getElementById('expense-list'); list.innerHTML = ''; 
-                expensesList.sort((a,b)=>b.timestamp-a.timestamp).forEach(i => { 
-                    list.insertAdjacentHTML('beforeend', `<li class="flex justify-between items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl mb-2 border border-slate-100 dark:border-slate-700 transition-colors"><span class="text-xs mr-2 font-bold">${i.category ? i.category.split(' ')[0] : '🎸'}</span><span class="font-black text-slate-700 dark:text-slate-200 flex-1 truncate pr-2">${i.desc}</span><span class="font-mono text-brand-600 dark:text-brand-400 font-black">${Number(i.amount).toLocaleString()} ₫<button onclick="if(confirm('삭제할까요?')) db.ref('expenses/${i.firebaseKey}').remove()" class="text-slate-300 hover:text-red-500 dark:text-slate-600 dark:hover:text-red-400 ml-4 font-black transition-colors" data-html2canvas-ignore>×</button></span></li>`); 
-                }); 
-                
-                updateChart(totalsByCategory);
-            }); 
-        }
-
-        function updateChart(dataObj) {
-            const ctx = document.getElementById('expenseChart').getContext('2d');
-            const isDark = document.documentElement.classList.contains('dark');
-            Chart.defaults.color = isDark ? '#94a3b8' : '#64748b'; 
-
-            if(expenseChart) expenseChart.destroy();
-            expenseChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(dataObj),
-                    datasets: [{
-                        dataObj: dataObj, 
-                        data: Object.values(dataObj),
-                        backgroundColor: ['#f43f5e', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'],
-                        borderWidth: isDark ? 0 : 2,
-                        borderColor: isDark ? 'transparent' : '#ffffff',
-                        hoverOffset: 4
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: {font: {size: 11, family: "'Pretendard', sans-serif"}} } } }
-            });
-        }
-
-        function captureLedger() {
-            const target = document.getElementById('ledger-capture-area');
-            const btn = document.getElementById('capture-btn');
-            const originalText = btn.innerHTML;
-            btn.innerText = "가계부 굽는 중... ⏳";
-            
-            const wasDark = document.documentElement.classList.contains('dark');
-            if(wasDark) document.documentElement.classList.remove('dark');
-
-            setTimeout(() => {
-                html2canvas(target, {scale: 2, backgroundColor: "#ffffff"}).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = '나트랑_가족여행_정산영수증.png';
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                    btn.innerHTML = originalText;
-                    if(wasDark) document.documentElement.classList.add('dark');
-                }).catch(err => {
-                    alert("캡처 중 오류가 발생했습니다.");
-                    btn.innerHTML = originalText;
-                    if(wasDark) document.documentElement.classList.add('dark');
-                });
-            }, 100); 
-        }
-
-        function addExpense() { const cat = document.getElementById('expense-category').value; const desc = document.getElementById('expense-desc').value; const amt = document.getElementById('expense-amount').value; if(desc && amt) db.ref('expenses').push({ category: cat, desc: desc, amount: Number(amt), timestamp: Date.now() }); document.getElementById('expense-desc').value = ''; document.getElementById('expense-amount').value = ''; }
-        function openAddForm() { closeModal(); document.getElementById('modal-title').innerText = "새 일정 추가"; addLinkInput(); document.getElementById('delete-btn').classList.add('hidden'); document.getElementById('itinerary-modal').classList.remove('hidden'); }
-        function openEditForm(idx) { closeModal(); const item = itineraryFirebase[idx]; document.getElementById('edit-key').value = item.firebaseKey; document.getElementById('form-date').value = item.date; document.getElementById('form-time').value = item.time; document.getElementById('form-place').value = item.place; document.getElementById('form-grab').value = item.grab; document.getElementById('form-remarks').value = item.remarks; if(item.link) addLinkInput(item.link); (item.extraLinks || []).forEach(l => addLinkInput(l)); if(!item.link && !(item.extraLinks && item.extraLinks.length > 0)) addLinkInput(); document.getElementById('delete-btn').classList.remove('hidden'); document.getElementById('itinerary-modal').classList.remove('hidden'); }
-        function addLinkInput(v='') { const c = document.getElementById('links-container'); const w = document.createElement('div'); w.className = 'flex space-x-2'; w.innerHTML = `<input type="url" value="${v}" placeholder="지도 링크" class="w-full p-4 bg-slate-50 dark:bg-slate-700 border border-slate-100 dark:border-slate-600 rounded-xl text-xs font-bold flex-1 form-link-item shadow-inner dark:text-white outline-none"><button type="button" onclick="this.parentElement.remove()" class="bg-red-50 dark:bg-red-900/30 text-red-500 dark:text-red-400 w-12 rounded-xl font-black">×</button>`; c.appendChild(w); }
-        function saveItineraryItem() { const key = document.getElementById('edit-key').value; const links = Array.from(document.querySelectorAll('.form-link-item')).map(i=>i.value.trim()).filter(v=>v!==''); const data = { date: document.getElementById('form-date').value || "미정", time: document.getElementById('form-time').value, place: document.getElementById('form-place').value || "장소없음", grab: document.getElementById('form-grab').value, link: links[0] || "", extraLinks: links.slice(1), remarks: document.getElementById('form-remarks').value }; if(key) db.ref(`itinerary/${key}`).set(data); else db.ref('itinerary').push(data); closeModal(); }
-        function deleteItineraryItem() { const key = document.getElementById('edit-key').value; if(confirm("삭제할까요?")) { db.ref(`itinerary/${key}`).remove(); closeModal(); } }
-        
-        function loadShoppingList() { 
-            db.ref('shopping').on('value', s => { 
-                ['dam', 'pharmacy', 'fake', 'mart'].forEach(c => document.getElementById(`${c}-list`).innerHTML = ''); 
-                const data = s.val(); 
-                if(data) { 
-                    Object.entries(data).forEach(([k, v]) => { 
-                        document.getElementById(`${v.category}-list`).insertAdjacentHTML('beforeend', `<li class="flex items-center p-3 cursor-pointer ${v.checked ? 'opacity-40' : ''}" onclick="db.ref('shopping/${k}/checked').set(${!v.checked})"><i class="far ${v.checked ? 'fa-check-circle text-emerald-500' : 'fa-circle text-slate-300 dark:text-slate-600'} mr-3 text-lg"></i><span class="flex-1 font-black ${v.checked ? 'line-through text-slate-400' : 'text-slate-800 dark:text-slate-100'}">${v.text}</span><button onclick="event.stopPropagation(); db.ref('shopping/${k}').remove()" class="text-slate-300 hover:text-red-500 dark:text-slate-600 dark:hover:text-red-400 font-black px-2">×</button></li>`); 
-                    }); 
-                } 
-            }); 
-        }
-        
-        function openShoppingModal() { document.getElementById('shopping-modal').classList.remove('hidden'); document.getElementById('shopping-text').value = ''; }
-        function closeShoppingModal() { document.getElementById('shopping-modal').classList.add('hidden'); }
-        function saveShoppingItem() { const c = document.getElementById('shopping-category').value; const t = document.getElementById('shopping-text').value; if(t) db.ref('shopping').push({ category: c, text: t, checked: false }); closeShoppingModal(); }
-        
-        async function initExchangeRate() { try { const r = await fetch('https://open.er-api.com/v6/latest/VND'); const d = await r.json(); vndToKrwRate = d.rates.KRW; document.getElementById('rate-summary').innerText = `₩${Number((100000 * vndToKrwRate).toFixed(0)).toLocaleString()}`; } catch(e) { document.getElementById('rate-summary').innerText = "₩5,500"; } document.getElementById('vnd-input').oninput = (e) => { document.getElementById('krw-input').value = e.target.value ? `₩ ${(e.target.value * vndToKrwRate).toFixed(0).toLocaleString()}` : ''; }; }
-        
-        async function initWeatherOpenMeteo() { 
-            try { 
-                const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh"); 
-                const d = await r.json(); 
-                const c = d.current_weather; 
-                document.getElementById('weather-temp').innerText = `${Math.round(c.temperature)}℃`; 
-                let icon = "☀️"; let tip = "<i class='fas fa-lightbulb text-yellow-300 mr-1'></i> 나트랑의 햇살이 뜨거워요! 선크림과 선글라스를 잊지 마세요. 😎"; 
-                if(c.weathercode >= 1 && c.weathercode <= 3) { icon = "🌤️"; tip = "<i class='fas fa-lightbulb text-yellow-300 mr-1'></i> 구름이 살짝 있어 돌아다니기 좋아요. 자외선 차단은 필수! ⛅"; } 
-                else if(c.weathercode >= 45 && c.weathercode <= 48) { icon = "🌫️"; tip = "<i class='fas fa-lightbulb text-yellow-300 mr-1'></i> 안개가 꼈어요. 그랩 이동 시 안전에 유의하세요. 🚗"; } 
-                else if(c.weathercode >= 51 && c.weathercode <= 67) { icon = "☔"; tip = "<i class='fas fa-lightbulb text-yellow-300 mr-1'></i> 비가 내리고 있어요. 우산을 꼭 챙겨주세요! 🌧️"; } 
-                else if(c.weathercode >= 80 && c.weathercode <= 82) { icon = "☂️"; tip = "<i class='fas fa-lightbulb text-yellow-300 mr-1'></i> 갑작스런 소나기(스콜)가 올 수 있으니 우산을 챙기세요. 🌦️"; } 
-                else if(c.weathercode >= 95) { icon = "⛈️"; tip = "<i class='fas fa-lightbulb text-yellow-300 mr-1'></i> 궂은 날씨예요. 실내에서 마사지나 커피를 즐기세요! ⚡"; }
-                document.getElementById('weather-icon').innerText = icon; document.getElementById('weather-tip').innerHTML = tip; 
-            } catch(e) {} 
-        }
-        
-        function updateDDay() { const now = new Date(); const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime(); const diff = tripStart - today; const days = Math.round(diff / (1000 * 60 * 60 * 24)); document.getElementById('d-day').innerText = days > 0 ? `D-${days}` : (days === 0 ? "D-DAY" : `여행 ${Math.abs(days)+1}일차`); }
-        function showTab(id) { document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active-tab')); document.getElementById(id).classList.add('active'); event.currentTarget.classList.add('active-tab'); window.scrollTo(0,0); }
-        function closeModal() { document.getElementById('itinerary-modal').classList.add('hidden'); document.getElementById('links-container').innerHTML = ''; }
-        function openSosModal() { document.getElementById('sos-modal').classList.remove('hidden'); }
-        function closeSosModal() { document.getElementById('sos-modal').classList.add('hidden'); }
-        function copyText(t) { navigator.clipboard.writeText(t).then(() => alert(`📋 복사완료: ${t}`)); }
-        
-        async function inAppTranslate() {
-            const input = document.getElementById('translate-input').value.trim(); if(!input) return alert("입력해주세요!");
-            const resBox = document.getElementById('translate-result-box'); const resText = document.getElementById('translate-result');
-            resBox.classList.remove('hidden'); resText.innerText = "번역 중...";
-            const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(input); const langPair = isKorean ? "ko|vi" : "vi|ko";
-            try { const r = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=${langPair}`); const d = await r.json(); if(d && d.responseData) resText.innerText = d.responseData.translatedText; } catch(e) { resText.innerText = "오류 발생"; }
-        }
-
-        function renderPhrases() { 
-            Object.keys(phrases).forEach(c => { 
-                const con = document.getElementById(`${c}-phrases`); if(!con) return; 
-                phrases[c].forEach(i => { 
-                    con.insertAdjacentHTML('beforeend', `<div onclick="speak('${i.v}')" class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex justify-between items-center active:scale-95 transition cursor-pointer"><div><p class="text-[10px] text-slate-400 font-bold mb-0.5">${i.k}</p><p class="text-base font-black text-slate-800 dark:text-slate-100">${i.v}</p><p class="text-xs text-brand-500 font-bold mt-1">[ ${i.p} ]</p></div><i class="fas fa-volume-up text-brand-400 dark:text-brand-500 text-xl bg-brand-50 dark:bg-brand-900/30 w-10 h-10 rounded-full flex items-center justify-center"></i></div>`); 
-                }); 
-            }); 
-        }
-        
-        async function speak(t) { const u = new SpeechSynthesisUtterance(t); u.lang = 'vi-VN'; u.rate = 0.9; window.speechSynthesis.speak(u); }
-
-        let currentAddr = "위치 확인 중...";
-        function updateLocationInfo() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(async (p) => { try { const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${p.coords.latitude}&lon=${p.coords.longitude}&accept-language=vi`); const d = await r.json(); currentAddr = d.display_name || "위치 찾기 실패"; document.getElementById('current-address').innerText = currentAddr; } catch (e) {} }, () => {}, { timeout: 10000 }); } }
-        function speakCurrentLocation() { const u = new SpeechSynthesisUtterance(`Tôi đang ở ${currentAddr}.`); u.lang = 'vi-VN'; window.speechSynthesis.speak(u); }
     </script>
 </body>
 </html>
