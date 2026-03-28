@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
 
-    <title>가족 나트랑 여행 - 나트랑 가즈아! v63</title>
+    <title>가족 나트랑 여행 - 나트랑 가즈아! v64</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -35,11 +35,6 @@
         .briefing-card { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); }
         .roulette-wheel { width: 240px; height: 240px; border-radius: 50%; background: conic-gradient(from -15deg, #fbcfe8 0 30deg, #fce7f3 30deg 60deg, #f9a8d4 60deg 135deg, #f472b6 135deg 210deg, #ec4899 210deg 285deg, #db2777 285deg 360deg); position: relative; transition: transform 4s cubic-bezier(0.25, 0.1, 0.15, 1); }
         .roulette-text { position: absolute; width: 100px; height: 20px; top: 110px; left: 120px; transform-origin: 0 50%; font-weight: 900; font-size: 13px; text-align: left; padding-left: 20px; }
-        
-        .plan-b-mode .outdoor-item { opacity: 0.3; filter: grayscale(100%); pointer-events: none; transition: all 0.3s; }
-        .plan-b-item { display: none; }
-        .plan-b-mode .plan-b-item { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="bg-slate-50 pb-24 relative">
@@ -71,33 +66,6 @@
 
     <main class="p-4">
         <div id="schedule" class="tab-content active space-y-3">
-            
-            <div class="bg-slate-800 text-white p-4 rounded-2xl mb-4 flex justify-between items-center shadow-lg">
-                <div class="flex items-center space-x-3">
-                    <span class="text-3xl">🌧️</span>
-                    <div>
-                        <p class="font-black text-sm leading-tight">플랜 B 가동 (비/더위)</p>
-                        <p class="text-[10px] text-slate-300 font-bold mt-0.5">야외 숨기기 & 실내 대안 보기</p>
-                    </div>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="plan-b-toggle" class="sr-only peer" onchange="togglePlanB()">
-                    <div class="w-11 h-6 bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
-                </label>
-            </div>
-
-            <div class="plan-b-item bg-blue-100 p-5 rounded-2xl border-2 border-blue-300 shadow-md mb-4">
-                <h3 class="font-black text-blue-800 text-sm mb-3"><i class="fas fa-umbrella mr-1"></i> 쾌적한 실내 대안 스팟 추천</h3>
-                <ul class="space-y-2 text-xs font-bold text-blue-900">
-                    <li class="bg-white p-2.5 rounded-xl shadow-sm"><b class="text-blue-600">롯데마트 골드코스트:</b> 시원하게 쇼핑하며 키즈카페(티니월드) 이용 가능</li>
-                    <li class="bg-white p-2.5 rounded-xl shadow-sm"><b class="text-blue-600">발 마사지 타임:</b> 일정을 취소하고 근처 마사지샵으로 피신!</li>
-                    <li class="bg-white p-2.5 rounded-xl shadow-sm"><b class="text-blue-600">대형 카페(올라카페):</b> 동굴 컨셉으로 에어컨이 빵빵한 곳</li>
-                </ul>
-            </div>
-
-            <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 shadow-sm mb-4">
-                <p class="text-xs text-blue-800 font-bold leading-snug"><i class="fas fa-info-circle mr-1"></i> ✨ <b>꿀팁</b> 마크가 있는 일정을 터치하면 <b>가족 맞춤 추천 메뉴와 대안/쇼핑 정보</b>를 볼 수 있습니다!</p>
-            </div>
             <div id="itinerary-list" class="space-y-4"></div>
             <button onclick="openAddForm()" class="w-full bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg transition active:scale-95 mt-4"><i class="fas fa-plus-circle mr-2"></i>일정 추가하기</button>
         </div>
@@ -267,7 +235,7 @@
         const viMap = {"Cam Ranh International Airport":"Sân bay Quốc tế Cam Ranh","Le More Hotel Nha Trang":"Khách sạn Le More (33A Tô Hiến Thành)","Thap Ba Ponagar Nha Trang":"Tháp Bà Ponagar","Hon Chong Nha Trang":"Hòn Chồng, Bake Boy","Cho Dam Nha Trang":"Chợ Đầm","Nem Nuong Dang Van Quyen Nha Trang":"Nem Nướng Đặng Văn Quyên","Sheraton Nha Trang Hotel & Spa":"Khách sạn Sheraton (26-28 Trần Phú)","Tiny Nail Spa Nha Trang":"Tiny Nail Spa","Chuck Chip Nha Trang":"Khoai lang lắc Chuck Chip, Sạp trái cây 65","Moc Quan Nha Trang":"Hải sản Mộc Quán","An Cafe Nha Trang":"An Café, Ola Café","I-Resort Nha Trang":"Suối khoáng nóng I-Resort","Pizza 4Ps Sheraton Nha Trang":"Pizza 4P's (Sheraton)","Central Market Nha Trang":"Chợ Đêm (Central Market), Nhà thuốc Thiên Phú, Cửa hàng cá sấu","An Thoi Nha Trang":"Nhà hàng Ăn Thôi","Tram Huong Tower Nha Trang":"Tháp Trầm Hương, Chợ Đêm","Lotte Mart Gold Coast Nha Trang":"Lotte Mart (Gold Coast)","Venaza Store Nha Trang":"Venaza Lounge","Com Tam 82 Nha Trang":"Cơm tấm 82"};
         const phrases = {food:[{k:"고수 빼주세요",v:"Không rau mùi",p:"콩 라우 무이"},{k:"안 맵게 해주세요",v:"Không cay",p:"콩 까이"},{k:"계산해 주세요",v:"Tính tiền",p:"띵 띠엔"},{k:"얼음 좀 주세요",v:"Cho tôi đá",p:"쪼 또이 다"},{k:"포장해 주세요",v:"Cho mang về",p:"쪼 망 베"}],spa:[{k:"살살 해주세요",v:"Nhẹ thôi",p:"니에 토이"},{k:"더 세게 해주세요",v:"Mạnh hơn",p:"망 헌"},{k:"에어컨 줄여주세요",v:"Giảm điều hòa",p:"쟘 디에우 화"}],move:[{k:"여기 세워주세요",v:"Dừng ở đây",p:"증 어 더이"},{k:"기다려주세요",v:"Đợi một chút",p:"더이 못 쭛"},{k:"천천히 가주세요",v:"Đi chậm thôi",p:"디 쩜 토이"}],shop:[{k:"너무 비싸요!",v:"Đắt quá",p:"닷 꽈"},{k:"깎아주세요",v:"Giảm giá đi",p:"쟘 쟈 디"}]};
         
-        // ✨ 일정 꿀팁 데이터베이스 세팅 (마사지 & 풋마사지 3선 추가됨!)
+        // ✨ 일정 꿀팁 데이터베이스 세팅
         const placeTipsData = {
             "lemore": "<b>🏨 르모어 호텔</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>가성비 최고 0.5박 숙소입니다. 짐 풀고 현금이 필요하실 텐데, 최근 '김청/김빈' 등 금은방 불법 환전 단속이 매우 심해서 헛걸음하기 쉽습니다. <b>트래블로그/트래블월렛 카드</b>를 챙기셔서 근처 <b>VP Bank</b> 또는 <b>TP Bank ATM</b>에서 수수료 없이 출금하시는 것이 가장 안전하고 환율도 좋습니다!",
             "ponagar": "<b>🛕 포나가르 사원</b><br><br><b>📜 1분 히스토리:</b><br>8~13세기 베트남 중남부를 지배했던 '참파 왕국'의 힌두교 유적지입니다.<br><br><b>📸 포토존:</b><br>붉은 벽돌 기둥 사이로 들어오는 햇빛이 예술! 부모님들 인생샷 건지기 좋습니다.<br><br><b>💡 지훈 가이드 꿀팁:</b><br>무릎 위로 올라오는 바지나 치마, 나시는 입장 불가! (입구에서 무료 회색 가운을 대여해 줍니다)",
@@ -289,7 +257,7 @@
             "lottemart": "<b>🛒 롯데마트 골드코스트</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>귀국 전 마지막 쇼핑 성지! <br><br><b>📸 [보너스 스팟] 나트랑 대성당 (돌교회):</b><br>롯데마트 이동 전/후로 차로 5분 거리에 웅장한 돌교회가 있습니다. 길게 볼 필요 없이 가족 단체 사진 남기기에 최적의 스팟입니다!",
             "venaza": "<b>🧳 베나자 라운지 (짐 보관)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>마지막 날 체크아웃 후, 무거운 캐리어들을 편하게 짱박아둘 수 있는 오아시스 같은 곳입니다. 짐 보관하고 가벼운 몸으로 마지막 일정을 즐기세요!",
             "comtam": "<b>🍛 껌땀 82 (Com Tam 82)</b><br><br><b>🏆 시그니처 메뉴:</b><br>껌땀 (숯불 돼지고기 덮밥). 달짝지근한 숯불 갈비맛이라 호불호 제로!<br><br><b>💡 지훈 가이드 꿀팁:</b><br>베트남 사람들의 소울푸드 국밥 같은 존재! 한국 갈비랑 맛이 똑같아서 고기 잘라주면 아이들이 밥 한 그릇 뚝딱 비웁니다. 계란 프라이(Op la)를 꼭 추가해서 노른자 톡 터뜨려 비벼 드세요.",
-            "massage": "<b>💆 전신 마사지 (가족 스파) 추천 3선</b><br><br><b>1. 제이스파 (J Spa)</b><br>🌿 <a href='https://www.google.com/maps/search/?api=1&query=J+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline'>구글지도 보기</a><br>👍 <b>장점:</b> 시설이 매우 깔끔하며, 키즈 마사지 평이 좋아 대가족 맞춤형.<br>👎 <b>단점:</b> 인기가 많아 사전 예약 필수.<br><br><b>2. 웰스파 (Well Spa)</b><br>🌿 <a href='https://www.google.com/maps/search/?api=1&query=Well+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline'>구글지도 보기</a><br>👍 <b>장점:</b> 시내 중심이라 접근성 최고, 어르신들 압 조절 만족도 1위.<br>👎 <b>단점:</b> 픽업/드랍 차량 지원 조건 확인 필요.<br><br><b>3. 센스파 (Sen Spa)</b><br>🌿 <a href='https://www.google.com/maps/search/?api=1&query=Sen+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline'>구글지도 보기</a><br>👍 <b>장점:</b> 숲속에 온 듯한 자연 친화적 인테리어, 고급스럽고 조용함.<br>👎 <b>단점:</b> 시내 중심에서 차로 살짝(5~10분) 이동해야 함.",
+            "massage": "<b>💆 전신 마사지 (가족 스파) 추천 5선</b><br><br><b>1. 제이스파 (J Spa)</b><br>🌿 <a href='https://www.google.com/maps/search/?api=1&query=J+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline'>구글지도 보기</a><br>👍 <b>장점:</b> 시설이 매우 깔끔하며, 키즈 마사지 평이 좋아 대가족 맞춤형.<br>👎 <b>단점:</b> 인기가 많아 사전 예약 필수.<br><br><b>2. 웰스파 (Well Spa)</b><br>🌿 <a href='https://www.google.com/maps/search/?api=1&query=Well+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline'>구글지도 보기</a><br>👍 <b>장점:</b> 시내 중심이라 접근성 최고, 어르신들 압 조절 만족도 1위.<br>👎 <b>단점:</b> 픽업/드랍 차량 지원 조건 확인 필요.<br><br><b>3. 센스파 (Sen Spa)</b><br>🌿 <a href='https://www.google.com/maps/search/?api=1&query=Sen+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline'>구글지도 보기</a><br>👍 <b>장점:</b> 숲속에 온 듯한 자연 친화적 인테리어, 고급스럽고 조용함.<br>👎 <b>단점:</b> 시내 중심에서 차로 살짝(5~10분) 이동해야 함.<br><br><b>4. 미우미우 스파 (Miu Miu Spa)</b><br>👍 <b>장점:</b> 호치민에서부터 유명한 검증된 체인! 세심한 압 조절과 서비스가 강점.<br><br><b>5. 달 스파 (Dal Spa)</b><br>👍 <b>장점:</b> 가성비가 훌륭하고 로컬 분위기를 느낄 수 있어 편안하고 만족도 높음.",
             "footmassage": "<b>👣 풋마사지 (가벼운 휴식) 추천 3선</b><br><br><b>1. 라운지스파 (Lounge Spa)</b><br>💆 <a href='https://www.google.com/maps/search/?api=1&query=Lounge+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline'>구글지도 보기</a><br>👍 <b>장점:</b> 베나자 제휴로 짐 보관/샤워 가능, 접근성 굿.<br>👎 <b>단점:</b> 대형 샵이라 다소 붐빌 수 있음.<br><br><b>2. 로얄살롱 (Royal Salon)</b><br>💆 <a href='https://www.google.com/maps/search/?api=1&query=Royal+Salon+Nha+Trang' target='_blank' class='text-blue-500 underline'>구글지도 보기</a><br>👍 <b>장점:</b> 발마사지+귀청소+얼굴팩 등 '풀케어' 이발관 코스로 아빠/할아버지 취향 저격.<br>👎 <b>단점:</b> 일반 타이/아로마 마사지 위주가 아님.<br><br><b>3. 카사스파 (Casa Spa)</b><br>💆 <a href='https://www.google.com/maps/search/?api=1&query=Casa+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline'>구글지도 보기</a><br>👍 <b>장점:</b> 가성비 훌륭, 쇼핑 후 발마사지만 딱 깔끔하게 받기 좋음.<br>👎 <b>단점:</b> 프리미엄급 시설은 아님."
         };
 
@@ -307,7 +275,7 @@
         }
 
         function togglePlanB() {
-            const isChecked = document.getElementById('plan-b-toggle').checked;
+            const isChecked = document.getElementById('plan-b-toggle') ? document.getElementById('plan-b-toggle').checked : false;
             if(isChecked) {
                 document.body.classList.add('plan-b-mode');
             } else {
@@ -356,7 +324,6 @@
                 list.insertAdjacentHTML('beforeend', `<h2 class="text-sm font-black text-blue-600 mt-6 mb-3 border-b border-blue-100 pb-1.5 uppercase tracking-widest">${date}</h2>`); 
                 g[date].forEach(item => { 
                     let realIdx = itinerary.indexOf(item); let allLinks = item.link ? [item.link, ...(item.extraLinks || [])] : (item.extraLinks || []); 
-                    let linksHtml = allLinks.map(url => `<a href="${url}" target="_blank" onclick="event.stopPropagation()" class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center border border-blue-100 mb-1 active:scale-95 transition"><i class="fas fa-map-marker-alt text-xs"></i></a>`).join(''); 
                     
                     let grabBtns = '';
                     if (item.place.includes('르모어') && item.grab && item.grab.trim() !== '') {
@@ -396,11 +363,31 @@
                         else if (combinedStr.includes("마사지") && !combinedStr.includes("타이니") && !combinedStr.includes("아이리조트")) matchedTipKey = "massage";
                     }
 
+                    // 🔥 장소 이름과 지도 링크를 인라인으로 매칭 (글자 바로 옆에 지도 아이콘)
+                    let places = item.place.split(',').map(p => p.trim());
+                    let placeWithLinks = places.map((p, i) => {
+                        let l = allLinks[i];
+                        return l ? `${p}<a href="${l}" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center justify-center w-6 h-6 bg-blue-50 text-blue-600 rounded-full border border-blue-200 ml-1.5 align-middle active:scale-95 transition"><i class="fas fa-map-marker-alt text-[10px]"></i></a>` : p;
+                    }).join(', ');
+
                     let titleHtml = matchedTipKey 
-                        ? `<h3 class="font-black text-slate-800 text-base leading-tight mb-1 cursor-pointer flex items-center" onclick="openTipModal('${matchedTipKey}')">${item.place} <span class="ml-2 bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded-full shadow-sm animate-pulse"><i class="fas fa-magic mr-1"></i>꿀팁</span></h3>`
-                        : `<h3 class="font-black text-slate-800 text-base leading-tight mb-1">${item.place}</h3>`;
+                        ? `<h3 class="font-black text-slate-800 text-base leading-snug mb-1 cursor-pointer" onclick="openTipModal('${matchedTipKey}')"><span class="inline-block align-middle">${placeWithLinks}</span> <span class="inline-block align-middle ml-1 bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded-full shadow-sm animate-pulse whitespace-nowrap"><i class="fas fa-magic mr-1"></i>꿀팁</span></h3>`
+                        : `<h3 class="font-black text-slate-800 text-base leading-snug mb-1"><span class="inline-block align-middle">${placeWithLinks}</span></h3>`;
                     
-                    list.insertAdjacentHTML('beforeend', `<div class="bg-white p-4 rounded-[1.5rem] shadow-sm border border-slate-100 mb-3 flex justify-between items-start transition hover:shadow-md ${isOutdoor}"><div class="flex-1 pr-3"><div class="flex items-center mb-2"><span class="text-sm font-black text-blue-700 bg-blue-50 px-3 py-1.5 rounded-xl border border-blue-100">${item.time || 'TBD'}</span></div>${titleHtml}${item.remarks ? `<div class="bg-slate-50 p-3 rounded-xl text-[11px] text-slate-500 font-bold mt-2 shadow-inner">${item.remarks}</div>` : ''}${grabBtns}</div><div class="flex flex-col items-center pt-1">${linksHtml}<button onclick="openEditForm(${realIdx})" class="bg-slate-100 text-slate-500 px-4 py-2 rounded-xl text-xs font-black mt-2 w-full active:scale-95">수정</button></div></div>`); 
+                    list.insertAdjacentHTML('beforeend', `
+                    <div class="bg-white p-4 rounded-[1.5rem] shadow-sm border border-slate-100 mb-3 flex justify-between items-start transition hover:shadow-md ${isOutdoor}">
+                        <div class="flex-1 pr-2">
+                            <div class="flex items-center mb-2">
+                                <span class="text-sm font-black text-blue-700 bg-blue-50 px-3 py-1.5 rounded-xl border border-blue-100">${item.time || 'TBD'}</span>
+                            </div>
+                            ${titleHtml}
+                            ${item.remarks ? `<div class="bg-slate-50 p-3 rounded-xl text-[11px] text-slate-500 font-bold mt-2 shadow-inner">${item.remarks}</div>` : ''}
+                            ${grabBtns}
+                        </div>
+                        <div class="pt-1 pl-2">
+                            <button onclick="openEditForm(${realIdx})" class="bg-slate-100 text-slate-500 px-3 py-2 rounded-xl text-xs font-black active:scale-95 shrink-0 whitespace-nowrap"><i class="fas fa-pen text-[10px]"></i> 수정</button>
+                        </div>
+                    </div>`); 
                 }); 
             } 
         }
