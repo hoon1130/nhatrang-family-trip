@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
 
-    <title>가족 나트랑 여행 - 나트랑 가즈아! v70</title>
+    <title>가족 나트랑 여행 - 나트랑 가즈아! v71</title>
     
     <!-- Tailwind CSS (Dark Mode 설정 포함) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -49,7 +49,6 @@
         .dark .mode-btn.active { background-color: #334155 !important; color: #60a5fa !important; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* 다크모드 플랜B 모드 대응 */
         .plan-b-mode .outdoor-item { opacity: 0.25; filter: grayscale(100%); pointer-events: none; transition: all 0.3s; }
         .plan-b-item { display: none; }
         .plan-b-mode .plan-b-item { display: block; animation: fadeIn 0.5s; }
@@ -71,7 +70,7 @@
                 </div>
             </div>
             <div class="text-right flex items-center justify-end space-x-2">
-                <!-- 🔥 테마 변경 버튼 추가 -->
+                <!-- 🔥 테마 변경 버튼 -->
                 <button onclick="toggleTheme()" class="bg-white/10 hover:bg-white/20 p-2 rounded-full w-8 h-8 flex items-center justify-center active:scale-95 transition">
                     <i id="theme-icon" class="fas fa-moon text-white/90 text-sm"></i>
                 </button>
@@ -90,6 +89,7 @@
         <!-- 일정 탭 -->
         <div id="schedule" class="tab-content active space-y-3">
             
+            <!-- 초강력 가이드 코스 선택 탭 -->
             <div class="flex space-x-1.5 bg-slate-200 dark:bg-slate-800 p-1.5 rounded-2xl mb-4 transition-colors duration-300">
                 <button onclick="setItineraryMode('original')" id="mode-btn-original" class="mode-btn active flex-1 py-2.5 text-[11px] font-black rounded-xl text-slate-500 dark:text-slate-400 transition">우리가족 원본</button>
                 <button onclick="setItineraryMode('sunny')" id="mode-btn-sunny" class="mode-btn flex-1 py-2.5 text-[11px] font-black rounded-xl text-slate-500 dark:text-slate-400 transition">☀️ 맑은날 코스</button>
@@ -97,7 +97,7 @@
             </div>
 
             <div id="guide-notice" class="hidden bg-blue-50 dark:bg-blue-900/30 p-4 rounded-2xl border border-blue-100 dark:border-blue-800 shadow-sm mb-4">
-                <p class="text-xs text-blue-800 dark:text-blue-300 font-bold leading-snug"><i class="fas fa-map-signs mr-1"></i> <b>베테랑 가이드 추천 모드 가동!</b><br>동선 낭비 없는 최적의 코스입니다. 각 스팟을 터치해 꿀팁을 확인하세요.</p>
+                <p class="text-xs text-blue-800 dark:text-blue-300 font-bold leading-snug"><i class="fas fa-map-signs mr-1"></i> <b>베테랑 가이드 추천 모드 가동!</b><br>동선 낭비 없는 최적의 코스입니다. 스팟을 터치해 꿀팁을 확인하세요.</p>
             </div>
 
             <div id="itinerary-list" class="space-y-4"></div>
@@ -153,7 +153,7 @@
             </div>
         </div>
 
-        <!-- 가계부 탭 (UI 대폭 수정) -->
+        <!-- 가계부 탭 -->
         <div id="ledger" class="tab-content space-y-5">
             <div class="bg-blue-600 dark:bg-blue-800 p-6 rounded-[2rem] shadow-lg text-white transition-colors duration-300">
                 <div class="flex justify-between items-center mb-4"><h2 class="text-lg font-black"><i class="fas fa-exchange-alt mr-2 text-yellow-300"></i>환율 계산기</h2><span class="text-[10px] bg-blue-700 dark:bg-blue-900 px-2 py-1 rounded-lg font-bold">0 하나 빼고 나누기 2!</span></div>
@@ -164,7 +164,7 @@
                 </div>
             </div>
             
-            <!-- 🔥 가계부 캡처 영역 (입력창 위로 이동, 차트 숨김) -->
+            <!-- 가계부 캡처 영역 (입력창 위로 배치, 차트는 토글로 숨김) -->
             <div id="ledger-capture-area" class="bg-white dark:bg-slate-800 p-6 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 transition-colors duration-300">
                 <div class="flex justify-between items-center mb-5 border-b border-slate-50 dark:border-slate-700 pb-4">
                     <h3 class="font-black text-slate-800 dark:text-slate-100 text-lg"><i class="fas fa-wallet mr-2 text-blue-600 dark:text-blue-400"></i>가족 공동 장부</h3>
@@ -176,7 +176,6 @@
                     <span id="per-person-krw" class="text-xl font-black font-mono text-blue-600 dark:text-blue-400">₩ 0</span>
                 </div>
 
-                <!-- 🔥 입력 폼을 최상단으로 재배치 -->
                 <div class="flex space-x-2 mb-3 mt-2" data-html2canvas-ignore>
                     <select id="expense-category" class="w-1/3 p-3 border-none rounded-xl bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-black shadow-inner outline-none transition-colors"><option value="🍽️ 식비">🍽️ 식비</option><option value="🚕 교통">🚕 교통</option><option value="🛒 쇼핑">🛒 쇼핑</option><option value="💆 마사지">💆 마사지</option><option value="🎸 기타">🎸 기타</option></select>
                     <input type="text" id="expense-desc" placeholder="내역 입력" class="w-2/3 p-3 border-none rounded-xl bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white text-xs font-bold shadow-inner outline-none transition-colors">
@@ -189,11 +188,10 @@
                 <h4 class="text-xs font-black text-slate-400 dark:text-slate-500 mb-3 ml-1">지출 내역 리스트</h4>
                 <ul id="expense-list" class="space-y-2 max-h-60 overflow-y-auto pr-1 text-sm mb-4"></ul>
 
-                <!-- 🔥 차트 토글 버튼 및 숨겨진 차트 -->
+                <!-- 차트 토글 영역 -->
                 <button onclick="toggleChart()" class="w-full py-3 bg-blue-50 dark:bg-slate-700 text-blue-600 dark:text-blue-300 text-xs font-black rounded-xl mt-2 mb-2 active:scale-95 transition" data-html2canvas-ignore>
                     <i id="chart-icon" class="fas fa-chevron-down mr-1"></i> 지출 통계 보기
                 </button>
-                
                 <div id="chart-wrapper" class="hidden h-40 mt-4 mb-2 transition-all">
                     <canvas id="expenseChart"></canvas>
                 </div>
@@ -203,7 +201,6 @@
                 <i class="fas fa-camera mr-2"></i>정산 내역 이미지로 저장하기
             </button>
 
-            <!-- 룰렛 -->
             <div class="bg-white dark:bg-slate-800 p-6 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 text-center relative overflow-hidden mt-6 transition-colors duration-300">
                 <h3 class="font-black mb-5 text-slate-800 dark:text-slate-100"><i class="fas fa-dice mr-2 text-pink-500"></i>누가 쏠까? 복불복</h3>
                 <div class="relative w-[240px] h-[240px] mx-auto mb-4 border-4 border-pink-300 rounded-full shadow-lg overflow-hidden">
@@ -297,6 +294,9 @@
                     <div onclick="speak('Sinh tố xoài')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm flex justify-between items-center border-2 border-orange-100 dark:border-orange-900/50 cursor-pointer active:scale-95 transition-all">
                         <div><p class="text-[10px] text-orange-400 font-bold uppercase">Sinh to xoai</p><p class="text-sm font-black dark:text-slate-100">로은&지안: 리얼 망고 스무디</p></div><i class="fas fa-volume-up text-orange-500"></i>
                     </div>
+                    <div onclick="speak('Cơm gà')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm flex justify-between items-center border-2 border-orange-100 dark:border-orange-900/50 cursor-pointer active:scale-95 transition-all">
+                        <div><p class="text-[10px] text-orange-400 font-bold uppercase">Com ga</p><p class="text-sm font-black dark:text-slate-100">로은&지안: 부드러운 닭고기 덮밥</p></div><i class="fas fa-volume-up text-orange-500"></i>
+                    </div>
                 </div>
             </div>
             <div id="phrase-list" class="space-y-8 mt-6">
@@ -328,7 +328,7 @@
         </div>
     </div>
 
-    <!-- 모달 등 나머지 생략 없이 유지 -->
+    <!-- 택시/일정/쇼핑/SOS 모달 생략 없이 유지 -->
     <div id="taxi-modal" class="fixed inset-0 bg-yellow-400 z-[150] hidden flex flex-col items-center justify-center p-6 text-center"><button onclick="closeTaxiModal()" class="absolute top-8 right-8 text-yellow-800 text-4xl"><i class="fas fa-times"></i></button><i class="fas fa-taxi text-6xl text-yellow-600 mb-6"></i><h2 class="text-4xl font-black text-slate-900 mb-4 leading-tight">Làm ơn đưa tôi<br>đến đây.</h2><div class="bg-white w-full p-8 rounded-3xl shadow-2xl"><p id="taxi-destination" class="text-3xl font-black text-blue-600 break-words leading-snug">목적지</p></div><p class="mt-10 text-2xl font-black text-yellow-800">Xin cảm ơn! 🙏</p></div>
 
     <div id="itinerary-modal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden p-5 flex items-center justify-center backdrop-blur-sm"><div class="bg-white dark:bg-slate-800 p-6 rounded-[2.5rem] w-full max-w-md shadow-2xl max-h-[85vh] overflow-y-auto transition-colors"><h3 id="modal-title" class="text-xl font-black mb-5 text-slate-800 dark:text-slate-100">일정 관리</h3><input type="hidden" id="edit-key"><div class="space-y-4"><div><label class="text-[10px] font-black text-slate-400 ml-2">날짜</label><input type="text" id="form-date" placeholder="16일(목)" class="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl text-sm font-bold shadow-inner dark:text-white"></div><div><label class="text-[10px] font-black text-slate-400 ml-2">시간</label><input type="text" id="form-time" placeholder="09:40" class="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl text-sm font-bold shadow-inner dark:text-white"></div><div><label class="text-[10px] font-black text-slate-400 ml-2">장소 명칭</label><textarea id="form-place" placeholder="어디 가나요?" class="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl text-sm font-bold shadow-inner h-20 dark:text-white"></textarea></div><div><label class="text-[10px] font-black text-slate-400 ml-2">그랩 목적지 <span class="text-blue-500">(쉼표 , 구분)</span></label><input type="text" id="form-grab" placeholder="베트남 주소/상호명" class="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl text-sm font-bold shadow-inner dark:text-white"></div><div><label class="text-[10px] font-black text-slate-400 ml-2 mb-1 block">구글 지도 링크</label><div id="links-container" class="space-y-2"></div><button type="button" onclick="addLinkInput()" class="w-full text-[11px] text-blue-600 font-black bg-blue-50 dark:bg-slate-700 p-3 rounded-2xl border border-dashed border-blue-200 dark:border-slate-600 mt-2">+ 링크 추가</button></div><div><label class="text-[10px] font-black text-slate-400 ml-2">비고/꿀팁</label><textarea id="form-remarks" placeholder="예약 시간 등" class="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl text-sm font-bold shadow-inner h-24 dark:text-white"></textarea></div></div><div class="flex space-x-3 mt-8"><button onclick="saveItineraryItem()" class="flex-1 bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg">저장</button><button onclick="closeModal()" class="flex-1 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 p-4 rounded-2xl font-black">닫기</button></div><button id="delete-btn" onclick="deleteItineraryItem()" class="w-full text-red-400 text-xs mt-5 font-black underline hidden text-center">이 일정 삭제</button></div></div>
@@ -338,6 +338,7 @@
     <div id="sos-modal" class="fixed inset-0 bg-slate-900/80 z-[150] hidden flex flex-col items-center justify-center p-8 backdrop-blur-md"><div class="bg-white dark:bg-slate-800 p-8 rounded-[3rem] w-full max-w-sm text-center shadow-2xl relative border-4 border-red-100 dark:border-red-900 transition-colors"><button onclick="closeSosModal()" class="absolute top-6 right-6 text-slate-300 dark:text-slate-500 text-2xl"><i class="fas fa-times"></i></button><h3 class="text-3xl font-black mb-2 text-red-500 tracking-tighter">🚨 지안이 비상!</h3><p class="text-slate-400 text-[10px] mb-8 font-black uppercase tracking-widest">Peace Button</p><div class="space-y-4"><a href="https://www.youtube.com/results?search_query=레스큐+타요+연속보기" target="_blank" class="block w-full bg-blue-500 text-white p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🚌 타요 출동!</a><a href="https://www.youtube.com/results?search_query=고고다이노+연속보기" target="_blank" class="block w-full bg-emerald-500 text-white p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🦖 고고다이노!</a><a href="https://www.youtube.com/results?search_query=공룡+자동차+장난감+놀이" target="_blank" class="block w-full bg-yellow-400 text-yellow-900 p-5 rounded-[2rem] font-black text-xl shadow-xl active:scale-95 transition">🏎️ 자동차 & 공룡 놀이</a></div></div></div>
 
     <script>
+        // 1. Firebase 및 기본 변수 세팅
         const firebaseConfig = { apiKey: "AIzaSyAqlBylKkE-KFvAFghWMM8egP-K3HZMqeo", authDomain: "nhatrang-trip.firebaseapp.com", databaseURL: "https://nhatrang-trip-default-rtdb.asia-southeast1.firebasedatabase.app", projectId: "nhatrang-trip", storageBucket: "nhatrang-trip.firebasestorage.app", messagingSenderId: "246629439315", appId: "1:246629439315:web:99a3e74b2b4cbb783473a6" };
         firebase.initializeApp(firebaseConfig); const db = firebase.database();
         const tripStart = new Date("2026-04-15T00:00:00").getTime();
@@ -369,7 +370,7 @@
             "shopping": "<b>🛍️ 시내 쇼핑 완전 정복!</b><br><br><b>💊 티엔푸 약국:</b><br>한국 반값! 스트렙실, 비판텐, 볼타렌(관절염 파스/연고)은 무조건 쟁이세요.<br><br><b>🐊 악어집 & 🟢 슈렉:</b><br>짝퉁 쇼핑 양대산맥! 담시장보다 흥정 스트레스가 적고 퀄리티가 좋습니다.<br><br><b>🍍 남프엉 (Nam Phuong):</b><br>펑리수 느낌의 프리미엄 코코넛/망고 과자! 귀국 선물용으로 완벽합니다.",
             "anthoi": "<b>🍜 안토이 (An Thoi) & 마담프엉</b><br><br><b>🏆 시그니처:</b><br>반쎄오 (직원이 다 잘라줌), 화이트 로즈 (투명한 새우 물만두, 아이들 간식으로 최고!)<br><br><b>🚨 [플랜 B 식당] 마담프엉 (Madame Phuong):</b><br>안토이 웨이팅이 미쳤다면? 바로 도보 3분 거리 '마담프엉'으로 가세요! 안토이 못지않은 맛집인데 매장이 더 넓고 에어컨이 아주 쾌적합니다.<br><br>💸 <b>찐 할인 꿀팁:</b> 두 곳 모두 도깨비/베나자 카페 제휴 할인이 가능합니다 (보통 5~10%).",
             "nightmarket": "<b>🌙 야시장 & 탑쩜흐엉</b><br><br><b>📜 포인트:</b><br>탑쩜흐엉(향 타워)은 핑크빛 나트랑 해변의 랜드마크입니다. 여기서 단체 사진 한 장 딱 박으세요!<br><br><b>💡 지훈 가이드 꿀팁:</b><br>야시장은 길이 좁고 사람이 많아 소매치기 위험이 있으니 지갑 조심하시고 아이들 손 꼭 잡고 이동하세요!",
-            "lottemart": "<b>🛒 롯데마트 골드코스트</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>귀국 전 마지막 쇼핑 성지! <br><br>🛵 <b>찐 배달 꿀팁:</b> 쇼핑 후 짐이 너무 많다면 <b>'Speed L(스피드엘)' 앱</b>을 한국에서 미리 깔아가면 일정 금액 이상 구매 시 숙소 로비로 배달을 시킬 수 있습니다. 쇼핑한 거 들고 다니지 마세요!<br><br><b>📸 [보너스 스팟] 나트랑 대성당 (돌교회):</b><br>롯데마트 근처에 있습니다. 가족 단체 사진 남기기에 최적의 스팟!",
+            "lottemart": "<b>🛒 롯데마트 골드코스트</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>귀국 전 마지막 쇼핑 성지! <br><br>🛵 <b>찐 배달 꿀팁:</b> 쇼핑 후 짐이 너무 많다면 <b>'Speed L(스피드엘)' 앱</b>을 한국에서 미리 깔아가면 일정 금액 이상 구매 시 숙소 로비로 배달을 시킬 수 있습니다. 쇼핑한 거 들고 다니지 마세요!<br><br><b>📸 [보너스 스팟] 나트랑 대성당 (돌교회):</b><br>롯데마트 이동 전/후로 차로 5분 거리에 웅장한 돌교회가 있습니다. 길게 볼 필요 없이 가족 단체 사진 남기기에 최적의 스팟입니다!",
             "venaza": "<b>🧳 베나자 라운지 (짐 보관)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>마지막 날 체크아웃 후, 무거운 캐리어들을 편하게 짱박아둘 수 있는 오아시스 같은 곳입니다. 짐 보관하고 가벼운 몸으로 마지막 일정을 즐기세요!",
             "comtam": "<b>🍛 껌땀 82 (Com Tam 82)</b><br><br><b>🏆 시그니처 메뉴:</b><br>껌땀 (숯불 돼지고기 덮밥). 달짝지근한 숯불 갈비맛이라 호불호 제로!<br><br><b>💡 지훈 가이드 꿀팁:</b><br>베트남 사람들의 소울푸드 국밥 같은 존재! 한국 갈비랑 맛이 똑같아서 고기 잘라주면 아이들이 밥 한 그릇 뚝딱 비웁니다. 계란 프라이(Op la)를 꼭 추가해서 노른자 톡 터뜨려 비벼 드세요.",
             "massage": "<b>💆 전신 마사지 (가족 스파) 추천 5선</b><br><br><b>1. 제이스파 (J Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=J+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 시설 매우 깔끔, 키즈 마사지 호평.<br><br><b>2. 웰스파 (Well Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=Well+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 시내 중심 접근성 최고, 어르신 만족도 1위.<br><br><b>3. 센스파 (Sen Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=Sen+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 숲속 자연 친화적 인테리어, 조용함.<br><br><b>4. 미우미우 스파 (Miu Miu Spa)</b> <a href='https://maps.app.goo.gl/DaERvAo6Bt9C9ytr5' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 호치민부터 유명한 검증된 체인! 세심한 서비스.<br><br><b>5. 달 스파 (Dal Spa)</b> <a href='https://maps.app.goo.gl/3LdjJczkcJJEsroQ9' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 가성비 훌륭, 로컬 분위기의 편안함.<br><br>💸 <b>찐 예약/할인 꿀팁:</b><br>나트랑 마사지샵들은 카카오톡 채널로 한국어 예약이 다 됩니다. 특히 <b>오전(10시~12시) 방문하는 '얼리버드(해피아워) 20~30% 할인'</b>이나 네이버 카페 제휴 10~20% 할인이 무조건 있으니 정가 다 주고 받지 마세요!",
@@ -386,7 +387,7 @@
             {date:"16일(목)", time:"13:00", place:"점심식사 : 당반꾸엔", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Nem+Nuong+Dang+Van+Quyen", extraLinks:[], remarks:"현지식 넴느엉 한상"},
             {date:"16일(목)", time:"15:00", place:"숙소 체크인 (쉐라톤) 및 수영", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Sheraton+Nha+Trang", extraLinks:[], remarks:"인피니티 풀 호캉스"},
             {date:"16일(목)", time:"17:00", place:"쏨모이 시장 구경", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Xom+Moi+Market+Nha+Trang", extraLinks:[], remarks:"과일 저렴하게 싹쓸이"},
-            {date:"16일(목)", time:"18:30", place:"저녁식사 : 목식당", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Moc+Quan", extraLinks:[], remarks:"마늘버터 랍스터 파티"},
+            {date:"16일(목)", time:"18:30", place:"저녁식사 : 해산물 목식당", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Moc+Quan", extraLinks:[], remarks:"마늘버터 랍스터 파티"},
             {date:"17일(금)", time:"09:00", place:"아이리조트 머드스파", grab:"", link:"https://www.google.com/maps/search/?api=1&query=I-Resort", extraLinks:[], remarks:"가족 다함께 온천 힐링"},
             {date:"17일(금)", time:"13:00", place:"점심식사 : 촌촌킴", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Chon+Chon+Kim+Nha+Trang", extraLinks:[], remarks:"쾌적한 가정식 백반"},
             {date:"17일(금)", time:"15:00", place:"센트럴마켓, 티엔푸약국", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Central+Market", extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu"], remarks:"시내 알짜 쇼핑 (크록스/약)"},
@@ -396,7 +397,7 @@
             {date:"18일(토)", time:"09:00", place:"롯데마트 쇼핑", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Gold+Coast", extraLinks:[], remarks:"귀국 선물 (젤리, 과자) 사기"},
             {date:"18일(토)", time:"12:00", place:"체크아웃 & 베나자 라운지", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Venaza+Store", extraLinks:[], remarks:"짐 보관 후 가볍게 점심 이동"},
             {date:"18일(토)", time:"13:00", place:"점심식사 : 껌땀 82", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Com+Tam+82", extraLinks:[], remarks:"호불호 없는 숯불고기 덮밥"},
-            {date:"18일(토)", time:"14:30", place:"핫플 카페 (CCCP 카페)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=CCCP+Coffee+Nha+Trang", extraLinks:[], remarks:"넓고 시원한 카페에서 대가족 휴식"},
+            {date:"18일(토)", time:"14:30", place:"핫플 카페 (CCCP 커피)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=CCCP+Coffee+Nha+Trang", extraLinks:[], remarks:"넓고 시원한 카페에서 대가족 휴식"},
             {date:"18일(토)", time:"16:00", place:"👣 마지막 풋마사지", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Lounge+Spa+Nha+Trang", extraLinks:[], remarks:"비행기 타기 전 다리 피로 싹!"},
             {date:"18일(토)", time:"18:30", place:"공항으로 이동", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks:[], remarks:"가이드 지훈, 수고하셨습니다!"}
         ];
@@ -421,19 +422,44 @@
             {date:"18일(토)", time:"18:30", place:"공항으로 이동", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks:[], remarks:"우산 쓰지 않고 바로 차 탑승!"}
         ];
 
+        // 3. 글로벌 변수 복구 (이거 지웠다가 큰일 났었죠! 😅)
         let itineraryFirebase = []; 
         let currentItineraryMode = 'original';
+        let shoppingList = []; 
+        let vndToKrwRate = 0.055; 
+        let expensesList = []; 
+        let expenseChart = null;
 
-        // 🔥 테마 초기화 및 토글 로직
+        // 4. 테마 초기화 로직
         function initTheme() {
             if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
-                document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
             } else {
                 document.documentElement.classList.remove('dark');
-                document.getElementById('theme-icon').classList.replace('fa-sun', 'fa-moon');
             }
         }
+        initTheme();
+
+        // 5. 대망의 초기화 함수 복구 (모든 기능의 심장!)
+        document.addEventListener('DOMContentLoaded', () => { 
+            // 아이콘 상태 업데이트
+            if (document.documentElement.classList.contains('dark')) {
+                document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
+            } else {
+                document.getElementById('theme-icon').classList.replace('fa-sun', 'fa-moon');
+            }
+            
+            loadItinerary(); 
+            loadShoppingList(); 
+            loadExpenses(); 
+            initWeatherOpenMeteo(); 
+            initExchangeRate(); 
+            updateLocationInfo(); 
+            updateDDay(); 
+            renderPhrases(); 
+        });
+
+        // 테마 토글 함수
         function toggleTheme() {
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
@@ -444,10 +470,10 @@
                 localStorage.setItem('theme', 'dark');
                 document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
             }
-            if(expenseChart) updateChart(expenseChart.data.datasets[0].dataObj); // 차트 폰트색 업데이트용 재렌더링
+            if(expenseChart) updateChart(expenseChart.data.datasets[0].dataObj); 
         }
-        initTheme();
 
+        // --- 기존 함수들은 모두 그대로 ---
         function loadItinerary() { 
             db.ref('itinerary').on('value', s => { 
                 itineraryFirebase = []; 
@@ -459,10 +485,12 @@
         
         function setItineraryMode(mode) {
             currentItineraryMode = mode;
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active', 'bg-white', 'text-blue-600', 'shadow-sm'));
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.add('text-slate-500'));
             
             const activeBtn = document.getElementById(`mode-btn-${mode}`);
-            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-slate-500');
+            activeBtn.classList.add('active', 'bg-white', 'text-blue-600', 'shadow-sm');
             
             renderItinerary();
         }
@@ -502,36 +530,41 @@
 
                     let combinedStr = (item.place + " " + (item.link || "") + " " + (item.extraLinks || []).join(" ")).toLowerCase();
                     let matchedTipKey = null;
+                    let excludeTip = item.place.includes("인천") || item.place.includes("운서") || item.place.includes("픽업차량");
 
-                    if (combinedStr.includes("le+more") || combinedStr.includes("르모어")) matchedTipKey = "lemore";
-                    else if (combinedStr.includes("ponagar") || combinedStr.includes("포나가르")) matchedTipKey = "ponagar";
-                    else if (combinedStr.includes("hon+chong") || combinedStr.includes("bake+boy") || combinedStr.includes("혼총")) matchedTipKey = "honchong";
-                    else if (combinedStr.includes("cho+dam") || combinedStr.includes("담시장")) matchedTipKey = "chodam";
-                    else if (combinedStr.includes("dang+van+quyen") || combinedStr.includes("당반꾸엔")) matchedTipKey = "dangvanquyen";
-                    else if (combinedStr.includes("pizza+4ps") || combinedStr.includes("피자포피스")) matchedTipKey = "pizza4ps";
-                    else if (combinedStr.includes("sheraton") || combinedStr.includes("쉐라톤")) matchedTipKey = "sheraton";
-                    else if (combinedStr.includes("tiny+nail") || combinedStr.includes("타이니")) matchedTipKey = "tinynail";
-                    else if (combinedStr.includes("moc+quan") || combinedStr.includes("목식당")) matchedTipKey = "mocquan";
-                    else if (combinedStr.includes("pho+hanh+phuc") || combinedStr.includes("포한푹") || combinedStr.includes("뚝배기")) matchedTipKey = "phohanhphuc";
-                    else if (combinedStr.includes("chuck+chip") || combinedStr.includes("trai+cay") || combinedStr.includes("척칩")) matchedTipKey = "chuckchip";
-                    else if (combinedStr.includes("cccp") || combinedStr.includes("ola+cafe") || combinedStr.includes("카페")) matchedTipKey = "cafe";
-                    else if (combinedStr.includes("i-resort") || combinedStr.includes("아이리조트")) matchedTipKey = "iresort";
-                    else if (combinedStr.includes("central+market") || combinedStr.includes("tien+phu") || combinedStr.includes("a-keo") || combinedStr.includes("센트럴마켓") || combinedStr.includes("약국") || combinedStr.includes("짝퉁") || combinedStr.includes("악어집") || combinedStr.includes("슈렉") || combinedStr.includes("남프엉") || combinedStr.includes("로컬 시장") || combinedStr.includes("쏨모이")) matchedTipKey = "shopping";
-                    else if (combinedStr.includes("an+thoi") || combinedStr.includes("안토이") || combinedStr.includes("마담프엉") || combinedStr.includes("madame")) matchedTipKey = "anthoi";
-                    else if (combinedStr.includes("tram+huong") || combinedStr.includes("night+market") || combinedStr.includes("야시장") || combinedStr.includes("탑쩜흐엉")) matchedTipKey = "nightmarket";
-                    else if (combinedStr.includes("lotte+mart") || combinedStr.includes("롯데마트")) matchedTipKey = "lottemart";
-                    else if (combinedStr.includes("venaza") || combinedStr.includes("베나자")) matchedTipKey = "venaza";
-                    else if (combinedStr.includes("com+tam") || combinedStr.includes("껌땀")) matchedTipKey = "comtam";
-                    else if (combinedStr.includes("banh+mi") || combinedStr.includes("반미") || combinedStr.includes("út+thương") || combinedStr.includes("ut+thuong") || combinedStr.includes("넘버원")) matchedTipKey = "banhmi";
-                    else if (combinedStr.includes("풋마사지") || combinedStr.includes("foot")) matchedTipKey = "footmassage";
-                    else if (combinedStr.includes("마사지") && !combinedStr.includes("타이니") && !combinedStr.includes("아이리조트")) matchedTipKey = "massage";
-                    else if (combinedStr.includes("xom+moi") || combinedStr.includes("쏨모이")) matchedTipKey = "xommoi";
-                    else if (combinedStr.includes("chon+chon") || combinedStr.includes("촌촌킴")) matchedTipKey = "chonchonkim";
-                    else if (combinedStr.includes("vinsan") || combinedStr.includes("빈산")) matchedTipKey = "vinsan";
-                    else if (combinedStr.includes("runam") || combinedStr.includes("루남")) matchedTipKey = "runam";
-                    else if (combinedStr.includes("galangal") || combinedStr.includes("갈랑가")) matchedTipKey = "galangal";
-                    else if (combinedStr.includes("yens") || combinedStr.includes("옌스")) matchedTipKey = "yens";
-                    else if (combinedStr.includes("royal") || combinedStr.includes("로얄살롱")) matchedTipKey = "royalsalon";
+                    let isOutdoor = (combinedStr.includes("포나가르") || combinedStr.includes("혼총") || combinedStr.includes("야시장") || combinedStr.includes("담시장") || combinedStr.includes("탑쩜흐엉")) ? 'outdoor-item' : '';
+
+                    if (!excludeTip) {
+                        if (combinedStr.includes("le+more") || combinedStr.includes("르모어")) matchedTipKey = "lemore";
+                        else if (combinedStr.includes("ponagar") || combinedStr.includes("포나가르")) matchedTipKey = "ponagar";
+                        else if (combinedStr.includes("hon+chong") || combinedStr.includes("bake+boy") || combinedStr.includes("혼총")) matchedTipKey = "honchong";
+                        else if (combinedStr.includes("cho+dam") || combinedStr.includes("담시장")) matchedTipKey = "chodam";
+                        else if (combinedStr.includes("dang+van+quyen") || combinedStr.includes("당반꾸엔")) matchedTipKey = "dangvanquyen";
+                        else if (combinedStr.includes("pizza+4ps") || combinedStr.includes("피자포피스")) matchedTipKey = "pizza4ps";
+                        else if (combinedStr.includes("sheraton") || combinedStr.includes("쉐라톤")) matchedTipKey = "sheraton";
+                        else if (combinedStr.includes("tiny+nail") || combinedStr.includes("타이니")) matchedTipKey = "tinynail";
+                        else if (combinedStr.includes("moc+quan") || combinedStr.includes("목식당")) matchedTipKey = "mocquan";
+                        else if (combinedStr.includes("pho+hanh+phuc") || combinedStr.includes("포한푹") || combinedStr.includes("뚝배기")) matchedTipKey = "phohanhphuc";
+                        else if (combinedStr.includes("chuck+chip") || combinedStr.includes("trai+cay") || combinedStr.includes("척칩")) matchedTipKey = "chuckchip";
+                        else if (combinedStr.includes("cccp") || combinedStr.includes("ola+cafe") || combinedStr.includes("카페")) matchedTipKey = "cafe";
+                        else if (combinedStr.includes("i-resort") || combinedStr.includes("아이리조트")) matchedTipKey = "iresort";
+                        else if (combinedStr.includes("central+market") || combinedStr.includes("tien+phu") || combinedStr.includes("a-keo") || combinedStr.includes("센트럴마켓") || combinedStr.includes("약국") || combinedStr.includes("짝퉁") || combinedStr.includes("악어집") || combinedStr.includes("슈렉") || combinedStr.includes("남프엉") || combinedStr.includes("로컬 시장") || combinedStr.includes("쏨모이")) matchedTipKey = "shopping";
+                        else if (combinedStr.includes("an+thoi") || combinedStr.includes("안토이") || combinedStr.includes("마담프엉") || combinedStr.includes("madame")) matchedTipKey = "anthoi";
+                        else if (combinedStr.includes("tram+huong") || combinedStr.includes("night+market") || combinedStr.includes("야시장") || combinedStr.includes("탑쩜흐엉")) matchedTipKey = "nightmarket";
+                        else if (combinedStr.includes("lotte+mart") || combinedStr.includes("롯데마트")) matchedTipKey = "lottemart";
+                        else if (combinedStr.includes("venaza") || combinedStr.includes("베나자")) matchedTipKey = "venaza";
+                        else if (combinedStr.includes("com+tam") || combinedStr.includes("껌땀")) matchedTipKey = "comtam";
+                        else if (combinedStr.includes("banh+mi") || combinedStr.includes("반미") || combinedStr.includes("út+thương") || combinedStr.includes("ut+thuong") || combinedStr.includes("넘버원")) matchedTipKey = "banhmi";
+                        else if (combinedStr.includes("풋마사지") || combinedStr.includes("foot")) matchedTipKey = "footmassage";
+                        else if (combinedStr.includes("마사지") && !combinedStr.includes("타이니") && !combinedStr.includes("아이리조트")) matchedTipKey = "massage";
+                        else if (combinedStr.includes("xom+moi") || combinedStr.includes("쏨모이")) matchedTipKey = "xommoi";
+                        else if (combinedStr.includes("chon+chon") || combinedStr.includes("촌촌킴")) matchedTipKey = "chonchonkim";
+                        else if (combinedStr.includes("vinsan") || combinedStr.includes("빈산")) matchedTipKey = "vinsan";
+                        else if (combinedStr.includes("runam") || combinedStr.includes("루남")) matchedTipKey = "runam";
+                        else if (combinedStr.includes("galangal") || combinedStr.includes("갈랑가")) matchedTipKey = "galangal";
+                        else if (combinedStr.includes("yens") || combinedStr.includes("옌스")) matchedTipKey = "yens";
+                        else if (combinedStr.includes("royal") || combinedStr.includes("로얄살롱")) matchedTipKey = "royalsalon";
+                    }
 
                     let places = item.place.split(',').map(p => p.trim());
                     let placeWithLinks = places.map((p, i) => {
@@ -552,7 +585,7 @@
                     let editBtnHtml = isReadOnly ? '' : `<div class="pt-1 pl-2"><button onclick="openEditForm(${realIdx})" class="bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 px-3 py-2 rounded-xl text-xs font-black active:scale-95 shrink-0 whitespace-nowrap"><i class="fas fa-pen text-[10px]"></i> 수정</button></div>`;
 
                     list.insertAdjacentHTML('beforeend', `
-                    <div class="bg-white dark:bg-slate-800 p-4 rounded-[1.5rem] shadow-sm border border-slate-100 dark:border-slate-700 mb-3 flex justify-between items-start transition-colors duration-300 hover:shadow-md">
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-[1.5rem] shadow-sm border border-slate-100 dark:border-slate-700 mb-3 flex justify-between items-start transition-colors duration-300 hover:shadow-md ${currentItineraryMode === 'rainy' ? isOutdoor : ''}">
                         <div class="flex-1 pr-2">
                             <div class="flex items-center mb-2">
                                 <span class="text-sm font-black text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 px-3 py-1.5 rounded-xl border border-blue-100 dark:border-blue-800">${item.time || 'TBD'}</span>
@@ -567,7 +600,6 @@
             } 
         }
 
-        // 🔥 차트 토글 스크립트
         function toggleChart() {
             const wrapper = document.getElementById('chart-wrapper');
             const icon = document.getElementById('chart-icon');
@@ -620,7 +652,7 @@
         function updateChart(dataObj) {
             const ctx = document.getElementById('expenseChart').getContext('2d');
             const isDark = document.documentElement.classList.contains('dark');
-            Chart.defaults.color = isDark ? '#94a3b8' : '#64748b'; // 범례 텍스트 컬러 다크모드 대응
+            Chart.defaults.color = isDark ? '#94a3b8' : '#64748b'; 
 
             if(expenseChart) expenseChart.destroy();
             expenseChart = new Chart(ctx, {
@@ -628,7 +660,7 @@
                 data: {
                     labels: Object.keys(dataObj),
                     datasets: [{
-                        dataObj: dataObj, // 내부 보관용
+                        dataObj: dataObj, 
                         data: Object.values(dataObj),
                         backgroundColor: ['#f87171', '#fbbf24', '#34d399', '#60a5fa', '#a78bfa'],
                         borderWidth: isDark ? 0 : 2,
@@ -652,7 +684,6 @@
             const originalText = btn.innerHTML;
             btn.innerText = "가계부 굽는 중... ⏳";
             
-            // 캡처 시 임시로 다크모드 끄기 (영수증은 하얀 배경이 좋음)
             const wasDark = document.documentElement.classList.contains('dark');
             if(wasDark) document.documentElement.classList.remove('dark');
 
@@ -669,7 +700,7 @@
                     btn.innerHTML = originalText;
                     if(wasDark) document.documentElement.classList.add('dark');
                 });
-            }, 100); // 렌더링 대기
+            }, 100); 
         }
 
         function addExpense() { const cat = document.getElementById('expense-category').value; const desc = document.getElementById('expense-desc').value; const amt = document.getElementById('expense-amount').value; if(desc && amt) db.ref('expenses').push({ category: cat, desc: desc, amount: Number(amt), timestamp: Date.now() }); document.getElementById('expense-desc').value = ''; document.getElementById('expense-amount').value = ''; }
@@ -708,7 +739,7 @@
         function closeSosModal() { document.getElementById('sos-modal').classList.add('hidden'); }
         function copyText(t) { navigator.clipboard.writeText(t).then(() => alert(`📋 복사완료: ${t}`)); }
         function renderPhrases() { Object.keys(phrases).forEach(c => { const con = document.getElementById(`${c}-phrases`); if(!con) return; phrases[c].forEach(i => { con.insertAdjacentHTML('beforeend', `<div onclick="speak('${i.v}')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex justify-between items-center active:scale-95 transition cursor-pointer"><div><p class="text-[10px] text-slate-400 font-bold mb-0.5">${i.k}</p><p class="text-base font-black text-slate-800 dark:text-slate-100">${i.v}</p><p class="text-xs text-blue-500 font-bold mt-1">[ ${i.p} ]</p></div><i class="fas fa-volume-up text-blue-400 dark:text-blue-500 text-xl bg-blue-50 dark:bg-blue-900/30 p-2 rounded-full"></i></div>`); }); }); }
-        function speak(t) { const u = new SpeechSynthesisUtterance(t); u.lang = 'vi-VN'; u.rate = 0.9; window.speechSynthesis.speak(u); }
+        async function speak(t) { const u = new SpeechSynthesisUtterance(t); u.lang = 'vi-VN'; u.rate = 0.9; window.speechSynthesis.speak(u); }
 
         let currentAddr = "위치 확인 중...";
         function updateLocationInfo() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(async (p) => { try { const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${p.coords.latitude}&lon=${p.coords.longitude}&accept-language=vi`); const d = await r.json(); currentAddr = d.display_name || "위치 찾기 실패"; document.getElementById('current-address').innerText = currentAddr; } catch (e) {} }, () => {}, { timeout: 10000 }); } }
