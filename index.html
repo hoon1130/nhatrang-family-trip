@@ -3,25 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <link rel="manifest" href='data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22%EA%B0%80%EC%A1%B1%20%EB%82%98%ED%8A%B8%EB%9E%91%20%EC%97%AC%ED%96%89%20-%20%EB%82%98%ED%8A%B8%EB%9E%91%20%EA%B0%80%EC%A6%88%EC%95%84!%22%2C%22short_name%22%3A%22%EA%B0%80%EC%A6%88%EC%95%84!%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23ffffff%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F2%2F21%2FFlag_of_Vietnam.svg%2F512px-Flag_of_Vietnam.svg.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D'>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="나트랑가즈아!">
     <meta name="theme-color" content="#ffffff">
-    
     <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
-
     <title>가족 나트랑 여행 - 나트랑 가즈아! v75</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: { extend: { colors: { brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' } } } }
-        }
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' } } } } }
     </script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -45,20 +39,9 @@
         @keyframes pulse-red { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } } .animate-pulse-red { animation: pulse-red 2s infinite; }
         
         /* 🔥 극악 확률 모던 파스텔 룰렛 CSS */
-        .roulette-wheel { 
-            width: 240px; height: 240px; border-radius: 50%; 
-            background: conic-gradient(from 0deg, #dbeafe 0 110deg, #ede9fe 110deg 180deg, #ffe4e6 180deg 250deg, #fef3c7 250deg 320deg, #d1fae5 320deg 340deg, #cffafe 340deg 360deg); 
-            position: relative; 
-            transition: transform 4s cubic-bezier(0.25, 0.1, 0.15, 1); 
-        }
-        .dark .roulette-wheel { 
-            background: conic-gradient(from 0deg, #1e3a8a 0 110deg, #4c1d95 110deg 180deg, #881337 180deg 250deg, #78350f 250deg 320deg, #064e3b 320deg 340deg, #164e63 340deg 360deg); 
-        }
-        .roulette-text { 
-            position: absolute; width: 100px; height: 30px; top: 105px; left: 120px; 
-            transform-origin: 0 50%; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;
-            padding-left: 15px; gap: 6px;
-        }
+        .roulette-wheel { width: 240px; height: 240px; border-radius: 50%; background: conic-gradient(from 0deg, #dbeafe 0 110deg, #ede9fe 110deg 180deg, #ffe4e6 180deg 250deg, #fef3c7 250deg 320deg, #d1fae5 320deg 340deg, #cffafe 340deg 360deg); position: relative; transition: transform 4s cubic-bezier(0.25, 0.1, 0.15, 1); }
+        .dark .roulette-wheel { background: conic-gradient(from 0deg, #1e3a8a 0 110deg, #4c1d95 110deg 180deg, #881337 180deg 250deg, #78350f 250deg 320deg, #064e3b 320deg 340deg, #164e63 340deg 360deg); }
+        .roulette-text { position: absolute; width: 100px; height: 30px; top: 105px; left: 120px; transform-origin: 0 50%; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; padding-left: 15px; gap: 6px; }
         
         .mode-btn.active { background-color: #4f46e5 !important; color: #ffffff !important; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2); border-color: transparent !important;}
         .dark .mode-btn.active { background-color: #6366f1 !important; color: #ffffff !important; }
@@ -67,7 +50,6 @@
     </style>
 </head>
 <body class="bg-[#f8fafc] dark:bg-slate-950 pb-24 relative transition-colors duration-300">
-    
     <header class="glass-header sticky top-0 z-50 px-5 py-4 transition-colors duration-300">
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-3">
@@ -85,12 +67,8 @@
             </div>
             <div class="flex flex-col items-end space-y-1.5">
                 <div class="flex items-center space-x-2">
-                    <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center shadow-sm active:scale-95 transition border border-slate-200 dark:border-slate-700">
-                        <i id="theme-icon" class="fas fa-moon text-sm"></i>
-                    </button>
-                    <button onclick="refreshDashboard()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center shadow-sm active:scale-95 transition border border-slate-200 dark:border-slate-700">
-                        <i id="dashboard-refresh-icon" class="fas fa-sync-alt text-sm"></i>
-                    </button>
+                    <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center shadow-sm active:scale-95 transition border border-slate-200 dark:border-slate-700"><i id="theme-icon" class="fas fa-moon text-sm"></i></button>
+                    <button onclick="refreshDashboard()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center shadow-sm active:scale-95 transition border border-slate-200 dark:border-slate-700"><i id="dashboard-refresh-icon" class="fas fa-sync-alt text-sm"></i></button>
                 </div>
                 <div id="d-day" class="inline-block bg-slate-800 dark:bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-black shadow-sm tracking-widest">D-DAY</div>
             </div>
@@ -104,16 +82,11 @@
                 <button onclick="setItineraryMode('sunny')" id="mode-btn-sunny" class="mode-btn flex-1 py-2.5 text-xs font-black rounded-xl text-slate-500 dark:text-slate-400 bg-transparent border border-transparent transition-all">☀️ 맑은날 추천</button>
                 <button onclick="setItineraryMode('rainy')" id="mode-btn-rainy" class="mode-btn flex-1 py-2.5 text-xs font-black rounded-xl text-slate-500 dark:text-slate-400 bg-transparent border border-transparent transition-all">🌧️ 비/더위 대안</button>
             </div>
-
             <div id="guide-notice" class="hidden bg-brand-50 dark:bg-brand-900/20 p-4 rounded-2xl border border-brand-100 dark:border-brand-800 shadow-sm text-center">
                 <p class="text-xs text-brand-700 dark:text-brand-300 font-bold leading-snug"><i class="fas fa-magic mr-1"></i> <b>가이드 지훈의 최적화 코스 가동!</b><br>스팟을 터치해 찐 꿀팁을 확인하세요.</p>
             </div>
-
             <div id="itinerary-list" class="space-y-4"></div>
-            
-            <button id="add-itinerary-btn" onclick="openAddForm()" class="w-full bg-slate-800 hover:bg-slate-700 dark:bg-brand-600 dark:hover:bg-brand-500 text-white py-4 rounded-2xl font-black shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all active:scale-[0.98] mt-6 flex items-center justify-center">
-                <i class="fas fa-plus mr-2"></i>새로운 일정 추가
-            </button>
+            <button id="add-itinerary-btn" onclick="openAddForm()" class="w-full bg-slate-800 hover:bg-slate-700 dark:bg-brand-600 dark:hover:bg-brand-500 text-white py-4 rounded-2xl font-black shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all active:scale-[0.98] mt-6 flex items-center justify-center"><i class="fas fa-plus mr-2"></i>새로운 일정 추가</button>
         </div>
 
         <div id="shopping" class="tab-content space-y-5">
@@ -122,35 +95,27 @@
                     <h3 class="font-black text-slate-800 dark:text-slate-100"><i class="fas fa-tags text-brand-500 mr-2"></i>흥정 기준 시세표</h3>
                     <span class="text-[10px] bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-300 px-2 py-1 rounded-lg font-bold border border-brand-100 dark:border-brand-800/50">부르는 값의 절반!</span>
                 </div>
-                
                 <div class="grid grid-cols-1 gap-2.5">
                     <div class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl flex justify-between items-center border border-slate-100 dark:border-slate-700 transition-colors">
-                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🥭</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">애플망고 (1kg)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">보통 3~4개</p></div></div>
-                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">3만 ~ 4만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 1,600 ~ 2,200원</p></div>
+                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🥭</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">애플망고 (1kg)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">보통 3~4개</p></div></div><div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">3만 ~ 4만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 1,600 ~ 2,200원</p></div>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl flex justify-between items-center border border-slate-100 dark:border-slate-700 transition-colors">
-                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🧄</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">망고스틴 (1kg)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">알이 큰 것 위주</p></div></div>
-                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">5만 ~ 8만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 2,700 ~ 4,400원</p></div>
+                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🧄</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">망고스틴 (1kg)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">알이 큰 것 위주</p></div></div><div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">5만 ~ 8만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 2,700 ~ 4,400원</p></div>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl flex justify-between items-center border border-slate-100 dark:border-slate-700 transition-colors">
-                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🐊</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">크록스 (기본형)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">지비츠 별도</p></div></div>
-                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">15만 ~ 18만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 8,200 ~ 9,900원</p></div>
+                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🐊</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">크록스 (기본형)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">지비츠 별도</p></div></div><div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">15만 ~ 18만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 8,200 ~ 9,900원</p></div>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl flex justify-between items-center border border-slate-100 dark:border-slate-700 transition-colors">
-                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">👕</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">스포츠 반팔/바지</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">나이키/아디다스 짭</p></div></div>
-                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">8만 ~ 10만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 4,400 ~ 5,500원</p></div>
+                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">👕</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">스포츠 반팔/바지</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">나이키/아디다스 짭</p></div></div><div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">8만 ~ 10만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 4,400 ~ 5,500원</p></div>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl flex justify-between items-center border border-slate-100 dark:border-slate-700 transition-colors">
-                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🌺</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">하와이안 세트</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">셔츠+바지</p></div></div>
-                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">10만 ~ 12만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 5,500 ~ 6,600원</p></div>
+                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🌺</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">하와이안 세트</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">셔츠+바지</p></div></div><div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">10만 ~ 12만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 5,500 ~ 6,600원</p></div>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl flex justify-between items-center border border-slate-100 dark:border-slate-700 transition-colors">
-                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🌰</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">마카다미아(500g)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">까는 쇠 포함</p></div></div>
-                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">13만 ~ 15만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 7,100 ~ 8,200원</p></div>
+                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">🌰</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">마카다미아(500g)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">까는 쇠 포함</p></div></div><div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">13만 ~ 15만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 7,100 ~ 8,200원</p></div>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl flex justify-between items-center border border-slate-100 dark:border-slate-700 transition-colors">
-                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">👜</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">라탄 가방 (중형)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">디테일별 상이</p></div></div>
-                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">15만 ~ 25만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 8,200 ~ 13,700원</p></div>
+                        <div class="flex items-center space-x-3"><span class="text-2xl drop-shadow-sm">👜</span><div><p class="text-xs font-black text-slate-800 dark:text-slate-100">라탄 가방 (중형)</p><p class="text-[9px] text-slate-500 font-bold mt-0.5">디테일별 상이</p></div></div><div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-slate-100">15만 ~ 25만 ₫</p><p class="text-[10px] font-bold text-brand-600 dark:text-brand-400">약 8,200 ~ 13,700원</p></div>
                     </div>
                 </div>
             </div>
@@ -518,56 +483,57 @@
             {date:"18일(토)", time:"18:30", place:"공항으로 이동", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks:[], remarks:"우산 쓰지 않고 바로 차 탑승!"}
         ];
 
-        let itineraryFirebase = []; 
-        let currentItineraryMode = 'original';
+        let itineraryFirebase = []; let currentItineraryMode = 'original'; let expensesList = []; let expenseChart = null; let vndToKrwRate = 0.055;
 
-        function loadItinerary() { 
-            db.ref('itinerary').on('value', s => { 
-                itineraryFirebase = []; 
-                const d = s.val(); 
-                if(d) Object.entries(d).forEach(([k, v]) => itineraryFirebase.push({...v, firebaseKey: k})); 
-                if(currentItineraryMode === 'original') renderItinerary(); 
-            }); 
+        function initTheme() {
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); } else { document.documentElement.classList.remove('dark'); }
         }
+        initTheme();
+
+        document.addEventListener('DOMContentLoaded', () => { 
+            if (document.documentElement.classList.contains('dark')) { document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun'); } else { document.getElementById('theme-icon').classList.replace('fa-sun', 'fa-moon'); }
+            loadItinerary(); loadShoppingList(); loadExpenses(); initWeatherOpenMeteo(); initExchangeRate(); updateLocationInfo(); updateDDay(); renderPhrases(); 
+        });
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) { document.documentElement.classList.remove('dark'); localStorage.setItem('theme', 'light'); document.getElementById('theme-icon').classList.replace('fa-sun', 'fa-moon'); } else { document.documentElement.classList.add('dark'); localStorage.setItem('theme', 'dark'); document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun'); }
+            if(expenseChart) updateChart(expenseChart.data.datasets[0].dataObj); 
+        }
+
+        async function refreshDashboard() {
+            const icon = document.getElementById('dashboard-refresh-icon'); if(icon) icon.classList.add('fa-spin');
+            try { await Promise.all([initWeatherOpenMeteo(), initExchangeRate()]); updateDDay(); } catch(e) {}
+            if(icon) setTimeout(() => { icon.classList.remove('fa-spin'); }, 500); 
+        }
+
+        function loadItinerary() { db.ref('itinerary').on('value', s => { itineraryFirebase = []; const d = s.val(); if(d) Object.entries(d).forEach(([k, v]) => itineraryFirebase.push({...v, firebaseKey: k})); if(currentItineraryMode === 'original') renderItinerary(); }); }
         
         function setItineraryMode(mode) {
             currentItineraryMode = mode;
             document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active', 'bg-white', 'text-brand-600', 'shadow-sm', 'dark:bg-slate-800'));
             document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.add('text-slate-500', 'dark:text-slate-400'));
-            
             const activeBtn = document.getElementById(`mode-btn-${mode}`);
             activeBtn.classList.remove('text-slate-500', 'dark:text-slate-400');
             activeBtn.classList.add('active', 'bg-white', 'text-brand-600', 'shadow-sm', 'dark:bg-slate-800');
-            
             renderItinerary();
         }
 
         function renderItinerary() { 
-            const list = document.getElementById('itinerary-list'); 
-            list.innerHTML = ''; 
+            const list = document.getElementById('itinerary-list'); list.innerHTML = ''; 
+            let dataToRender = itineraryFirebase; let isReadOnly = false;
             
-            let dataToRender = itineraryFirebase;
-            let isReadOnly = false;
-            
-            if (currentItineraryMode === 'sunny') {
-                dataToRender = sunnyItinerary;
-                isReadOnly = true;
-            } else if (currentItineraryMode === 'rainy') {
-                dataToRender = rainyItinerary;
-                isReadOnly = true;
-            }
+            if (currentItineraryMode === 'sunny') { dataToRender = sunnyItinerary; isReadOnly = true; } 
+            else if (currentItineraryMode === 'rainy') { dataToRender = rainyItinerary; isReadOnly = true; }
 
             document.getElementById('add-itinerary-btn').style.display = isReadOnly ? 'none' : 'flex';
             document.getElementById('guide-notice').style.display = isReadOnly ? 'block' : 'none';
 
             let g = dataToRender.reduce((r, a) => { r[a.date] = [...r[a.date] || [], a]; return r; }, {}); 
-            
             for(let date in g) { 
                 list.insertAdjacentHTML('beforeend', `<h2 class="text-xs font-black text-brand-600 dark:text-brand-400 mt-8 mb-3 border-b border-slate-200 dark:border-slate-800 pb-2 uppercase tracking-widest pl-1">${date}</h2>`); 
                 g[date].forEach(item => { 
                     let realIdx = dataToRender.indexOf(item); 
                     let allLinks = item.link ? [item.link, ...(item.extraLinks || [])] : (item.extraLinks || []); 
-                    
                     let grabBtns = '';
                     if (item.place.includes('르모어') && item.grab && item.grab.trim() !== '') {
                         let mapped = viMap[item.grab.trim()] || item.grab;
@@ -576,8 +542,7 @@
                     }
 
                     let combinedStr = (item.place + " " + (item.link || "") + " " + (item.extraLinks || []).join(" ")).toLowerCase();
-                    let matchedTipKey = null;
-                    let excludeTip = item.place.includes("인천") || item.place.includes("운서") || item.place.includes("픽업차량");
+                    let matchedTipKey = null; let excludeTip = item.place.includes("인천") || item.place.includes("운서") || item.place.includes("픽업차량");
                     let isOutdoor = (combinedStr.includes("포나가르") || combinedStr.includes("혼총") || combinedStr.includes("야시장") || combinedStr.includes("담시장") || combinedStr.includes("탑쩜흐엉")) ? 'outdoor-item' : '';
 
                     if (!excludeTip) {
@@ -660,11 +625,9 @@
             
             setTimeout(() => {
                 isSpinning = false; 
-                // 상단(0도)에 위치하는 섹션 계산 로직
                 let a = (360 - (currentRotation % 360)) % 360; 
                 let w = "";
                 
-                // CSS gradient 범위와 동일하게 판정
                 if (a >= 0 && a < 110) w = "👨🏻‍🦱 이모부";
                 else if (a >= 110 && a < 180) w = "👩🏻‍🦰 이모";
                 else if (a >= 180 && a < 250) w = "👩🏻 엄마";
@@ -677,37 +640,21 @@
         }
 
         function toggleChart() {
-            const wrapper = document.getElementById('chart-wrapper');
-            const icon = document.getElementById('chart-icon');
-            if(wrapper.classList.contains('hidden')) {
-                wrapper.classList.remove('hidden');
-                icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-            } else {
-                wrapper.classList.add('hidden');
-                icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-            }
+            const wrapper = document.getElementById('chart-wrapper'); const icon = document.getElementById('chart-icon');
+            if(wrapper.classList.contains('hidden')) { wrapper.classList.remove('hidden'); icon.classList.replace('fa-chevron-down', 'fa-chevron-up'); } 
+            else { wrapper.classList.add('hidden'); icon.classList.replace('fa-chevron-up', 'fa-chevron-down'); }
         }
 
-        function openTipModal(tipKey) {
-            const tipContent = placeTipsData[tipKey];
-            if(tipContent) {
-                document.getElementById('tip-content').innerHTML = tipContent;
-                document.getElementById('tip-modal').classList.remove('hidden');
-            }
-        }
+        function openTipModal(tipKey) { const tipContent = placeTipsData[tipKey]; if(tipContent) { document.getElementById('tip-content').innerHTML = tipContent; document.getElementById('tip-modal').classList.remove('hidden'); } }
         function closeTipModal() { document.getElementById('tip-modal').classList.add('hidden'); }
         function showTaxiCard(p) { document.getElementById('taxi-destination').innerText = p; document.getElementById('taxi-modal').classList.remove('hidden'); }
         function closeTaxiModal() { document.getElementById('taxi-modal').classList.add('hidden'); }
+
         function loadExpenses() { 
             db.ref('expenses').on('value', s => { 
-                expensesList = []; let total = 0; 
-                const totalsByCategory = {'🍽️ 식비':0, '🚕 교통':0, '🛒 쇼핑':0, '💆 마사지':0, '🎸 기타':0};
+                expensesList = []; let total = 0; const totalsByCategory = {'🍽️ 식비':0, '🚕 교통':0, '🛒 쇼핑':0, '💆 마사지':0, '🎸 기타':0};
                 const d = s.val(); 
-                if(d) Object.entries(d).forEach(([k, v]) => { 
-                    expensesList.push({...v, firebaseKey: k}); 
-                    total += Number(v.amount); 
-                    if(totalsByCategory[v.category] !== undefined) totalsByCategory[v.category] += Number(v.amount);
-                }); 
+                if(d) Object.entries(d).forEach(([k, v]) => { expensesList.push({...v, firebaseKey: k}); total += Number(v.amount); if(totalsByCategory[v.category] !== undefined) totalsByCategory[v.category] += Number(v.amount); }); 
                 
                 document.getElementById('total-expense-display').innerText = total.toLocaleString() + ' ₫'; 
                 document.getElementById('per-person-krw').innerText = `₩ ${Number((total/8)*vndToKrwRate).toFixed(0).toLocaleString()}`; 
@@ -716,56 +663,26 @@
                 expensesList.sort((a,b)=>b.timestamp-a.timestamp).forEach(i => { 
                     list.insertAdjacentHTML('beforeend', `<li class="flex justify-between items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl mb-2 border border-slate-100 dark:border-slate-700 transition-colors"><span class="text-xs mr-2 font-bold">${i.category ? i.category.split(' ')[0] : '🎸'}</span><span class="font-black text-slate-700 dark:text-slate-200 flex-1 truncate pr-2">${i.desc}</span><span class="font-mono text-brand-600 dark:text-brand-400 font-black">${Number(i.amount).toLocaleString()} ₫<button onclick="if(confirm('삭제할까요?')) db.ref('expenses/${i.firebaseKey}').remove()" class="text-slate-300 hover:text-red-500 dark:text-slate-600 dark:hover:text-red-400 ml-4 font-black transition-colors" data-html2canvas-ignore>×</button></span></li>`); 
                 }); 
-                
                 updateChart(totalsByCategory);
             }); 
         }
 
         function updateChart(dataObj) {
-            const ctx = document.getElementById('expenseChart').getContext('2d');
-            const isDark = document.documentElement.classList.contains('dark');
-            Chart.defaults.color = isDark ? '#94a3b8' : '#64748b'; 
-
+            const ctx = document.getElementById('expenseChart').getContext('2d'); const isDark = document.documentElement.classList.contains('dark'); Chart.defaults.color = isDark ? '#94a3b8' : '#64748b'; 
             if(expenseChart) expenseChart.destroy();
             expenseChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(dataObj),
-                    datasets: [{
-                        dataObj: dataObj, 
-                        data: Object.values(dataObj),
-                        backgroundColor: ['#f43f5e', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'],
-                        borderWidth: isDark ? 0 : 2,
-                        borderColor: isDark ? 'transparent' : '#ffffff',
-                        hoverOffset: 4
-                    }]
-                },
+                type: 'doughnut', data: { labels: Object.keys(dataObj), datasets: [{ dataObj: dataObj, data: Object.values(dataObj), backgroundColor: ['#f43f5e', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'], borderWidth: isDark ? 0 : 2, borderColor: isDark ? 'transparent' : '#ffffff', hoverOffset: 4 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: {font: {size: 11, family: "'Pretendard', sans-serif"}} } } }
             });
         }
 
         function captureLedger() {
-            const target = document.getElementById('ledger-capture-area');
-            const btn = document.getElementById('capture-btn');
-            const originalText = btn.innerHTML;
-            btn.innerText = "가계부 굽는 중... ⏳";
-            
-            const wasDark = document.documentElement.classList.contains('dark');
-            if(wasDark) document.documentElement.classList.remove('dark');
-
+            const target = document.getElementById('ledger-capture-area'); const btn = document.getElementById('capture-btn'); const originalText = btn.innerHTML; btn.innerText = "가계부 굽는 중... ⏳";
+            const wasDark = document.documentElement.classList.contains('dark'); if(wasDark) document.documentElement.classList.remove('dark');
             setTimeout(() => {
                 html2canvas(target, {scale: 2, backgroundColor: "#ffffff"}).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = '나트랑_가족여행_정산영수증.png';
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                    btn.innerHTML = originalText;
-                    if(wasDark) document.documentElement.classList.add('dark');
-                }).catch(err => {
-                    alert("캡처 중 오류가 발생했습니다.");
-                    btn.innerHTML = originalText;
-                    if(wasDark) document.documentElement.classList.add('dark');
-                });
+                    const link = document.createElement('a'); link.download = '나트랑_가족여행_정산영수증.png'; link.href = canvas.toDataURL('image/png'); link.click(); btn.innerHTML = originalText; if(wasDark) document.documentElement.classList.add('dark');
+                }).catch(err => { alert("캡처 중 오류가 발생했습니다."); btn.innerHTML = originalText; if(wasDark) document.documentElement.classList.add('dark'); });
             }, 100); 
         }
 
@@ -778,13 +695,8 @@
         
         function loadShoppingList() { 
             db.ref('shopping').on('value', s => { 
-                ['dam', 'pharmacy', 'fake', 'mart'].forEach(c => document.getElementById(`${c}-list`).innerHTML = ''); 
-                const data = s.val(); 
-                if(data) { 
-                    Object.entries(data).forEach(([k, v]) => { 
-                        document.getElementById(`${v.category}-list`).insertAdjacentHTML('beforeend', `<li class="flex items-center p-3 cursor-pointer ${v.checked ? 'opacity-40' : ''}" onclick="db.ref('shopping/${k}/checked').set(${!v.checked})"><i class="far ${v.checked ? 'fa-check-circle text-emerald-500' : 'fa-circle text-slate-300 dark:text-slate-600'} mr-3 text-lg"></i><span class="flex-1 font-black ${v.checked ? 'line-through text-slate-400' : 'text-slate-800 dark:text-slate-100'}">${v.text}</span><button onclick="event.stopPropagation(); db.ref('shopping/${k}').remove()" class="text-slate-300 hover:text-red-500 dark:text-slate-600 dark:hover:text-red-400 font-black px-2">×</button></li>`); 
-                    }); 
-                } 
+                ['dam', 'pharmacy', 'fake', 'mart'].forEach(c => document.getElementById(`${c}-list`).innerHTML = ''); const data = s.val(); 
+                if(data) { Object.entries(data).forEach(([k, v]) => { document.getElementById(`${v.category}-list`).insertAdjacentHTML('beforeend', `<li class="flex items-center p-3 cursor-pointer ${v.checked ? 'opacity-40' : ''}" onclick="db.ref('shopping/${k}/checked').set(${!v.checked})"><i class="far ${v.checked ? 'fa-check-circle text-emerald-500' : 'fa-circle text-slate-300 dark:text-slate-600'} mr-3 text-lg"></i><span class="flex-1 font-black ${v.checked ? 'line-through text-slate-400' : 'text-slate-800 dark:text-slate-100'}">${v.text}</span><button onclick="event.stopPropagation(); db.ref('shopping/${k}').remove()" class="text-slate-300 hover:text-red-500 dark:text-slate-600 dark:hover:text-red-400 font-black px-2">×</button></li>`); }); } 
             }); 
         }
         
@@ -796,9 +708,7 @@
         
         async function initWeatherOpenMeteo() { 
             try { 
-                const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh"); 
-                const d = await r.json(); 
-                const c = d.current_weather; 
+                const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh"); const d = await r.json(); const c = d.current_weather; 
                 document.getElementById('weather-temp').innerText = `${Math.round(c.temperature)}℃`; 
                 let icon = "☀️"; let tip = "<i class='fas fa-lightbulb text-yellow-300 mr-1'></i> 나트랑의 햇살이 뜨거워요! 선크림과 선글라스를 잊지 마세요. 😎"; 
                 if(c.weathercode >= 1 && c.weathercode <= 3) { icon = "🌤️"; tip = "<i class='fas fa-lightbulb text-yellow-300 mr-1'></i> 구름이 살짝 있어 돌아다니기 좋아요. 자외선 차단은 필수! ⛅"; } 
@@ -820,21 +730,19 @@
         async function inAppTranslate() {
             const input = document.getElementById('translate-input').value.trim(); if(!input) return alert("입력해주세요!");
             const resBox = document.getElementById('translate-result-box'); const resText = document.getElementById('translate-result');
-            resBox.classList.remove('hidden'); resText.innerText = "번역 중...";
-            const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(input); const langPair = isKorean ? "ko|vi" : "vi|ko";
+            resBox.classList.remove('hidden'); resText.innerText = "번역 중..."; const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(input); const langPair = isKorean ? "ko|vi" : "vi|ko";
             try { const r = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=${langPair}`); const d = await r.json(); if(d && d.responseData) resText.innerText = d.responseData.translatedText; } catch(e) { resText.innerText = "오류 발생"; }
         }
 
         function renderPhrases() { 
             Object.keys(phrases).forEach(c => { 
                 const con = document.getElementById(`${c}-phrases`); if(!con) return; 
-                phrases[c].forEach(i => { 
-                    con.insertAdjacentHTML('beforeend', `<div onclick="speak('${i.v}')" class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex justify-between items-center active:scale-95 transition cursor-pointer"><div><p class="text-[10px] text-slate-400 font-bold mb-0.5">${i.k}</p><p class="text-base font-black text-slate-800 dark:text-slate-100">${i.v}</p><p class="text-xs text-brand-500 font-bold mt-1">[ ${i.p} ]</p></div><i class="fas fa-volume-up text-brand-400 dark:text-brand-500 text-xl bg-brand-50 dark:bg-brand-900/30 w-10 h-10 rounded-full flex items-center justify-center"></i></div>`); 
-                }); 
+                phrases[c].forEach(i => { con.insertAdjacentHTML('beforeend', `<div onclick="speak('${i.v}')" class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex justify-between items-center active:scale-95 transition cursor-pointer"><div><p class="text-[10px] text-slate-400 font-bold mb-0.5">${i.k}</p><p class="text-base font-black text-slate-800 dark:text-slate-100">${i.v}</p><p class="text-xs text-brand-500 font-bold mt-1">[ ${i.p} ]</p></div><div class="w-10 h-10 rounded-full bg-white dark:bg-slate-700 shadow-sm flex items-center justify-center"><i class="fas fa-volume-up text-brand-500"></i></div></div>`); }); 
             }); 
         }
         
         async function speak(t) { const u = new SpeechSynthesisUtterance(t); u.lang = 'vi-VN'; u.rate = 0.9; window.speechSynthesis.speak(u); }
+        function speakTranslated() { const text = document.getElementById('translate-result').innerText; if(text && text !== "번역 중..." && text !== "오류 발생") speak(text); }
 
         let currentAddr = "위치 확인 중...";
         function updateLocationInfo() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(async (p) => { try { const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${p.coords.latitude}&lon=${p.coords.longitude}&accept-language=vi`); const d = await r.json(); currentAddr = d.display_name || "위치 찾기 실패"; document.getElementById('current-address').innerText = currentAddr; } catch (e) {} }, () => {}, { timeout: 10000 }); } }
