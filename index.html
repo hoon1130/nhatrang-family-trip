@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/512px-Flag_of_Vietnam.svg.png">
 
-    <title>가족 나트랑 여행 - 나트랑 가즈아! v65</title>
+    <title>가족 나트랑 여행 - 나트랑 가즈아! v66</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -71,14 +71,14 @@
         <div id="schedule" class="tab-content active space-y-3">
             
             <!-- 🔥 초강력 가이드 코스 선택 탭 -->
-            <div class="flex space-x-1.5 bg-slate-200 p-1.5 rounded-2xl mb-2">
-                <button onclick="setItineraryMode('original')" id="mode-btn-original" class="mode-btn active flex-1 py-2.5 text-[11px] font-black rounded-xl text-slate-500 transition">우리가족 일정</button>
-                <button onclick="setItineraryMode('sunny')" id="mode-btn-sunny" class="mode-btn flex-1 py-2.5 text-[11px] font-black rounded-xl text-slate-500 transition">☀️ 맑은날 추천</button>
-                <button onclick="setItineraryMode('rainy')" id="mode-btn-rainy" class="mode-btn flex-1 py-2.5 text-[11px] font-black rounded-xl text-slate-500 transition">🌧️ 비/더위 대안</button>
+            <div class="flex space-x-1.5 bg-slate-200 p-1.5 rounded-2xl mb-4">
+                <button onclick="setItineraryMode('original')" id="mode-btn-original" class="mode-btn active flex-1 py-2.5 text-[11px] font-black rounded-xl text-slate-500 transition">우리가족 원본</button>
+                <button onclick="setItineraryMode('sunny')" id="mode-btn-sunny" class="mode-btn flex-1 py-2.5 text-[11px] font-black rounded-xl text-slate-500 transition">☀️ 맑은날 코스</button>
+                <button onclick="setItineraryMode('rainy')" id="mode-btn-rainy" class="mode-btn flex-1 py-2.5 text-[11px] font-black rounded-xl text-slate-500 transition">🌧️ 비/더위 코스</button>
             </div>
-            
-            <div id="guide-notice" class="hidden bg-yellow-50 p-3 rounded-xl border border-yellow-200 text-[11px] text-yellow-800 font-bold mb-4 text-center leading-snug">
-                💡 <b>베테랑 가이드 추천 코스 모드입니다.</b><br>동선 파악용이며, 실제 수정/추가는 '우리가족 일정'에서 해주세요.
+
+            <div id="guide-notice" class="hidden bg-blue-50 p-4 rounded-2xl border border-blue-100 shadow-sm mb-4">
+                <p class="text-xs text-blue-800 font-bold leading-snug"><i class="fas fa-map-signs mr-1"></i> <b>베테랑 가이드 추천 모드 가동!</b><br>동선 낭비 없는 최적의 코스입니다. 각 스팟을 터치해 꿀팁을 확인하세요.</p>
             </div>
 
             <div id="itinerary-list" class="space-y-4"></div>
@@ -173,7 +173,7 @@
                 <p class="text-[10px] text-blue-600 font-bold mb-4">가족들이 지치거나 화장실이 급할 때 무조건 여기로 뛰세요!</p>
                 <div class="space-y-2 text-xs font-bold text-slate-700">
                     <div class="bg-white p-3 rounded-xl shadow-sm border border-blue-50 flex justify-between items-center"><span class="truncate">🛒 <b>골드코스트 (롯데마트 건물)</b></span><span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded">최상급 쾌적</span></div>
-                    <div class="bg-white p-3 rounded-xl shadow-sm border border-blue-50 flex justify-between items-center"><span class="truncate">☕ <b>올라카페 (Ola Cafe)</b></span><span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded">에어컨 빵빵</span></div>
+                    <div class="bg-white p-3 rounded-xl shadow-sm border border-blue-50 flex justify-between items-center"><span class="truncate">☕ <b>CCQ 카페 (CCQ Cafe)</b></span><span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded">오션뷰+에어컨</span></div>
                     <div class="bg-white p-3 rounded-xl shadow-sm border border-blue-50 flex justify-between items-center"><span class="truncate">🍕 <b>피자포피스 (쉐라톤 내)</b></span><span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded">화장실 깔끔</span></div>
                 </div>
             </div>
@@ -210,14 +210,11 @@
             <div class="bg-red-50 p-6 rounded-[2rem] border border-red-100 shadow-sm"><h3 class="font-black mb-3 text-red-600 flex items-center justify-between"><span><i class="fas fa-map-marker-alt mr-2"></i>긴급 위치 안내 (SOS)</span><span class="text-[10px] bg-red-600 text-white px-2 py-0.5 rounded-full animate-pulse-red font-black tracking-widest">LIVE</span></h3><div class="bg-white p-4 rounded-2xl border border-red-50 mb-4 shadow-inner relative"><div class="flex justify-between items-center mb-2"><p class="text-[10px] text-slate-400 font-bold">현재 내 위치 주소 (베트남어):</p><button onclick="updateLocationInfo()" class="text-blue-500 text-xs bg-blue-50 px-2 py-1 rounded-lg active:scale-95 transition font-black"><i id="gps-refresh-icon" class="fas fa-sync-alt mr-1"></i>새로고침</button></div><p id="current-address" class="text-xs font-bold text-slate-700 leading-snug">GPS 정보를 확인 중입니다...</p></div><button onclick="speakCurrentLocation()" class="w-full bg-red-500 text-white font-black p-4 rounded-2xl shadow-lg flex items-center justify-center space-x-3 transition active:scale-95"><i class="fas fa-volume-up text-xl"></i><span>베트남어로 내 위치 말하기</span></button></div>
             <div class="bg-slate-900 text-white p-6 rounded-[2.5rem] shadow-xl border-4 border-red-600"><h3 class="font-black mb-4 text-red-400 flex items-center justify-center"><i class="fas fa-phone-alt mr-2"></i>현지 긴급 연락처</h3><div class="grid grid-cols-1 gap-3"><a href="tel:113" class="bg-slate-800 p-4 rounded-2xl flex justify-between items-center active:scale-95 transition"><span class="font-black">🚓 베트남 경찰 (113)</span><i class="fas fa-phone-alt text-blue-400"></i></a><a href="tel:115" class="bg-slate-800 p-4 rounded-2xl flex justify-between items-center active:scale-95 transition"><span class="font-black">🚑 구급차/의료 (115)</span><i class="fas fa-phone-alt text-red-400"></i></a></div></div>
             <div class="bg-indigo-50 p-5 rounded-[2rem] shadow-sm border border-indigo-100"><h3 class="font-black mb-3 text-indigo-700"><i class="fas fa-building mr-2"></i>대한민국 대사관 & 영사관</h3><div class="space-y-2"><a href="tel:+84904026126" class="w-full flex justify-between items-center bg-white p-3 rounded-xl border border-indigo-50 shadow-sm active:scale-95 transition"><span class="text-xs font-bold text-slate-700">주베트남 대사관 (긴급전화)</span><span class="bg-indigo-600 text-white px-3 py-1 rounded-lg text-[10px] font-black"><i class="fas fa-phone-alt mr-1"></i>통화</span></a><a href="tel:+82232100404" class="w-full flex justify-between items-center bg-white p-3 rounded-xl border border-indigo-50 shadow-sm active:scale-95 transition"><span class="text-xs font-bold text-slate-700">영사콜센터 (여권분실 등 24시)</span><span class="bg-indigo-600 text-white px-3 py-1 rounded-lg text-[10px] font-black"><i class="fas fa-phone-alt mr-1"></i>통화</span></a></div></div>
-            <div class="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100"><h3 class="font-black mb-3 text-slate-800"><i class="fas fa-copy mr-2 text-blue-500"></i>주요 장소 주소 복사</h3><div class="grid grid-cols-1 gap-2"><button onclick="copyText('Vinmec Nha Trang International Hospital')" class="w-full flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-100 active:scale-95 transition text-left"><span class="text-xs font-bold text-slate-700 truncate pr-4">🏥 빈멕 국제병원 (응급실)</span><span class="bg-slate-200 text-slate-600 px-3 py-1 rounded-lg text-[10px] font-black shrink-0">복사</span></button><button onclick="copyText('33A Tô Hiến Thành, Tân Lập, Nha Trang')" class="w-full flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-100 active:scale-95 transition text-left"><span class="text-xs font-bold text-slate-700 truncate pr-4">📍 르모어 호텔</span><span class="bg-slate-200 text-slate-600 px-3 py-1 rounded-lg text-[10px] font-black shrink-0">복사</span></button><button onclick="copyText('26-28 Trần Phú, Lộc Thọ, Nha Trang')" class="w-full flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-100 active:scale-95 transition text-left"><span class="text-xs font-bold text-slate-700 truncate pr-4">📍 쉐라톤 호텔</span><span class="bg-slate-200 text-slate-600 px-3 py-1 rounded-lg text-[10px] font-black shrink-0">복사</span></button></div></div>
         </div>
 
         <div id="phrases" class="tab-content pb-10 space-y-6">
             <h2 class="text-xl font-black text-slate-800 px-1 mb-4">📢 서바이벌 베트남어</h2>
-            
             <div class="bg-blue-50 p-5 rounded-[2rem] border border-blue-100 shadow-sm mb-6"><div class="flex justify-between items-center mb-3"><h3 class="font-black text-blue-800"><i class="fas fa-language mr-2"></i>스마트 번역기</h3></div><div class="flex space-x-2 mb-3"><input type="text" id="translate-input" placeholder="한국어 또는 베트남어 입력" class="w-full p-3 bg-white border-none rounded-xl text-sm font-bold shadow-inner outline-none" onkeypress="if(event.key==='Enter') inAppTranslate()"><button onclick="inAppTranslate()" class="bg-blue-600 text-white px-4 rounded-xl font-black shadow-md active:scale-95 transition">번역</button></div><div id="translate-result-box" class="hidden bg-white p-4 rounded-xl border border-blue-200 shadow-inner relative"><button onclick="copyTranslatedText()" class="absolute top-3 right-3 text-slate-400 hover:text-blue-500 active:scale-95 transition p-2"><i class="fas fa-copy text-xl"></i></button><p id="translate-result" class="text-lg font-black text-slate-800 mb-4 pr-8 break-words leading-tight"></p><button id="speak-btn" onclick="speakTranslated()" class="w-full bg-blue-100 text-blue-700 py-3 rounded-xl font-black text-sm active:bg-blue-200 transition"><i class="fas fa-volume-up mr-2"></i>읽어주기</button></div></div>
-            
             <div class="bg-stone-50 p-5 rounded-[2rem] border border-stone-200 shadow-sm"><h3 class="font-black text-stone-700 border-b border-stone-200 pb-3 mb-4">☕ 부모님 & 아이 추천 메뉴</h3><div class="grid grid-cols-1 gap-3"><div onclick="speak('Cà phê sữa đá')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center cursor-pointer active:scale-95 transition"><div><p class="text-[10px] text-stone-400 font-bold uppercase">Cafe Sua Da</p><p class="text-sm font-black">부모님: 연유 아이스 커피</p></div><i class="fas fa-volume-up text-blue-500"></i></div><div onclick="speak('Bạc xỉu')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center cursor-pointer active:scale-95 transition"><div><p class="text-[10px] text-stone-400 font-bold uppercase">Bac Xiu</p><p class="text-sm font-black">부모님: 연유 우유 커피</p></div><i class="fas fa-volume-up text-blue-500"></i></div><div onclick="speak('Sinh tố xoài')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center border-2 border-orange-100 cursor-pointer active:scale-95 transition"><div><p class="text-[10px] text-orange-400 font-bold uppercase">Sinh to xoai</p><p class="text-sm font-black">로은&지안: 리얼 망고 스무디</p></div><i class="fas fa-volume-up text-orange-500"></i></div><div onclick="speak('Cơm gà')" class="bg-white p-4 rounded-2xl shadow-sm flex justify-between items-center border-2 border-orange-100 cursor-pointer active:scale-95 transition"><div><p class="text-[10px] text-orange-400 font-bold uppercase">Com ga</p><p class="text-sm font-black">로은&지안: 부드러운 닭고기 덮밥</p></div><i class="fas fa-volume-up text-orange-500"></i></div></div></div>
             <div id="phrase-list" class="space-y-8 mt-6"><div><h3 class="font-black text-orange-600 px-1 mb-4">🍽️ 식당 & 주문</h3><div class="space-y-2" id="food-phrases"></div></div><div><h3 class="font-black text-purple-600 px-1 mb-4">💆 마사지 & 스파</h3><div class="space-y-2" id="spa-phrases"></div></div><div><h3 class="font-black text-emerald-600 px-1 mb-4">🚕 이동 & 차량</h3><div class="space-y-2" id="move-phrases"></div></div><div><h3 class="font-black text-pink-500 px-1 mb-4">🛒 쇼핑 & 흥정</h3><div class="space-y-2" id="shop-phrases"></div></div></div>
         </div>
@@ -232,7 +229,7 @@
             <button onclick="closeTipModal()" class="absolute top-5 right-5 text-slate-400 text-2xl active:scale-95 transition"><i class="fas fa-times"></i></button>
             <div id="tip-content" class="overflow-y-auto pr-2 mt-2 space-y-3 text-sm text-slate-700 leading-relaxed">
             </div>
-            <button onclick="closeTipModal()" class="w-full bg-blue-600 text-white font-black p-4 rounded-2xl shadow-lg mt-5 active:scale-95 transition">확인 완료 👍</button>
+            <button onclick="closeTipModal()" class="w-full bg-blue-600 text-white font-black p-4 rounded-2xl shadow-lg mt-5 active:scale-95 transition">가이드 확인 완료 👍</button>
         </div>
     </div>
 
@@ -250,77 +247,87 @@
         const tripStart = new Date("2026-04-15T00:00:00").getTime();
 
         const viMap = {"Cam Ranh International Airport":"Sân bay Quốc tế Cam Ranh","Le More Hotel Nha Trang":"Khách sạn Le More (33A Tô Hiến Thành)","Thap Ba Ponagar Nha Trang":"Tháp Bà Ponagar","Hon Chong Nha Trang":"Hòn Chồng, Bake Boy","Cho Dam Nha Trang":"Chợ Đầm","Nem Nuong Dang Van Quyen Nha Trang":"Nem Nướng Đặng Văn Quyên","Sheraton Nha Trang Hotel & Spa":"Khách sạn Sheraton (26-28 Trần Phú)","Tiny Nail Spa Nha Trang":"Tiny Nail Spa","Chuck Chip Nha Trang":"Khoai lang lắc Chuck Chip, Sạp trái cây 65","Moc Quan Nha Trang":"Hải sản Mộc Quán","An Cafe Nha Trang":"An Café, Ola Café","I-Resort Nha Trang":"Suối khoáng nóng I-Resort","Pizza 4Ps Sheraton Nha Trang":"Pizza 4P's (Sheraton)","Central Market Nha Trang":"Chợ Đêm (Central Market), Nhà thuốc Thiên Phú, Cửa hàng cá sấu","An Thoi Nha Trang":"Nhà hàng Ăn Thôi","Tram Huong Tower Nha Trang":"Tháp Trầm Hương, Chợ Đêm","Lotte Mart Gold Coast Nha Trang":"Lotte Mart (Gold Coast)","Venaza Store Nha Trang":"Venaza Lounge","Com Tam 82 Nha Trang":"Cơm tấm 82"};
-        const phrases = {food:[{k:"고수 빼주세요",v:"Không rau mùi",p:"콩 라우 무이"},{k:"안 맵게 해주세요",v:"Không cay",p:"콩 까이"},{k:"계산해 주세요",v:"Tính tiền",p:"띵 띠엔"},{k:"얼음 좀 주세요",v:"Cho tôi đá",p:"쪼 또이 다"},{k:"포장해 주세요",v:"Cho mang về",p:"쪼 망 베"}],spa:[{k:"살살 해주세요",v:"Nhẹ thôi",p:"니에 토이"},{k:"더 세게 해주세요",v:"Mạnh hơn",p:"망 헌"},{k:"에어컨 줄여주세요",v:"Giảm điều hòa",p:"쟘 디에우 화"}],move:[{k:"여기 세워주세요",v:"Dừng ở đây",p:"증 어 더이"},{k:"기다려주세요",v:"Đợi 일 chút",p:"더이 못 쭛"},{k:"천천히 가주세요",v:"Đi chậm thôi",p:"디 쩜 토이"}],shop:[{k:"너무 비싸요!",v:"Đắt quá",p:"닷 꽈"},{k:"깎아주세요",v:"Giảm giá đi",p:"쟘 쟈 디"}]};
+        const phrases = {food:[{k:"고수 빼주세요",v:"Không rau mùi",p:"콩 라우 무이"},{k:"안 맵게 해주세요",v:"Không cay",p:"콩 까이"},{k:"계산해 주세요",v:"Tính tiền",p:"띵 띠엔"},{k:"얼음 좀 주세요",v:"Cho tôi đá",p:"쪼 또이 다"},{k:"포장해 주세요",v:"Cho mang về",p:"쪼 망 베"}],spa:[{k:"살살 해주세요",v:"Nhẹ thôi",p:"니에 토이"},{k:"더 세게 해주세요",v:"Mạnh hơn",p:"망 헌"},{k:"에어컨 줄여주세요",v:"Giảm điều hòa",p:"쟘 디에우 화"}],move:[{k:"여기 세워주세요",v:"Dừng ở đây",p:"증 어 더이"},{k:"기다려주세요",v:"Đợi một chút",p:"더이 못 쭛"},{k:"천천히 가주세요",v:"Đi chậm thôi",p:"디 쩜 토이"}],shop:[{k:"너무 비싸요!",v:"Đắt quá",p:"닷 꽈"},{k:"깎아주세요",v:"Giảm giá đi",p:"쟘 쟈 디"}]};
         
+        // ✨ 베테랑 가이드 맞춤 꿀팁 세팅
         const placeTipsData = {
-            "lemore": "<b>🏨 르모어 호텔</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>가성비 최고 0.5박 숙소입니다. 짐 풀고 현금이 필요하실 텐데, 최근 '김청/김빈' 등 금은방 불법 환전 단속이 매우 심해서 헛걸음하기 쉽습니다. <b>트래블로그/트래블월렛 카드</b>를 챙기셔서 근처 <b>VP Bank</b> 또는 <b>TP Bank ATM</b>에서 수수료 없이 출금하시는 것이 가장 안전하고 환율도 좋습니다!",
+            "lemore": "<b>🏨 르모어 호텔</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>가성비 최고 0.5박 숙소입니다. 짐 풀고 현금이 필요하실 텐데, 최근 금은방 불법 환전 단속이 매우 심해서 헛걸음하기 쉽습니다. <b>트래블로그/트래블월렛 카드</b>를 챙기셔서 근처 <b>VP Bank</b> 또는 <b>TP Bank ATM</b>에서 수수료 없이 출금하시는 것이 가장 안전하고 환율도 좋습니다!",
             "ponagar": "<b>🛕 포나가르 사원</b><br><br><b>📜 1분 히스토리:</b><br>8~13세기 베트남 중남부를 지배했던 '참파 왕국'의 힌두교 유적지입니다.<br><br><b>📸 포토존:</b><br>붉은 벽돌 기둥 사이로 들어오는 햇빛이 예술! 부모님들 인생샷 건지기 좋습니다.<br><br><b>💡 지훈 가이드 꿀팁:</b><br>무릎 위로 올라오는 바지나 치마, 나시는 입장 불가! (입구에서 무료 회색 가운을 대여해 줍니다)",
             "honchong": "<b>🌊 혼총 곶 & 🥐 베이크보이</b><br><br><b>📜 혼총 곶 포인트:</b><br>거대한 바위들이 신비롭게 겹쳐진 해안 절경입니다. 거인의 커다란 손자국이 바위에 찍혀 있는 전설이 있으니 로은, 지안이와 찾아보세요!<br><br><b>🥐 베이크보이 (Bake Boy):</b><br>더위에 지쳤을 때 오아시스 같은 곳! 에어컨 빵빵하고 베이커리가 정말 맛있습니다.<br><br><b>💡 지훈 가이드 꿀팁:</b><br>바다 구경 후 베이크보이에서 아이들 당 충전 필수!",
             "phohanhphuc": "<b>🍜 포한푹 (Pho Hanh Phuc)</b><br><br><b>🏆 시그니처:</b><br>뚝배기 쌀국수 (Phở thố đá) - 팔팔 끓는 돌솥 뚝배기에 생고기와 면을 직접 샤브샤브처럼 넣어 먹는 방식입니다.<br><br><b>👴👵 부모님 픽:</b> 진한 국물의 뚝배기 쌀국수 (보양식 느낌!)<br><b>👧👶 로은&지안 픽:</b> 일반 그릇에 담긴 완조리 쌀국수 (뚝배기는 아이들에게 뜨거워 위험할 수 있으니 일반 그릇으로 시켜주세요.)<br><br><b>💡 지훈 가이드 꿀팁:</b><br>에어컨이 있어 대가족이 쾌적하게 식사하기 좋은 곳입니다.",
             "banhmi": "<b>🥖 나트랑 찐 반미 맛집 3대장 꿀팁</b><br><br><b>1. 반미판 (Banh Mi Phan)</b><br>🏆 소고기 치즈구이 반미 (한국인 입맛 1위!)<br>💡 웨이팅이 길 수 있으니 주의! 빵이 아주 바삭합니다. <a href='https://www.google.com/maps/search/?api=1&query=Banh+Mi+Phan+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br><br><b>2. 반미 웃트엉 (Bánh mì Út Thương)</b><br>🏆 로컬 찐 맛집! 전통 믹스 돼지고기 반미<br>💡 현지인들이 오토바이 세워두고 사가는 찐 로컬 맛집! 가성비 최고입니다. <a href='https://www.google.com/maps/search/?api=1&query=Bánh+mì+Út+Thương' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br><br><b>3. 반미 넘버원 (Banh Mi #1)</b><br>🏆 불고기 반미, 베이컨 반미<br>💡 매장이 깔끔하고 단짠 소스가 한국인 입맛에 찰떡입니다. 아이들에게 가장 무난해요! <a href='https://www.google.com/maps/search/?api=1&query=Banh+Mi+Number+One+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br><br><b>🚨 공통 지훈 가이드 꿀팁:</b><br>주문 전 반드시 <b>'고수 빼주세요 (Không rau mùi / 콩 라우 무이)'</b>라고 말씀하시거나 이 화면을 보여주세요!",
             "chuckchip": "<b>🍟 척칩 (Chuck Chip) & 🥭 65 과일가게</b><br><br><b>🍟 척칩:</b><br>고구마 튀김에 치즈/버터 가루 듬뿍 묻힌 간식! 아이들이 차에서나 숙소에서 환장하고 먹을 마약 간식입니다.<br><br><b>🥭 65 과일가게:</b><br>나트랑에서 가장 유명한 '정찰제' 과일가게! 흥정할 필요 없이 정해진 가격에 신선한 망고와 망고스틴을 싹 다 까서 도시락에 담아줍니다.",
-            "chodam": "<b>🛍️ 담시장 (Cho Dam)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>무조건 흥정 필수! 상인이 부르는 값의 '절반'부터 후려치면서 시작하세요.<br><br><b>🚨 [플랜 B 스팟] 쏨모이 시장 (Xom Moi):</b><br>담시장의 상업적인 흥정 스트레스가 싫증난다면, 현지인들이 가는 찐 로컬 '쏨모이 시장'으로 가보세요! 과일 가격이 훨씬 저렴합니다.",
+            "chodam": "<b>🛍️ 담시장 (Cho Dam)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>무조건 흥정 필수! 상인이 부르는 값의 '절반'부터 후려치면서 시작하세요.<br><br><b>🛒 추천 템:</b> 휴양지용 라탄백, 크록스, 가족 하와이안 세트 의류",
+            "xommoi": "<b>🥭 쏨모이 시장 (Xom Moi)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>담시장의 상업적인 흥정 스트레스가 싫증난다면, 현지인들이 가는 찐 로컬 '쏨모이 시장'으로 가보세요! 과일 가격이 담시장보다 훨씬 저렴하고 신선합니다.",
             "dangvanquyen": "<b>🌯 당반꾸엔 (Dang Van Quyen)</b><br><br><b>🏆 시그니처 메뉴:</b><br>넴느엉 (돼지고기 꼬치 구이를 라이스페이퍼에 각종 야채와 함께 싸먹는 요리)<br><br><b>💡 지훈 가이드 꿀팁:</b><br>현지인 찐 맛집입니다! 처음엔 직원이 어떻게 싸 먹는지 친절하게 시범을 보여주니 당황하지 마세요.",
             "sheraton": "<b>🏨 쉐라톤 나트랑 호텔</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>드디어 메인 숙소 도착! 오션뷰 인피니티 풀 수영장이 아주 예술입니다. 체크인할 때 고층 뷰로 배정해달라고 씩 웃으며 부탁해보세요. 😉",
             "tinynail": "<b>💅 타이니 네일 스파</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>한국보다 훨씬 저렴한 가격에 고퀄리티 네일/패디를 받을 수 있습니다! 지안이나 로은이를 위한 귀여운 스티커 '키즈 네일'도 인기 만점이니 꼭 시켜주세요.",
-            "mocquan": "<b>🦀 해산물 목식당 (Moc Quan)</b><br><br><b>🏆 시그니처:</b><br>마늘버터 랍스터! (남은 소스에 반미 빵 찢어서 푹 찍어 드시면 부모님들도 극찬하십니다)<br><br><b>👴👵 부모님 픽:</b> 맛조개 모닝글로리 볶음, 파기름 가리비 구이<br><b>👧👶 로은&지안 픽:</b> 맵지 않은 해산물 계란 볶음밥, 달달한 새우튀김<br><br><b>💡 지훈 가이드 꿀팁:</b><br>고수 못 드시는 분들은 주문할 때 <b>'고수 빼주세요 (Không rau mùi / 콩 라우 무이)'</b>라고 꼭 말씀하시거나 이 화면을 보여주세요!<br><br><b>🚨 [플랜 B 식당] 빈산(Vinsan) & JJ씨푸드:</b><br>목식당 예약이 꼬이거나 사람이 너무 많다면? 시내 중심의 '빈산'이나 'JJ씨푸드'로 선회하세요! 해산물을 직접 보고 고를 수 있으며 위생이 깔끔해 대안으로 최고입니다.",
-            "cafe": "<b>☕ 핫플 카페 타임</b><br><br><b>🏆 시그니처:</b><br>코코넛 스무디 커피 (부드럽고 달콤해서 부모님들도 좋아하십니다.)<br><br><b>💡 지훈 가이드 꿀팁:</b><br>안카페(자연친화적)와 올라카페(동굴컨셉) 모두 나트랑 최고 핫플입니다! 덥다면 주저 없이 에어컨 빵빵한 '올라카페'로 가세요!",
+            "mocquan": "<b>🦀 해산물 목식당 (Moc Quan)</b><br><br><b>🏆 시그니처:</b><br>마늘버터 랍스터! (남은 소스에 반미 빵 찢어서 푹 찍어 드시면 부모님들도 극찬하십니다)<br><br><b>👴👵 부모님 픽:</b> 맛조개 모닝글로리 볶음, 파기름 가리비 구이<br><b>👧👶 로은&지안 픽:</b> 맵지 않은 해산물 계란 볶음밥, 달달한 새우튀김<br><br><b>💡 지훈 가이드 꿀팁:</b><br>고수 못 드시는 분들은 주문할 때 <b>'고수 빼주세요 (Không rau mùi / 콩 라우 무이)'</b>라고 꼭 말씀하시거나 이 화면을 보여주세요!",
+            "vinsan": "<b>🦞 빈산 (Vinsan Seafood)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>시내 중심가에 위치해 접근성이 아주 좋습니다. 수조가 깨끗하고 에어컨 룸이 따로 있어 쾌적하게 식사하기 좋습니다. 치즈 구이 랍스터와 해산물 볶음면이 추천 메뉴입니다!",
+            "cafe": "<b>☕ 핫플 카페 타임 (CCQ & 올라카페)</b><br><br><b>🏆 시그니처:</b><br>코코넛 스무디 커피 (부드럽고 달콤해서 부모님들도 좋아하십니다.)<br><br><b>💡 지훈 가이드 꿀팁:</b><br>오션뷰와 쾌적함을 원한다면 <b>CCQ 카페</b>, 예쁜 동굴 인테리어와 강력한 에어컨을 원한다면 <b>올라카페</b>를 추천합니다!",
+            "runam": "<b>🍰 루남 비스트로 (Runam Bistro)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>인터컨티넨탈 호텔 1층에 위치한 고급 카페 겸 레스토랑입니다. 나트랑에서 가장 시원하고 쾌적한 실내를 자랑합니다. 비가 오거나 너무 더워서 지쳤을 때 피신하기 최고의 스팟입니다.",
             "iresort": "<b>♨️ 아이리조트 머드스파</b><br><br><b>📜 포인트:</b><br>미네랄이 풍부한 천연 머드! 부모님 관절과 피부에 좋아서 효도 관광 1순위 코스입니다.<br><br><b>💡 지훈 가이드 꿀팁:</b><br>머드 물이 들어서 수영복이 망가질 수 있습니다. 무조건 현장에서 무료로 주는 '대여복'으로 갈아입고 들어가세요! 수건도 무료로 줍니다.",
             "pizza4ps": "<b>🍕 피자포피스 (Pizza 4P's)</b><br><br><b>🏆 시그니처:</b><br>부라타 치즈 피자 & 마르게리타 하프앤하프! (테이블에서 직원이 생치즈를 직접 예쁘게 찢어줍니다)<br><br><b>🍝 추천 파스타:</b> 게살 토마토 파스타 (느끼하지 않고 한국인 입맛에 찰떡!)<br><br><b>💡 지훈 가이드 꿀팁:</b><br>베트남 향신료에 지쳤을 때쯤 들어가는 한 줄기 빛 같은 코스. 에어컨이 빵빵해서 아이들 열 식히기도 최고입니다.",
+            "chonchonkim": "<b>🍚 촌촌킴 (Chon Chon Kim)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>정갈한 베트남 가정식 백반집입니다. 다층 건물 전체에 에어컨이 빵빵하게 나옵니다. 달달한 '돼지고기 조림'과 '갈릭 버터 새우'를 시키면 부모님도, 아이들도 밥 한 그릇 뚝딱입니다!",
+            "galangal": "<b>🍲 갈랑가 (Galangal)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>깔끔한 오픈 키친형 로컬 식당입니다. 길거리 식당의 위생이 걱정될 때 가기 아주 좋습니다. 분짜, 볶음밥 등 한국인 입맛에 잘 맞는 실패 없는 메뉴들이 많습니다.",
+            "yens": "<b>🍜 옌스 레스토랑 (Yen's)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>로컬 음식과 약간의 퓨전이 섞인 깔끔한 에어컨 식당입니다. 파인애플 볶음밥과 바삭한 짜조가 아이들 입맛을 저격합니다.",
             "shopping": "<b>🛍️ 시내 쇼핑 완전 정복!</b><br><br><b>💊 티엔푸 약국:</b><br>한국 반값! 스트렙실, 비판텐, 볼타렌(관절염 파스/연고)은 무조건 쟁이세요.<br><br><b>🐊 악어집 & 🟢 슈렉:</b><br>짝퉁 쇼핑 양대산맥! 담시장보다 흥정 스트레스가 적고 퀄리티가 좋습니다.<br><br><b>🍍 남프엉 (Nam Phuong):</b><br>펑리수 느낌의 프리미엄 코코넛/망고 과자! 귀국 선물용으로 완벽합니다.",
-            "anthoi": "<b>🍜 안토이 (An Thoi)</b><br><br><b>🏆 시그니처:</b><br>반쎄오 (직원이 다 잘라줌), 화이트 로즈 (투명한 새우 물만두, 아이들 간식으로 최고!)<br><br><b>🚨 [플랜 B 식당] 마담프엉 (Madame Phuong):</b><br>안토이 웨이팅이 미쳤다면? 바로 도보 3분 거리 '마담프엉'으로 런 하세요! 안토이 못지않은 맛집인데 매장이 더 넓고 에어컨이 아주 쾌적합니다.",
+            "anthoi": "<b>🍜 안토이 (An Thoi) & 마담프엉</b><br><br><b>🏆 시그니처:</b><br>반쎄오 (직원이 다 잘라줌), 화이트 로즈 (투명한 새우 물만두, 아이들 간식으로 최고!)<br><br><b>🚨 [플랜 B 식당] 마담프엉 (Madame Phuong):</b><br>안토이 웨이팅이 미쳤다면? 바로 도보 3분 거리 '마담프엉'으로 가세요! 안토이 못지않은 맛집인데 매장이 더 넓고 에어컨이 아주 쾌적합니다.",
             "nightmarket": "<b>🌙 야시장 & 탑쩜흐엉</b><br><br><b>📜 포인트:</b><br>탑쩜흐엉(향 타워)은 핑크빛 나트랑 해변의 랜드마크입니다. 여기서 단체 사진 한 장 딱 박으세요!<br><br><b>💡 지훈 가이드 꿀팁:</b><br>야시장은 길이 좁고 사람이 많아 소매치기 위험이 있으니 지갑 조심하시고 아이들 손 꼭 잡고 이동하세요!",
             "lottemart": "<b>🛒 롯데마트 골드코스트</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>귀국 전 마지막 쇼핑 성지! <br><br><b>📸 [보너스 스팟] 나트랑 대성당 (돌교회):</b><br>롯데마트 이동 전/후로 차로 5분 거리에 웅장한 돌교회가 있습니다. 길게 볼 필요 없이 가족 단체 사진 남기기에 최적의 스팟입니다!",
             "venaza": "<b>🧳 베나자 라운지 (짐 보관)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>마지막 날 체크아웃 후, 무거운 캐리어들을 편하게 짱박아둘 수 있는 오아시스 같은 곳입니다. 짐 보관하고 가벼운 몸으로 마지막 일정을 즐기세요!",
             "comtam": "<b>🍛 껌땀 82 (Com Tam 82)</b><br><br><b>🏆 시그니처 메뉴:</b><br>껌땀 (숯불 돼지고기 덮밥). 달짝지근한 숯불 갈비맛이라 호불호 제로!<br><br><b>💡 지훈 가이드 꿀팁:</b><br>베트남 사람들의 소울푸드 국밥 같은 존재! 한국 갈비랑 맛이 똑같아서 고기 잘라주면 아이들이 밥 한 그릇 뚝딱 비웁니다. 계란 프라이(Op la)를 꼭 추가해서 노른자 톡 터뜨려 비벼 드세요.",
             "massage": "<b>💆 전신 마사지 (가족 스파) 추천 5선</b><br><br><b>1. 제이스파 (J Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=J+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 시설 매우 깔끔, 키즈 마사지 호평.<br><br><b>2. 웰스파 (Well Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=Well+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 시내 중심 접근성 최고, 어르신 만족도 1위.<br><br><b>3. 센스파 (Sen Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=Sen+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 숲속 자연 친화적 인테리어, 조용함.<br><br><b>4. 미우미우 스파 (Miu Miu Spa)</b> <a href='https://maps.app.goo.gl/DaERvAo6Bt9C9ytr5' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 호치민부터 유명한 검증된 체인! 세심한 서비스.<br><br><b>5. 달 스파 (Dal Spa)</b> <a href='https://maps.app.goo.gl/3LdjJczkcJJEsroQ9' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 가성비 훌륭, 로컬 분위기의 편안함.",
-            "footmassage": "<b>👣 풋마사지 (가벼운 휴식) 추천 3선</b><br><br><b>1. 라운지스파 (Lounge Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=Lounge+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 베나자 제휴 짐보관/샤워 가능.<br><br><b>2. 로얄살롱 (Royal Salon)</b> <a href='https://www.google.com/maps/search/?api=1&query=Royal+Salon+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 발+귀청소+얼굴팩 풀케어 이발관 (아빠 취향).<br><br><b>3. 카사스파 (Casa Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=Casa+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 가성비 훌륭, 쇼핑 후 발마사지만 깔끔하게."
+            "footmassage": "<b>👣 풋마사지 (가벼운 휴식) 추천 3선</b><br><br><b>1. 라운지스파 (Lounge Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=Lounge+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 베나자 제휴 짐보관/샤워 가능.<br><br><b>2. 로얄살롱 (Royal Salon)</b> <a href='https://www.google.com/maps/search/?api=1&query=Royal+Salon+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 발+귀청소+얼굴팩 풀케어 이발관 (아빠 취향).<br><br><b>3. 카사스파 (Casa Spa)</b> <a href='https://www.google.com/maps/search/?api=1&query=Casa+Spa+Nha+Trang' target='_blank' class='text-blue-500 underline text-xs'>지도 보기</a><br>👍 가성비 훌륭, 쇼핑 후 발마사지만 깔끔하게.",
+            "royalsalon": "<b>💈 로얄살롱 (이발관 풀케어)</b><br><br><b>💡 지훈 가이드 꿀팁:</b><br>베트남 황제 이발관 체험! 발 씻기, 얼굴 마사지, 팩, 귀 청소, 두피 마사지까지 의자에 가만히 누워만 있으면 머리부터 발끝까지 관리해 줍니다. <b>아빠와 할아버지가 1000% 만족하는 힐링 코스</b>입니다!"
         };
 
-        // 🔥 가이드 모드용 맑은날 코스 데이터
+        const initialItinerary = [{date:"15일(수)",time:"22:30",place:"✈️ 나트랑 깜란 공항 도착",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport",extraLinks:[],remarks:"비행기 착륙 후 수속 및 수하물 찾기"},{date:"15일(수)",time:"23:00~24:00",place:"픽업카 탑승 및 숙소로 이동",grab:"",link:"",extraLinks:[],remarks:"50분소요 / 1터미널 2번게이트 픽업"},{date:"15일(수)",time:"24:30~",place:"숙소 체크인 및 환전ATM",grab:"Khách sạn Le More (33A Tô Hiến Thành)",link:"https://www.google.com/maps/search/?api=1&query=Le+More+Hotel+Nha+Trang",extraLinks:[],remarks:"르모어호텔"},{date:"16일(목)",time:"8:00~9:30",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"여유 시 근처에서 반미 사먹기"},{date:"16일(목)",time:"9:40",place:"퇴실 및 렌트카 탑승(짐 포함)",grab:"",link:"",extraLinks:[],remarks:"렌트카 4시간+@ 이용 시작"},{date:"16일(목)",time:"9:50~10:40",place:"포나가르 사원",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Thap+Ba+Ponagar",extraLinks:[],remarks:"입장료 21만동(지안무료), 어깨/무릎노출X(반바지X), 슬리퍼O"},{date:"16일(목)",time:"10:50~11:50",place:"혼총곶 & 베이크보이(디저트)",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Hon+Chong",extraLinks:["https://www.google.com/maps/search/?api=1&query=Bake+Boy"],remarks:"입장료 21만동(지안무료)"},{date:"16일(목)",time:"12:00~13:00",place:"담시장 쇼핑",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Cho+Dam",extraLinks:[],remarks:"트라이크 챙길 것, 망고쥬스 사먹기"},{date:"16일(목)",time:"13:00~14:00",place:"점심식사 : 당반꾸엔",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Nem+Nuong+Dang+Van+Quyen",extraLinks:[],remarks:"넴느엉, 분띳느엉, 에그롤 등 약 70만동"},{date:"16일(목)",time:"14:30~15:00",place:"숙소 체크인 (쉐라톤)",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Sheraton+Nha+Trang",extraLinks:[],remarks:""},{date:"16일(목)",time:"",place:"휴식 후 시내",grab:"",link:"",extraLinks:[],remarks:""},{date:"16일(목)",time:"",place:"타이니네일스파(네일아트 및 마사지)",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Tiny+Nail+Spa",extraLinks:[],remarks:"*예약필수 / 어른네일 22만동, 아이 10만동, 마사지 39만동"},{date:"16일(목)",time:"",place:"척칩 & 65번 과일가게",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Chuck+Chip",extraLinks:["https://www.google.com/maps/search/?api=1&query=Vua+Trai+Cay+65"],remarks:"고구마튀김 및 과일 간식 구매"},{date:"16일(목)",time:"18:30",place:"저녁식사 : 목식당 (씨푸드)",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Moc+Quan",extraLinks:[],remarks:"예약완료"},{date:"16일(목)",time:"",place:"안카페 or 올라카페",grab:"",link:"https://www.google.com/maps/search/?api=1&query=An+Cafe",extraLinks:["https://www.google.com/maps/search/?api=1&query=Ola+Cafe"],remarks:""},{date:"16일(목)",time:"",place:"시내 -> 숙소 복귀",grab:"",link:"",extraLinks:[],remarks:"도보 10분"},{date:"17일(금)",time:"~8:50",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:"세수만 하고 나갈 준비!"},{date:"17일(금)",time:"9:30~13:50",place:"아이리조트 머드스파",grab:"",link:"https://www.google.com/maps/search/?api=1&query=I-Resort",extraLinks:[],remarks:"그랩 2대 호출 / 버릴 속옷 지참, 수건 제공됨, 현금 필수"},{date:"17일(금)",time:"",place:"숙소 복귀 및 씻고 재정비",grab:"",link:"",extraLinks:[],remarks:""},{date:"17일(금)",time:"14:00",place:"점심식사 : 피자포피스",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Pizza+4Ps+Sheraton",extraLinks:[],remarks:"예약완료"},{date:"17일(금)",time:"14:30~",place:"센트럴마켓, 티엔푸약국, 남프엉, 악어집, 슈렉",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Central+Market",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu","https://www.google.com/maps/search/?api=1&query=A-KEO"],remarks:""},{date:"17일(금)",time:"16:30~",place:"💆 마사지 (전신/가족스파)",grab:"",link:"https://www.google.com/maps/search/?api=1&query=J+Spa+Nha+Trang",extraLinks:["https://www.google.com/maps/search/?api=1&query=Well+Spa+Nha+Trang","https://www.google.com/maps/search/?api=1&query=Sen+Spa+Nha+Trang"],remarks:"3곳 중 선택 (꿀팁 확인)"},{date:"17일(금)",time:"18:30~",place:"저녁식사 : 안토이",grab:"",link:"https://www.google.com/maps/search/?api=1&query=An+Thoi",extraLinks:[],remarks:"예약불가, 번호표 대기 (분짜, 반쎄오, 곱창쌀국수 등)"},{date:"17일(금)",time:"",place:"탑쩜흐엉 및 야시장 구경",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Tram+Huong+Tower",extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Trang+Night+Market"],remarks:""},{date:"17일(금)",time:"",place:"숙소 복귀",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"9:00",place:"기상 및 조식",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"",place:"롯데마트 쇼핑",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Gold+Coast",extraLinks:[],remarks:""},{date:"18일(토)",time:"~12:00",place:"짐정리 및 퇴실",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"",place:"쉐라톤 -> 베나자라운지",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Venaza+Store",extraLinks:[],remarks:"그랩 2대 이동, 짐 보관"},{date:"18일(토)",time:"",place:"점심식사 : 껌땀",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Com+Tam+82",extraLinks:[],remarks:"베트남식 백반"},{date:"18일(토)",time:"",place:"👣 풋마사지 & 카페",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Lounge+Spa+Nha+Trang",extraLinks:["https://www.google.com/maps/search/?api=1&query=Royal+Salon+Nha+Trang","https://www.google.com/maps/search/?api=1&query=Casa+Spa+Nha+Trang"],remarks:"귀국 전 피로 풀기 (꿀팁 확인)"},{date:"18일(토)",time:"17:30~",place:"저녁식사",grab:"",link:"",extraLinks:[],remarks:""},{date:"18일(토)",time:"18:30",place:"공항 픽업차량 탑승",grab:"",link:"",extraLinks:[],remarks:"50분 소요, 19:30 도착 필수"},{date:"18일(토)",time:"19:30",place:"✈️ 나트랑 공항 도착 (수속)",grab:"",link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport",extraLinks:[],remarks:"23:30 이륙"}];
+        
+        // 🔥 베테랑 가이드 모드: 맑은날 최적화 코스
         const sunnyItinerary = [
             {date:"15일(수)", time:"22:30", place:"✈️ 나트랑 깜란 공항 도착", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks:[], remarks:"수속 후 바로 픽업 차량 탑승"},
-            {date:"15일(수)", time:"24:30~", place:"숙소 체크인 및 환전", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Le+More+Hotel+Nha+Trang", extraLinks:[], remarks:"르모어 호텔 / 취침"},
-            {date:"16일(목)", time:"09:00", place:"아침: 3대 반미 중 택1 & 커피", grab:"", link:"", extraLinks:[], remarks:"반미판 / 반미웃트엉 / 반미넘버원"},
-            {date:"16일(목)", time:"10:00", place:"포나가르 사원", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Thap+Ba+Ponagar", extraLinks:[], remarks:"햇빛 좋을 때 사진 남기기"},
-            {date:"16일(목)", time:"11:30", place:"혼총 곶 & 베이크보이", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Hon+Chong", extraLinks:[], remarks:"오션뷰 감상 및 휴식"},
-            {date:"16일(목)", time:"13:00", place:"점심식사 : 당반꾸엔", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Nem+Nuong+Dang+Van+Quyen", extraLinks:[], remarks:"넴느엉(현지식 쌈)"},
-            {date:"16일(목)", time:"15:00", place:"숙소 체크인 (쉐라톤) 및 수영", grab:"", link:"", extraLinks:[], remarks:"메인 숙소 호캉스"},
-            {date:"16일(목)", time:"17:00", place:"현지 로컬 시장 (쏨모이)", grab:"", link:"", extraLinks:[], remarks:"담시장보다 저렴한 과일 쇼핑"},
-            {date:"16일(목)", time:"18:30", place:"저녁식사 : 해산물 목식당", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Moc+Quan", extraLinks:[], remarks:"마늘버터 랍스터"},
-            {date:"17일(금)", time:"09:00", place:"아이리조트 머드스파", grab:"", link:"https://www.google.com/maps/search/?api=1&query=I-Resort", extraLinks:[], remarks:"오전에 시원하게 온천"},
-            {date:"17일(금)", time:"13:00", place:"점심식사 : 촌촌킴", grab:"", link:"", extraLinks:[], remarks:"예쁜 뷰, 베트남 가정식"},
-            {date:"17일(금)", time:"15:00", place:"센트럴마켓, 티엔푸약국", grab:"", link:"", extraLinks:[], remarks:"시내 알짜 쇼핑"},
-            {date:"17일(금)", time:"16:30", place:"전신 마사지 90분", grab:"", link:"", extraLinks:[], remarks:"제이스파 / 미우미우 스파 추천"},
-            {date:"17일(금)", time:"18:30", place:"저녁식사 : 마담프엉", grab:"", link:"", extraLinks:[], remarks:"안토이 대안, 에어컨 빵빵"},
-            {date:"17일(금)", time:"20:00", place:"야시장 & 탑쩜흐엉 야경", grab:"", link:"", extraLinks:[], remarks:"소매치기 주의"},
-            {date:"18일(토)", time:"09:00", place:"롯데마트 쇼핑", grab:"", link:"", extraLinks:[], remarks:"귀국 선물 싹쓸이"},
-            {date:"18일(토)", time:"12:00", place:"체크아웃 & 베나자 라운지", grab:"", link:"", extraLinks:[], remarks:"짐 보관 후 가볍게 이동"},
-            {date:"18일(토)", time:"13:00", place:"점심식사 : 껌땀 82", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Com+Tam+82", extraLinks:[], remarks:"숯불고기 덮밥"},
-            {date:"18일(토)", time:"15:00", place:"핫플 카페 (올라카페)", grab:"", link:"", extraLinks:[], remarks:"휴식 및 티타임"},
-            {date:"18일(토)", time:"16:30", place:"마지막 풋마사지", grab:"", link:"", extraLinks:[], remarks:"피로 풀고 공항 갈 준비"},
-            {date:"18일(토)", time:"18:30", place:"공항으로 이동", grab:"", link:"", extraLinks:[], remarks:"수고하셨습니다!"}
+            {date:"15일(수)", time:"24:30~", place:"숙소 체크인 (르모어)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Le+More+Hotel+Nha+Trang", extraLinks:[], remarks:"짐 풀고 취침"},
+            {date:"16일(목)", time:"09:00", place:"아침: 3대 반미 중 택1 & 커피", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Banh+Mi+Phan+Nha+Trang", extraLinks:["https://www.google.com/maps/search/?api=1&query=Bánh+mì+Út+Thương","https://www.google.com/maps/search/?api=1&query=Banh+Mi+Number+One+Nha+Trang"], remarks:"반미판 / 반미웃트엉 / 반미넘버원"},
+            {date:"16일(목)", time:"10:00", place:"포나가르 사원", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Thap+Ba+Ponagar", extraLinks:[], remarks:"오전 맑을 때 인생샷 남기기"},
+            {date:"16일(목)", time:"11:30", place:"혼총 곶 & 베이크보이", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Hon+Chong", extraLinks:["https://www.google.com/maps/search/?api=1&query=Bake+Boy"], remarks:"오션뷰 감상 및 에어컨 빵집 휴식"},
+            {date:"16일(목)", time:"13:00", place:"점심식사 : 당반꾸엔", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Nem+Nuong+Dang+Van+Quyen", extraLinks:[], remarks:"현지식 넴느엉 한상"},
+            {date:"16일(목)", time:"15:00", place:"숙소 체크인 (쉐라톤) 및 수영", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Sheraton+Nha+Trang", extraLinks:[], remarks:"인피니티 풀 호캉스"},
+            {date:"16일(목)", time:"17:00", place:"쏨모이 시장 구경", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Xom+Moi+Market+Nha+Trang", extraLinks:[], remarks:"과일 저렴하게 싹쓸이"},
+            {date:"16일(목)", time:"18:30", place:"저녁식사 : 목식당", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Moc+Quan", extraLinks:[], remarks:"마늘버터 랍스터 파티"},
+            {date:"17일(금)", time:"09:00", place:"아이리조트 머드스파", grab:"", link:"https://www.google.com/maps/search/?api=1&query=I-Resort", extraLinks:[], remarks:"가족 다함께 온천 힐링"},
+            {date:"17일(금)", time:"13:00", place:"점심식사 : 촌촌킴", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Chon+Chon+Kim+Nha+Trang", extraLinks:[], remarks:"쾌적한 가정식 백반"},
+            {date:"17일(금)", time:"15:00", place:"센트럴마켓, 티엔푸약국", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Central+Market", extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu"], remarks:"시내 알짜 쇼핑 (크록스/약)"},
+            {date:"17일(금)", time:"16:30", place:"💆 전신 마사지 90분", grab:"", link:"https://www.google.com/maps/search/?api=1&query=J+Spa+Nha+Trang", extraLinks:["https://maps.app.goo.gl/DaERvAo6Bt9C9ytr5"], remarks:"제이스파 / 미우미우 스파 추천"},
+            {date:"17일(금)", time:"18:30", place:"저녁식사 : 마담프엉", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Madame+Phuong+Nha+Trang", extraLinks:[], remarks:"안토이 대안 1순위. 에어컨 빵빵"},
+            {date:"17일(금)", time:"20:00", place:"야시장 & 탑쩜흐엉 야경", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Tram+Huong+Tower", extraLinks:["https://www.google.com/maps/search/?api=1&query=Nha+Trang+Night+Market"], remarks:"핑크타워에서 단체사진"},
+            {date:"18일(토)", time:"09:00", place:"롯데마트 쇼핑", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Gold+Coast", extraLinks:[], remarks:"귀국 선물 (젤리, 과자) 사기"},
+            {date:"18일(토)", time:"12:00", place:"체크아웃 & 베나자 라운지", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Venaza+Store", extraLinks:[], remarks:"짐 보관 후 가볍게 점심 이동"},
+            {date:"18일(토)", time:"13:00", place:"점심식사 : 껌땀 82", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Com+Tam+82", extraLinks:[], remarks:"호불호 없는 숯불고기 덮밥"},
+            {date:"18일(토)", time:"14:30", place:"핫플 카페 (CCQ 카페)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=CCQ+Cafe+Nha+Trang", extraLinks:[], remarks:"오션뷰 넓은 카페에서 대가족 휴식"},
+            {date:"18일(토)", time:"16:00", place:"👣 마지막 풋마사지", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Lounge+Spa+Nha+Trang", extraLinks:[], remarks:"비행기 타기 전 다리 피로 싹!"},
+            {date:"18일(토)", time:"18:30", place:"공항으로 이동", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks:[], remarks:"가이드 지훈, 수고하셨습니다!"}
         ];
 
-        // 🔥 가이드 모드용 비/더위 코스 데이터
+        // 🔥 가이드 모드용 비/더위 코스 데이터 (실내 쾌적 코스)
         const rainyItinerary = [
-            {date:"15일(수)", time:"22:30", place:"✈️ 나트랑 깜란 공항 도착", grab:"", link:"", extraLinks:[], remarks:"픽업 이동 및 르모어 취침"},
-            {date:"16일(목)", time:"09:30", place:"기상 및 실내 조식", grab:"", link:"", extraLinks:[], remarks:"늦잠 후 여유롭게 시작"},
-            {date:"16일(목)", time:"10:30", place:"롯데마트 & 골드코스트 몰", grab:"", link:"", extraLinks:[], remarks:"쾌적한 실내 쇼핑 & 키즈카페"},
-            {date:"16일(목)", time:"13:00", place:"점심식사 : 피자포피스", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Pizza+4Ps+Sheraton", extraLinks:[], remarks:"호텔 내 위치, 비 안 맞고 식사"},
-            {date:"16일(목)", time:"15:00", place:"숙소 체크인 (쉐라톤) 및 휴식", grab:"", link:"", extraLinks:[], remarks:"호캉스"},
-            {date:"16일(목)", time:"16:30", place:"타이니네일 & 키즈네일", grab:"", link:"", extraLinks:[], remarks:"실내에서 예쁘게 관리받기"},
-            {date:"16일(목)", time:"18:30", place:"저녁식사 : 안토이", grab:"", link:"https://www.google.com/maps/search/?api=1&query=An+Thoi", extraLinks:[], remarks:"웨이팅 시 마담프엉으로 이동"},
-            {date:"17일(금)", time:"09:00", place:"아이리조트 머드스파", grab:"", link:"", extraLinks:[], remarks:"비 와도 온천은 진리입니다!"},
-            {date:"17일(금)", time:"13:30", place:"점심식사 : 빈산 (해산물)", grab:"", link:"", extraLinks:[], remarks:"에어컨 빵빵한 해산물 식당"},
-            {date:"17일(금)", time:"15:00", place:"올라카페 (동굴 카페)", grab:"", link:"", extraLinks:[], remarks:"독특한 인테리어, 쾌적함"},
-            {date:"17일(금)", time:"16:30", place:"전신 마사지 (웰스파)", grab:"", link:"", extraLinks:[], remarks:"비올 땐 마사지가 최고"},
-            {date:"17일(금)", time:"18:30", place:"저녁식사 : 남프엉 근처 맛집", grab:"", link:"", extraLinks:[], remarks:"가까운 동선으로 식사 해결"},
-            {date:"18일(토)", time:"10:00", place:"시내 약국 및 기념품(남프엉) 쇼핑", grab:"", link:"", extraLinks:[], remarks:"실내 상점 위주 털기"},
-            {date:"18일(토)", time:"12:00", place:"체크아웃 & 베나자 라운지", grab:"", link:"", extraLinks:[], remarks:"짐 보관"},
-            {date:"18일(토)", time:"13:00", place:"점심식사 : 루남 비스트로", grab:"", link:"", extraLinks:[], remarks:"고급스럽고 쾌적한 실내 식당"},
-            {date:"18일(토)", time:"15:00", place:"로얄살롱 (이발관 코스)", grab:"", link:"", extraLinks:[], remarks:"아빠, 할아버지 힐링 코스"},
-            {date:"18일(토)", time:"18:30", place:"공항으로 이동", grab:"", link:"", extraLinks:[], remarks:"비 안 맞고 픽업 차량 탑승"}
+            {date:"15일(수)", time:"22:30", place:"✈️ 나트랑 깜란 공항 도착", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks:[], remarks:"빠르게 픽업 이동 및 르모어 취침"},
+            {date:"16일(목)", time:"09:30", place:"기상 및 실내 조식", grab:"", link:"", extraLinks:[], remarks:"비 올 땐 늦잠 후 쾌적하게 시작"},
+            {date:"16일(목)", time:"10:30", place:"롯데마트 & 골드코스트 몰", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Lotte+Mart+Gold+Coast", extraLinks:[], remarks:"비 안 맞는 실내 쇼핑 & 키즈카페 풀가동"},
+            {date:"16일(목)", time:"13:00", place:"점심식사 : 피자포피스", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Pizza+4Ps+Sheraton", extraLinks:[], remarks:"호텔 내 위치. 비 안 맞고 바로 식사"},
+            {date:"16일(목)", time:"15:00", place:"숙소 체크인 (쉐라톤) 및 휴식", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Sheraton+Nha+Trang", extraLinks:[], remarks:"비 올 땐 호캉스가 진리"},
+            {date:"16일(목)", time:"16:30", place:"타이니네일 & 키즈네일", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Tiny+Nail+Spa", extraLinks:[], remarks:"실내에서 비 피하며 쾌적하게 뷰티 타임"},
+            {date:"16일(목)", time:"18:30", place:"저녁식사 : 갈랑가", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Galangal+Nha+Trang", extraLinks:[], remarks:"깔끔한 실내 로컬 식당. 위생 최고!"},
+            {date:"17일(금)", time:"09:00", place:"아이리조트 머드스파", grab:"", link:"https://www.google.com/maps/search/?api=1&query=I-Resort", extraLinks:[], remarks:"어차피 젖는 스파, 비 맞아도 꿀잼!"},
+            {date:"17일(금)", time:"13:30", place:"점심식사 : 빈산 (해산물)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Vinsan+Seafood+Nha+Trang", extraLinks:[], remarks:"에어컨 빵빵한 해산물 식당"},
+            {date:"17일(금)", time:"15:00", place:"루남 비스트로 카페", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Runam+Bistro+Nha+Trang", extraLinks:[], remarks:"인터컨티넨탈 1층. 극강의 시원함/쾌적함"},
+            {date:"17일(금)", time:"16:30", place:"💆 전신 마사지 (웰스파)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Well+Spa+Nha+Trang", extraLinks:[], remarks:"비 오고 습할 땐 뽀송한 마사지가 약"},
+            {date:"17일(금)", time:"18:30", place:"저녁식사 : 마담프엉", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Madame+Phuong+Nha+Trang", extraLinks:[], remarks:"마사지샵과 가까워 이동 최소화"},
+            {date:"18일(토)", time:"10:00", place:"티엔푸 약국 및 남프엉", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Nha+Thuoc+Tien+Phu", extraLinks:["https://www.google.com/maps/search/?api=1&query=Nam+Phuong"], remarks:"비 피해서 실내 상점 위주 알짜 쇼핑"},
+            {date:"18일(토)", time:"12:00", place:"체크아웃 & 베나자 라운지", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Venaza+Store", extraLinks:[], remarks:"우산 없이 편하게 짐부터 던지기"},
+            {date:"18일(토)", time:"13:00", place:"점심식사 : 옌스 레스토랑", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Yens+Restaurant+Nha+Trang", extraLinks:[], remarks:"에어컨 나오고 깔끔한 로컬 퓨전 식당"},
+            {date:"18일(토)", time:"15:00", place:"로얄살롱 (이발관 풀코스)", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Royal+Salon+Nha+Trang", extraLinks:[], remarks:"실내에서 할아버지, 아빠 힐링 풀코스"},
+            {date:"18일(토)", time:"18:30", place:"공항으로 이동", grab:"", link:"https://www.google.com/maps/search/?api=1&query=Cam+Ranh+International+Airport", extraLinks:[], remarks:"우산 쓰지 않고 바로 차 탑승!"}
         ];
 
         let itineraryFirebase = []; 
@@ -342,8 +349,13 @@
         // 🔥 코스 모드 변경 함수
         function setItineraryMode(mode) {
             currentItineraryMode = mode;
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`mode-btn-${mode}`).classList.add('active');
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active', 'bg-white', 'text-blue-600', 'shadow-sm'));
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.add('text-slate-500'));
+            
+            const activeBtn = document.getElementById(`mode-btn-${mode}`);
+            activeBtn.classList.remove('text-slate-500');
+            activeBtn.classList.add('active', 'bg-white', 'text-blue-600', 'shadow-sm');
+            
             renderItinerary();
         }
 
@@ -425,6 +437,8 @@
                     let matchedTipKey = null;
                     let excludeTip = item.place.includes("인천") || item.place.includes("운서") || item.place.includes("픽업차량");
 
+                    let isOutdoor = (combinedStr.includes("포나가르") || combinedStr.includes("혼총") || combinedStr.includes("야시장") || combinedStr.includes("담시장") || combinedStr.includes("탑쩜흐엉")) ? 'outdoor-item' : '';
+
                     if (!excludeTip) {
                         if (combinedStr.includes("le+more") || combinedStr.includes("르모어")) matchedTipKey = "lemore";
                         else if (combinedStr.includes("ponagar") || combinedStr.includes("포나가르")) matchedTipKey = "ponagar";
@@ -437,10 +451,10 @@
                         else if (combinedStr.includes("moc+quan") || combinedStr.includes("목식당")) matchedTipKey = "mocquan";
                         else if (combinedStr.includes("pho+hanh+phuc") || combinedStr.includes("포한푹") || combinedStr.includes("뚝배기")) matchedTipKey = "phohanhphuc";
                         else if (combinedStr.includes("chuck+chip") || combinedStr.includes("trai+cay") || combinedStr.includes("척칩")) matchedTipKey = "chuckchip";
-                        else if (combinedStr.includes("an+cafe") || combinedStr.includes("ola+cafe") || combinedStr.includes("카페")) matchedTipKey = "cafe";
+                        else if (combinedStr.includes("ccq") || combinedStr.includes("ola+cafe") || combinedStr.includes("카페")) matchedTipKey = "cafe";
                         else if (combinedStr.includes("i-resort") || combinedStr.includes("아이리조트")) matchedTipKey = "iresort";
-                        else if (combinedStr.includes("central+market") || combinedStr.includes("tien+phu") || combinedStr.includes("a-keo") || combinedStr.includes("센트럴마켓") || combinedStr.includes("약국") || combinedStr.includes("짝퉁") || combinedStr.includes("악어집") || combinedStr.includes("슈렉") || combinedStr.includes("남프엉") || combinedStr.includes("로컬 시장") || combinedStr.includes("쏨모이")) matchedTipKey = "shopping";
-                        else if (combinedStr.includes("an+thoi") || combinedStr.includes("안토이") || combinedStr.includes("마담프엉")) matchedTipKey = "anthoi";
+                        else if (combinedStr.includes("central+market") || combinedStr.includes("tien+phu") || combinedStr.includes("a-keo") || combinedStr.includes("센트럴마켓") || combinedStr.includes("약국") || combinedStr.includes("짝퉁") || combinedStr.includes("악어집") || combinedStr.includes("슈렉") || combinedStr.includes("남프엉")) matchedTipKey = "shopping";
+                        else if (combinedStr.includes("an+thoi") || combinedStr.includes("안토이") || combinedStr.includes("마담프엉") || combinedStr.includes("madame")) matchedTipKey = "anthoi";
                         else if (combinedStr.includes("tram+huong") || combinedStr.includes("night+market") || combinedStr.includes("야시장") || combinedStr.includes("탑쩜흐엉")) matchedTipKey = "nightmarket";
                         else if (combinedStr.includes("lotte+mart") || combinedStr.includes("롯데마트")) matchedTipKey = "lottemart";
                         else if (combinedStr.includes("venaza") || combinedStr.includes("베나자")) matchedTipKey = "venaza";
@@ -448,6 +462,13 @@
                         else if (combinedStr.includes("banh+mi") || combinedStr.includes("반미") || combinedStr.includes("út+thương") || combinedStr.includes("ut+thuong") || combinedStr.includes("넘버원")) matchedTipKey = "banhmi";
                         else if (combinedStr.includes("풋마사지") || combinedStr.includes("foot")) matchedTipKey = "footmassage";
                         else if (combinedStr.includes("마사지") && !combinedStr.includes("타이니") && !combinedStr.includes("아이리조트")) matchedTipKey = "massage";
+                        else if (combinedStr.includes("xom+moi") || combinedStr.includes("쏨모이")) matchedTipKey = "xommoi";
+                        else if (combinedStr.includes("chon+chon") || combinedStr.includes("촌촌킴")) matchedTipKey = "chonchonkim";
+                        else if (combinedStr.includes("vinsan") || combinedStr.includes("빈산")) matchedTipKey = "vinsan";
+                        else if (combinedStr.includes("runam") || combinedStr.includes("루남")) matchedTipKey = "runam";
+                        else if (combinedStr.includes("galangal") || combinedStr.includes("갈랑가")) matchedTipKey = "galangal";
+                        else if (combinedStr.includes("yens") || combinedStr.includes("옌스")) matchedTipKey = "yens";
+                        else if (combinedStr.includes("royal") || combinedStr.includes("로얄살롱")) matchedTipKey = "royalsalon";
                     }
 
                     // 🔥 장소 이름과 지도 링크를 인라인으로 매칭 (글자 바로 옆에 지도 아이콘)
@@ -470,7 +491,7 @@
                     let editBtnHtml = isReadOnly ? '' : `<div class="pt-1 pl-2"><button onclick="openEditForm(${realIdx})" class="bg-slate-100 text-slate-500 px-3 py-2 rounded-xl text-xs font-black active:scale-95 shrink-0 whitespace-nowrap"><i class="fas fa-pen text-[10px]"></i> 수정</button></div>`;
 
                     list.insertAdjacentHTML('beforeend', `
-                    <div class="bg-white p-4 rounded-[1.5rem] shadow-sm border border-slate-100 mb-3 flex justify-between items-start transition hover:shadow-md">
+                    <div class="bg-white p-4 rounded-[1.5rem] shadow-sm border border-slate-100 mb-3 flex justify-between items-start transition hover:shadow-md ${currentItineraryMode === 'rainy' ? isOutdoor : ''}">
                         <div class="flex-1 pr-2">
                             <div class="flex items-center mb-2">
                                 <span class="text-sm font-black text-blue-700 bg-blue-50 px-3 py-1.5 rounded-xl border border-blue-100">${item.time || 'TBD'}</span>
