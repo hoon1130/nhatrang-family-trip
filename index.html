@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>가족 나트랑 여행 - 나트랑 가즈아! v94</title>
+    <title>가족 나트랑 여행 - 나트랑 가즈아! v95</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { 50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' } } } } }</script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -34,7 +34,7 @@
     <header class="glass-header sticky top-0 z-50 px-5 py-4 transition-colors duration-300">
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-2xl shadow-md border border-slate-200 dark:border-slate-700" id="weather-icon">☀️</div>
+                <div class="w-11 h-11 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-2xl shadow-md border border-slate-200 dark:border-slate-700" id="weather-icon"><i class="fas fa-sun text-amber-500"></i></div>
                 <div class="flex flex-col justify-center">
                     <div class="flex items-end space-x-2">
                         <span id="weather-temp" class="text-2xl font-black text-slate-900 dark:text-white leading-none tracking-tighter">--℃</span>
@@ -128,7 +128,7 @@
             
             <button id="capture-btn" onclick="captureLedger()" class="w-full bg-slate-800 dark:bg-slate-700 text-white font-black p-4 rounded-2xl shadow-lg active:scale-[0.98] transition-all flex items-center justify-center border border-slate-700"><i class="fas fa-camera mr-2"></i>이 내역을 이미지로 공유하기</button>
 
-            <!-- 🔥 완벽 정렬 극악 확률 룰렛 -->
+            <!-- 🔥 완벽 정렬 극악 룰렛 -->
             <div class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-md border border-slate-300 dark:border-slate-800 text-center relative overflow-hidden mt-6 transition-colors duration-300">
                 <h3 class="font-black text-slate-900 dark:text-slate-100 mb-1 flex justify-center items-center"><div class="w-8 h-8 rounded-full bg-pink-50 dark:bg-pink-900/30 flex items-center justify-center mr-2"><i class="fas fa-dice text-pink-500 dark:text-pink-400 text-sm"></i></div>누가 쏠까? 복불복</h3>
                 <p class="text-[10px] text-slate-400 font-bold mb-5">(지안이 기준)</p>
@@ -250,7 +250,12 @@
     </nav>
 
     <!-- 유일무이한 모달 창들 -->
-    <div id="flashcard-modal" class="fixed inset-0 bg-yellow-400 z-[200] hidden flex flex-col items-center justify-center p-6 text-center cursor-pointer" onclick="closeFlashcard()"><button class="absolute top-8 right-8 text-yellow-800 text-4xl"><i class="fas fa-times"></i></button><h2 id="flashcard-text" class="text-[2.5rem] font-black text-slate-900 mb-6 leading-tight break-words w-full px-2" style="word-break: keep-all;"></h2><p id="flashcard-sub" class="text-2xl font-black text-yellow-800"></p><p class="absolute bottom-10 text-yellow-700 font-bold text-sm opacity-60"><i class="fas fa-hand-pointer mr-1"></i> 화면을 터치하면 닫힙니다</p></div>
+    <div id="flashcard-modal" class="fixed inset-0 bg-yellow-400 z-[200] hidden flex flex-col items-center justify-center p-6 text-center cursor-pointer" onclick="closeFlashcard()">
+        <button class="absolute top-8 right-8 text-yellow-800 text-4xl"><i class="fas fa-times"></i></button>
+        <h2 id="flashcard-text" class="text-[2.5rem] font-black text-slate-900 mb-6 leading-tight break-words w-full px-2" style="word-break: keep-all;"></h2>
+        <p id="flashcard-sub" class="text-2xl font-black text-yellow-800"></p>
+        <p class="absolute bottom-10 text-yellow-700 font-bold text-sm opacity-60"><i class="fas fa-hand-pointer mr-1"></i> 화면을 터치하면 닫힙니다</p>
+    </div>
     
     <div id="packing-modal" class="fixed inset-0 bg-slate-900/90 dark:bg-black/90 z-[200] hidden flex flex-col p-5 backdrop-blur-md transition-opacity">
         <div class="bg-white dark:bg-slate-900 flex-1 rounded-[2rem] w-full max-w-md mx-auto shadow-2xl relative border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden">
@@ -322,6 +327,7 @@
         </div>
     </div>
     
+    <!-- 7. 지안이 SOS 모달 -->
     <div id="sos-modal" class="fixed inset-0 bg-slate-900/80 dark:bg-black/90 z-[250] hidden flex flex-col items-center justify-center p-8 backdrop-blur-md">
         <div class="bg-white dark:bg-slate-900 p-8 rounded-[3rem] w-full max-w-sm text-center shadow-2xl relative border-2 border-red-100 dark:border-red-900/50">
             <button onclick="closeSosModal()" class="absolute top-5 right-5 text-slate-300 dark:text-slate-600 hover:text-slate-500 text-2xl w-8 h-8 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center transition"><i class="fas fa-times"></i></button>
@@ -406,11 +412,11 @@
             "dangvanquyen": "<b>🌯 당반꾸엔</b><br>🏆 시그니처: 넴느엉 (돼지고기 꼬치 구이를 라이스페이퍼에 야채와 싸먹는 요리)<br>💡 현지인 찐 맛집입니다! 직원이 시범을 보여주니 당황하지 마세요.",
             "sheraton": "<b>🏨 쉐라톤 나트랑 호텔</b><br>💡 메인 숙소! 오션뷰 인피니티 풀이 예술입니다. 체크인할 때 고층 뷰로 배정해달라고 씩 웃으며 부탁해보세요.",
             "tinynail": "<b>💅 타이니 네일 스파</b><br>💡 한국보다 훨씬 저렴한 가격에 고퀄리티 네일/패디! 지안이나 로은이를 위한 귀여운 스티커 '키즈 네일' 강추.",
-            "mocquan": "<b>🦀 목식당 (Moc Quan)</b><br>🏆 마늘버터 랍스터! (남은 소스에 반미 빵 찢어서 푹 찍어 드세요)<br>👴👵 부모님 픽: 맛조개 모닝글로리, 파기름 가리비 구이<br>💸 <b>결제 시 '나트랑 도깨비'나 '베나자' 카페 모바일 회원증을 보여주면 10% 할인!</b>",
+            "mocquan": "<b>🦀 해산물 목식당 (Moc Quan)</b><br>🏆 마늘버터 랍스터! (남은 소스에 반미 빵 찢어서 푹 찍어 드세요)<br>👴👵 부모님 픽: 맛조개 모닝글로리, 파기름 가리비 구이<br>💸 <b>결제 시 '나트랑 도깨비'나 '베나자' 카페 모바일 회원증을 보여주면 10% 할인!</b>",
             "vinsan": "<b>🦞 빈산 (Vinsan Seafood)</b><br>💡 시내 중심가에 위치해 접근성이 좋고 쾌적한 에어컨 룸이 따로 있습니다. 치즈 구이 랍스터 강추!<br>💸 카페 제휴 할인(보통 10%) 혜택 꼭 챙기세요.",
             "cafe": "<b>☕ 핫플 카페 (CCCP & 올라카페)</b><br>💡 넓고 쾌적한 쇼파와 에어컨을 원한다면 <b>CCCP 커피</b>, 예쁜 동굴 인테리어와 강력한 에어컨을 원한다면 <b>올라카페</b>를 추천합니다!<br>💸 둘 다 네이버 카페(도깨비/베나자) 회원 인증 시 10% 할인이 적용됩니다.",
             "olacafe": "<b>☕ 올라 카페 (Ola Cafe)</b><br>💡 동굴 속 인테리어 핫플! 에어컨 빵빵하고 스무디 맛있습니다.",
-            "iresort": "<b>♨️ 아이리조트 머드스파</b><br>📜 미네랄이 풍부한 천연 머드! 부모님 관절과 피부에 좋아서 효도 관광 1순위 코스입니다.<br>💡 <b>1. 수영복 버릴 수 있으니 무료 대여복 착용!</b><br>💡 <b>2. 은(Silver) 변색 주의! 악세사리 빼두세요.</b><br>🎟️ <b>현장 박치기보다 '클룩(Klook)'이나 '트립닷컴' 앱에서 미리 입장권을 당일 구매</b>해 가는 것이 훨씬 쌉니다!",
+            "iresort": "<b>♨️ 아이리조트 머드스파</b><br>📜 미네랄이 풍부한 천연 머드! 부모님 관절과 피부에 좋아서 효도 관광 1순위 코스입니다.<br>💡 <b>1. 수영복 버릴 수 있으니 무료 대여복 착용!</b><br>💡 <b>2. 은(Silver) 변색 주의! 악세사리 빼두세요.</b><br>🎟️ <b>현장 결제보다 '클룩(Klook)'이나 '트립닷컴' 앱에서 미리 입장권을 당일 구매</b>해 가는 것이 훨씬 쌉니다!",
             "pizza4ps": "<b>🍕 피자포피스 (Pizza 4P's)</b><br>🏆 시그니처: 부라타 치즈 피자 (생치즈 찢어줌)<br>💡 향신료에 지쳤을 때쯤 들어가는 한 줄기 빛 같은 코스. 에어컨 빵빵!<br>📱 <b>워크인 대기가 미쳤으니 구글맵스 예약하기 링크로 무조건 사전 예약 필수!</b>",
             "chonchonkim": "<b>🍚 촌촌킴 (Chon Chon Kim)</b><br>💡 정갈한 베트남 가정식 백반집. 다층 건물 전체에 에어컨 빵빵! 달달한 '돼지고기 조림(갈비맛)'과 '갈릭 버터 새우'를 시키면 아이들도 밥 뚝딱!",
             "galangal": "<b>🍲 갈랑가 (Galangal)</b><br>💡 깔끔한 오픈 키친형 로컬 식당. 길거리 위생이 걱정될 때 가기 아주 좋습니다.",
@@ -627,7 +633,6 @@
         }
 
         function loadItinerary() { 
-            // 🔥 오프라인일 때를 대비해 로컬 스토리지 백업본 먼저 확인!
             let backup = localStorage.getItem('offlineItinerary');
             if(!navigator.onLine && backup) {
                 itineraryFirebase = JSON.parse(backup);
@@ -639,17 +644,14 @@
                 const d = s.val(); 
                 if(d) { 
                     Object.entries(d).forEach(([k, v]) => itineraryFirebase.push({...v, firebaseKey: k})); 
-                    // 최신 상태 로컬 저장 (오프라인 용)
                     localStorage.setItem('offlineItinerary', JSON.stringify(itineraryFirebase));
                 }
                 
-                // DB가 비어있고 백업도 없을 때만 기본 맑은날 코스를 렌더링
                 if(itineraryFirebase.length === 0 && !backup) { 
                     itineraryFirebase = JSON.parse(JSON.stringify(sunnyItinerary)); 
                 }
                 if(currentItineraryMode === 'original') renderItinerary(); 
             }, (error) => {
-                // 에러 발생 시 백업본 로드
                 if(backup) {
                     itineraryFirebase = JSON.parse(backup);
                     if(currentItineraryMode === 'original') renderItinerary();
@@ -931,15 +933,17 @@
         
         async function initWeatherOpenMeteo() { 
             try { 
-                const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh"); const d = await r.json(); const c = d.current_weather; 
+                const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=12.2388&longitude=109.1967&current_weather=true&timezone=Asia%2FHo_Chi_Minh"); 
+                const d = await r.json(); 
+                const c = d.current_weather; 
                 document.getElementById('weather-temp').innerText = `${Math.round(c.temperature)}℃`; 
-                let icon = "☀️"; 
-                if(c.weathercode >= 1 && c.weathercode <= 3) icon = "🌤️"; 
-                else if(c.weathercode >= 45 && c.weathercode <= 48) icon = "🌫️"; 
-                else if(c.weathercode >= 51 && c.weathercode <= 67) icon = "☔"; 
-                else if(c.weathercode >= 80 && c.weathercode <= 82) icon = "☂️"; 
-                else if(c.weathercode >= 95) icon = "⛈️"; 
-                document.getElementById('weather-icon').innerText = icon; 
+                let icon = '<i class="fas fa-sun text-amber-500"></i>'; 
+                if(c.weathercode >= 1 && c.weathercode <= 3) icon = '<i class="fas fa-cloud-sun text-amber-400"></i>'; 
+                else if(c.weathercode >= 45 && c.weathercode <= 48) icon = '<i class="fas fa-smog text-slate-400"></i>'; 
+                else if(c.weathercode >= 51 && c.weathercode <= 67) icon = '<i class="fas fa-cloud-rain text-blue-400"></i>'; 
+                else if(c.weathercode >= 80 && c.weathercode <= 82) icon = '<i class="fas fa-cloud-showers-heavy text-blue-500"></i>'; 
+                else if(c.weathercode >= 95) icon = '<i class="fas fa-bolt text-yellow-500"></i>'; 
+                document.getElementById('weather-icon').innerHTML = icon; 
             } catch(e) {} 
         }
 
@@ -970,7 +974,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             const swCode = `
-                const CACHE_NAME = 'nhatrang-v94-cache';
+                const CACHE_NAME = 'nhatrang-v95-cache';
                 self.addEventListener('install', event => { self.skipWaiting(); });
                 self.addEventListener('activate', event => { event.waitUntil(clients.claim()); });
                 self.addEventListener('fetch', event => {
