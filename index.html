@@ -802,23 +802,12 @@
         }
 
         function executeTransApp(type) {
-            const isAndroid = /android/i.test(navigator.userAgent.toLowerCase());
-            const isIOS = /ipad|iphone|ipod/i.test(navigator.userAgent.toLowerCase());
-
             if (type === 'papago') {
-                if (isAndroid) {
-                    // 웹 폴백을 싹 지우고, 파파고 카메라 모드 다이렉트 호출 시도
-                    location.href = "intent://camera#Intent;scheme=papago;package=com.naver.labs.translator;end;";
-                } else if (isIOS) {
-                    location.href = "papago://";
-                }
+                // 1. 파파고: 보안상 자동 클릭이 불가하므로 파파고 모바일 웹 메인으로 연결
+                window.open("https://papago.naver.com/", "_blank");
             } else if (type === 'google') {
-                if (isAndroid) {
-                    // 구글 번역 강제 호출 (웹 폴백 삭제)
-                    location.href = "intent://#Intent;package=com.google.android.apps.translate;scheme=googletranslate;end;";
-                } else if (isIOS) {
-                    location.href = "googletranslate://";
-                }
+                // 2. 구글 번역: 주소 뒤에 ?op=images 를 붙여서 '이미지 번역(카메라)' 탭으로 다이렉트 직행!
+                window.open("https://translate.google.com/?sl=vi&tl=ko&op=images", "_blank");
             }
         }
 
