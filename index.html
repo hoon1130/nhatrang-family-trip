@@ -810,10 +810,9 @@
 
             if (type === 'papago') {
                 if (isAndroid) {
-                    // 안드로이드: 앱이 있으면 열고, 없으면 스토어가 아니라 '웹 번역기'로 엽니다.
-                    location.href = "intent://#Intent;scheme=papago;package=com.naver.labs.translator;S.browser_fallback_url=https://papago.naver.com/;end;";
+                    // 안드로이드: 어설픈 스킴(scheme) 다 빼고, 앱 아이콘 누른 것처럼 강제 메인 실행!
+                    location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.naver.labs.translator;S.browser_fallback_url=https://papago.naver.com/;end;";
                 } else if (isIOS) {
-                    // 아이폰: 파파고 강제 호출 후 1.5초 뒤 브라우저에 남아있으면 웹 열기
                     location.href = "papago://";
                     setTimeout(() => { if (document.visibilityState === 'visible') window.open("https://papago.naver.com/", "_blank"); }, 1500);
                 } else {
@@ -821,7 +820,7 @@
                 }
             } else if (type === 'google') {
                 if (isAndroid) {
-                    location.href = "intent://#Intent;scheme=googletranslate;package=com.google.android.apps.translate;S.browser_fallback_url=https://translate.google.com/?sl=vi&tl=ko&op=images;end;";
+                    location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.google.android.apps.translate;S.browser_fallback_url=https://translate.google.com/?sl=vi&tl=ko&op=images;end;";
                 } else if (isIOS) {
                     location.href = "googletranslate://";
                     setTimeout(() => { if (document.visibilityState === 'visible') window.open("https://translate.google.com/?sl=vi&tl=ko&op=images", "_blank"); }, 1500);
