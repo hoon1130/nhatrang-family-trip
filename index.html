@@ -805,33 +805,39 @@
         }
 
         function executeTransApp(type) {
-            const isAndroid = /android/i.test(navigator.userAgent.toLowerCase());
-            const isIOS = /ipad|iphone|ipod/i.test(navigator.userAgent.toLowerCase());
+            let schemeUrl = "";
+            let webUrl = "";
 
             if (type === 'papago') {
-                if (isAndroid) { 
-                    // 폴백(스토어 이동)을 지우고 순수 패키지 실행만 강제
-                    location.href = "intent://#Intent;package=com.naver.labs.translator;end;"; 
-                    setTimeout(() => { if(document.visibilityState === 'visible') window.open("https://papago.naver.com/"); }, 1500);
-                } 
-                else if (isIOS) { 
-                    location.href = "papago://"; 
-                    setTimeout(() => { window.open("https://papago.naver.com/"); }, 1500);
-                } 
-                else { window.open("https://papago.naver.com/"); }
+                schemeUrl = "papago://"; // 파파고 앱 고유 호출 주소
+                webUrl = "https://papago.naver.com/";
             } else if (type === 'google') {
-                if (isAndroid) { 
-                    location.href = "intent://#Intent;package=com.google.android.apps.translate;end;"; 
-                    setTimeout(() => { if(document.visibilityState === 'visible') window.open("https://translate.google.com/?sl=vi&tl=ko&op=images"); }, 1500);
-                } 
-                else if (isIOS) { 
-                    location.href = "googletranslate://"; 
-                    setTimeout(() => { window.open("https://translate.google.com/?sl=vi&tl=ko&op=images"); }, 1500);
-                } 
-                else { window.open("https://translate.google.com/?sl=vi&tl=ko&op=images"); }
-            } else { 
-                window.open("https://translate.google.com/?sl=vi&tl=ko&op=images"); 
+                schemeUrl = "googletranslate://"; // 구글 번역 앱 고유 호출 주소
+                webUrl = "https://translate.google.com/?sl=vi&tl=ko&op=images";
+            } else {
+                window.open("https://translate.google.com/?sl=vi&tl=ko&op=images", "_blank");
+                return;
             }
+
+            // 1. 스토어 납치 방지: 투명한 창(iframe)을 만들어 앱 강제 호출 (안드로이드/아이폰 공통)
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = schemeUrl;
+            document.body.appendChild(iframe);
+
+            // 찌르고 난 투명 창은 1초 뒤에 삭제
+            setTimeout(() => {
+                if (document.body.contains(iframe)) {
+                    document.body.removeChild(iframe);
+                }
+            }, 1000);
+
+            // 2. 앱이 진짜 안 깔려있어서 1.5초 뒤에도 현재 화면에 머물러 있다면 웹 브라우저 열기
+            setTimeout(() => {
+                if (document.visibilityState === 'visible') {
+                    window.open(webUrl, "_blank");
+                }
+            }, 1500);
         }
 
         function resetTransApp() { localStorage.removeItem('preferredTransApp'); alert("기본 앱 설정이 해제되었습니다. 다음 번역 시 다시 선택할 수 있습니다."); document.getElementById('reset-trans-btn').classList.add('hidden'); }
