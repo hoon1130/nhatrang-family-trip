@@ -300,7 +300,7 @@
 
     <!-- 🌟 유일무이한 팝업(모달) 창들 - 절대 중복 없음! -->
     
-    <div id="trans-app-modal" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[200] hidden p-5 flex items-center justify-center backdrop-blur-sm transition-opacity">
+<div id="trans-app-modal" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[200] hidden p-5 flex items-center justify-center backdrop-blur-sm transition-opacity">
         <div class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] w-full max-w-sm shadow-2xl relative border border-slate-100 dark:border-slate-800">
             <button onclick="closeTransAppModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i class="fas fa-times text-xl"></i></button>
             <h3 class="text-lg font-black mb-2 text-slate-800 dark:text-white"><i class="fas fa-camera text-brand-500 mr-2"></i>어떤 번역 앱을 여시겠어요?</h3>
@@ -311,9 +311,6 @@
                 </button>
                 <button onclick="selectTransApp('google')" class="w-full bg-[#4285F4] text-white py-3.5 rounded-xl font-black shadow-md flex items-center justify-center active:scale-95 transition">
                     <i class="fab fa-google text-lg mr-2"></i>구글 번역 / 렌즈 열기
-                </button>
-                <button onclick="selectTransApp('web')" class="w-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-3.5 rounded-xl font-black border border-slate-200 dark:border-slate-700 active:scale-95 transition text-xs">
-                    앱이 없어요 (웹 번역기로 열기)
                 </button>
             </div>
             <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-center">
@@ -810,25 +807,18 @@
 
             if (type === 'papago') {
                 if (isAndroid) {
-                    // 안드로이드: 어설픈 스킴(scheme) 다 빼고, 앱 아이콘 누른 것처럼 강제 메인 실행!
-                    location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.naver.labs.translator;S.browser_fallback_url=https://papago.naver.com/;end;";
+                    // 웹 폴백을 싹 지우고, 파파고 카메라 모드 다이렉트 호출 시도
+                    location.href = "intent://camera#Intent;scheme=papago;package=com.naver.labs.translator;end;";
                 } else if (isIOS) {
                     location.href = "papago://";
-                    setTimeout(() => { if (document.visibilityState === 'visible') window.open("https://papago.naver.com/", "_blank"); }, 1500);
-                } else {
-                    window.open("https://papago.naver.com/", "_blank");
                 }
             } else if (type === 'google') {
                 if (isAndroid) {
-                    location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.google.android.apps.translate;S.browser_fallback_url=https://translate.google.com/?sl=vi&tl=ko&op=images;end;";
+                    // 구글 번역 강제 호출 (웹 폴백 삭제)
+                    location.href = "intent://#Intent;package=com.google.android.apps.translate;scheme=googletranslate;end;";
                 } else if (isIOS) {
                     location.href = "googletranslate://";
-                    setTimeout(() => { if (document.visibilityState === 'visible') window.open("https://translate.google.com/?sl=vi&tl=ko&op=images", "_blank"); }, 1500);
-                } else {
-                    window.open("https://translate.google.com/?sl=vi&tl=ko&op=images", "_blank");
                 }
-            } else {
-                window.open("https://translate.google.com/?sl=vi&tl=ko&op=images", "_blank");
             }
         }
 
