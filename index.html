@@ -38,16 +38,16 @@
 <header class="glass-header sticky top-0 z-50 px-5 py-4 transition-colors duration-300">
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <!-- 👇 클릭 시 네이버 나트랑 날씨 예보로 다이렉트 연결 (절대 다낭 안 뜸!) 👇 -->
+                <!-- 👇 네이버 통합검색 '나트랑 날씨' 결과로 직행 (절대 GPS 안 탐!) 👇 -->
                 <div class="w-11 h-11 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-2xl shadow-md border border-slate-200 dark:border-slate-700 cursor-pointer active:scale-95 transition-transform" 
-                     onclick="window.open('https://m.weather.naver.com/world/VN/Nha%20Trang', '_blank')" id="weather-icon">
+                     onclick="window.open('https://m.search.naver.com/search.naver?query=나트랑+날씨', '_blank')" id="weather-icon">
                     <i class="fas fa-sun text-amber-500"></i>
                 </div>
                 
                 <div class="flex flex-col justify-center">
-                    <!-- 👇 온도/시간 구역 클릭해도 나트랑 상세 예보 페이지 오픈 👇 -->
+                    <!-- 👇 온도/시간 구역 클릭해도 동일하게 팝업 👇 -->
                     <div class="flex items-end space-x-2 cursor-pointer active:scale-95 transition-transform" 
-                         onclick="window.open('https://m.weather.naver.com/world/VN/Nha%20Trang', '_blank')">
+                         onclick="window.open('https://m.search.naver.com/search.naver?query=나트랑+날씨', '_blank')">
                         <span id="weather-temp" class="text-2xl font-black text-slate-900 dark:text-white leading-none tracking-tighter">--℃</span>
                         <div class="flex flex-col text-[9px] text-slate-500 font-black font-mono leading-none pt-0.5 space-y-0.5">
                             <span id="time-kr">🇰🇷 --:--</span><span id="time-vn" class="text-brand-600 dark:text-brand-400">🇻🇳 --:--</span>
